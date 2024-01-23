@@ -2,6 +2,7 @@
 Generates the schema of all tables in mssql as a structure.
 
 # How to use
+cargo install mssql_tiberius_schema_parser
 mssql_tiberius_schema_parser [OPTIONS] -u <USER> -p <PASSWORD> -t <TYPE> [HOST] [PORT] [PATH]  
 
 Arguments:
