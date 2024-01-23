@@ -1,5 +1,5 @@
 # mssql_tiberius_schema_parser
-Generates the schema of all tables in msql as a structure.
+Generates the schema of all tables in mssql as a structure.
 
 # How to use
 mssql_tiberius_schema_parser [OPTIONS] -u <USER> -p <PASSWORD> -t <TYPE> [HOST] [PORT] [PATH]  
