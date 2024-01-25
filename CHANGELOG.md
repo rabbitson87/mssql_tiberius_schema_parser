@@ -1,3 +1,7 @@
+## 0.2.2
+
+- Fixed change struct to pub struct for sharing.
+
 ## 0.2.1
 
 - Add Changelog.md file.

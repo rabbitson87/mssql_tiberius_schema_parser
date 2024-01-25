@@ -40,7 +40,7 @@ pub async fn rs_file_writer(
         file.push_str("#[derive(Serialize, Deserialize, Debug)]\n");
         file.push_str(
             format!(
-                "struct {}{}{} ",
+                "pub struct {}{}{} ",
                 convert_text_first_char_to_uppercase(table.name.table_catalog.as_str()),
                 convert_text_first_char_to_uppercase(table.name.table_schema.as_str()),
                 convert_text_first_char_to_uppercase(table.name.table_name.as_str())
