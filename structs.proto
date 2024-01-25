@@ -1,0 +1,3507 @@
+syntax = "proto3";
+package database;
+
+message JKRTDBDboTCustomerStat {
+    int32 IDN = 1;
+    optional double CustomerStatIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional double CustomerIDN = 10;
+    optional double SalesTotal = 11;
+    optional double Balance = 12;
+    optional double DiscountTotal = 13;
+    optional double DiscountRatio = 14;
+    optional int32 Rank = 15;
+    optional int32 VisitCount = 16;
+    optional string LastVisitDate = 17;
+    optional double LastInvoiceIDN = 18;
+    optional double BonusUsed = 19;
+    optional int32 InactiveDays = 20;
+    optional double SalesPerVisit = 21;
+    optional double BonusAdded = 22;
+    optional int32 SyncStatus = 23;
+}
+
+message JKRTDBDboQtActiveUpcharge {
+    int32 IDN = 1;
+    optional double UpchargeIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional double ReferenceIDN = 10;
+    optional double ItemIDN = 11;
+    optional double Subtotal = 12;
+    optional double CustomerIDN = 13;
+    optional int32 SyncStatus = 14;
+    optional int32 SplitIndex = 15;
+    optional int32 Qty = 16;
+    optional int32 QtyAdded = 17;
+    optional bool IsRecipeCalculated = 18;
+    optional int32 ItemIndex = 19;
+    optional bool IsCanceled = 20;
+    optional int32 QtyActual = 21;
+    optional double Price = 22;
+    optional double InvoiceIDN = 23;
+    optional bool IsVoid = 24;
+    optional string Memo = 25;
+    optional string Prefix = 26;
+}
+
+message JKRTDBDboTDiscount {
+    int32 IDN = 1;
+    optional double DiscountIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional double InvoiceIDN = 10;
+    optional double ReferenceIDN = 11;
+    optional double Amount = 12;
+    optional string UnitIDC = 13;
+    optional double Total = 14;
+    optional int32 SyncStatus = 15;
+    optional double ItemIDN = 16;
+    optional bool IsItemDiscount = 17;
+    optional string Reason = 18;
+    optional bool IsVoid = 19;
+    optional double ShiftIDN = 20;
+    optional double DiscountIDNOriginal = 21;
+    optional double AmountOriginal = 22;
+    optional string SerialNumber = 23;
+}
+
+message JKRTDBDboSSystemValue {
+    int32 IDN = 1;
+    optional double SystemValueIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional string Name = 11;
+    optional string Value = 12;
+    optional string Value2 = 13;
+}
+
+message JKRTDBDboTEmployee {
+    int32 IDN = 1;
+    optional double EmployeeIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional string LastName = 10;
+    optional string FirstName = 11;
+    optional string Password = 12;
+    optional string WorkHours = 13;
+    optional int32 ItemOrder = 14;
+    optional string Restricted = 15;
+    optional double PositionIDN = 16;
+    optional string ClockInTime = 17;
+    optional string ClockOutTime = 18;
+    optional string FName = 19;
+    optional string FWorkHour = 20;
+    optional int32 StaticOrder = 21;
+    optional int32 DefaultCommissionRate = 22;
+    optional string DefaultCommissionUnit = 23;
+    optional string Restriction = 24;
+    optional double HourlyRate = 25;
+    optional double SalaryRate = 26;
+    optional string PayTypeIDC = 27;
+    optional string PayFreqIDC = 28;
+    optional string PayStartDate = 29;
+    optional bool IsEveryone = 30;
+    optional bytes FingerPrintID = 31;
+    optional int32 SyncStatus = 32;
+    optional string SSNum = 33;
+    optional string CellPhone = 34;
+    optional string HomePhone = 35;
+    optional string Address = 36;
+    optional string City = 37;
+    optional string State = 38;
+    optional string Zipcode = 39;
+    optional string Memo = 40;
+    optional bool IsOwner = 41;
+    optional bool IsAnyone = 42;
+    optional string PaidOn = 43;
+    optional string LastPaidDate = 44;
+    optional string FDetail = 45;
+    optional string FPayroll = 46;
+    optional string FPosition = 47;
+    optional double DeliveryIDN = 48;
+    optional string DeliveryStartTime = 49;
+    optional string EMail = 50;
+    optional bool IsDelivering = 51;
+    optional string UserName = 52;
+    optional bool IsEnforceStrictTimeClock = 53;
+    optional string BreakStartTime = 54;
+    optional double ChangeCarrying = 55;
+    optional bool IsEnforceClockIn = 56;
+    optional string MSR = 57;
+    optional bool UseForeignItemName = 58;
+    optional bool PaidBreaks = 59;
+    optional string RestrictedDiscounts = 60;
+    optional double SecurityGroupIDN = 61;
+    optional bool UseOvertime = 62;
+    optional string FName1 = 63;
+    optional bool AllowMultiPosition = 64;
+    optional bytes FingerPrintData = 65;
+    optional string MultiPositionSetting = 66;
+    optional string Message = 67;
+    optional bool IsAskCashTipsOnClockOut = 68;
+    optional bool IsAutoDrawerInWhenClockIn = 69;
+    optional bool IsCheckOpenOrdersWhenDrawerOut = 70;
+    optional bool IsEnforceDrawerIn = 71;
+    optional bool IsOpenDrawerOnPayment = 72;
+    optional bool IsUseServerBanking = 73;
+    optional bool PaidBreakFirstHour = 74;
+    optional string RestrictedReports = 75;
+    optional bool IsRequireManagerTimeClockApproval = 76;
+    optional bool IsPendingMessage = 77;
+    optional bool IsUseCustomBreaks = 78;
+    optional double BreakIDN = 79;
+    optional string BreakEndTime = 80;
+}
+
+message JKRTDBDboSIdentity {
+    int32 IDN = 1;
+    optional double IdentityIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional string TableName = 10;
+    optional int32 CurIDN = 11;
+    optional int32 SyncStatus = 12;
+}
+
+message JKRTDBDboQtActivePayment {
+    int32 IDN = 1;
+    optional double PaymentIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional double CustomerIDN = 10;
+    optional double InvoiceIDN = 11;
+    optional double Amount = 12;
+    optional double TypeIDN = 13;
+    optional double GiftcardIDN = 14;
+    optional string CCNum = 15;
+    optional string CCExp = 16;
+    optional string CCName = 17;
+    optional string CCTrack = 18;
+    optional string CCAuth = 19;
+    optional double CHIDTypeIDN = 20;
+    optional string CHIDNum = 21;
+    optional string CHNum = 22;
+    optional bool IsVoid = 23;
+    optional string VoidReason = 24;
+    optional string Summary = 25;
+    optional double Change = 26;
+    optional double CCTypeIDN = 27;
+    optional string VoidDate = 28;
+    optional double Tendered = 29;
+    optional double Credit = 30;
+    optional double GiftcardBalance = 31;
+    optional double TipAmount = 32;
+    optional bool IsEncrypted = 33;
+    optional int32 SyncStatus = 34;
+    optional bool TipSettled = 35;
+    optional string CCAuthVoid = 36;
+    optional string CCAVS = 37;
+    optional string CCCVV2 = 38;
+    optional string CCTroutD = 39;
+    optional string CCError = 40;
+    optional string CCResult = 41;
+    optional string CCRespCode = 42;
+    optional string CCTransNum = 43;
+    optional string CCRefNumber = 44;
+    optional int32 InvoiceNumber = 45;
+    optional string FCCNum = 46;
+    optional string CCTroutDVoid = 47;
+    optional double TipTypeIDN = 48;
+    optional bool IsVoidAdjustment = 49;
+    optional double TipSettleAmount = 50;
+    optional bool IsTipSettleAmountEntered = 51;
+    optional bool IsUseTerminal = 52;
+    optional double TipAmountCash = 53;
+    optional double TipSettleAmountCash = 54;
+    optional bool TipSettledCash = 55;
+    optional bool IsTipSettleAmountEnteredCash = 56;
+    optional bool IsTipSettleDone = 57;
+    optional string PaymentTypeIDC = 58;
+    optional double TipAmountAutoGratuity = 59;
+    optional double TipOther = 60;
+    optional string CreateDateInvoice = 61;
+    optional double ShiftIDN = 62;
+    optional bool IsAccountPayment = 63;
+    optional double RunningBalance = 64;
+    optional double ServerIDN = 65;
+    optional string CCRecordNum = 66;
+    optional bool CCIsBatchClosed = 67;
+    optional double CCBalance = 68;
+    optional string CCAcqRefData = 69;
+    optional double TipAmountManual = 70;
+    optional string CCAID = 71;
+    optional string CCAppLabel = 72;
+    optional string CCARC = 73;
+    optional string CCATC = 74;
+    optional string CCCardType = 75;
+    optional string CCCVM = 76;
+    optional string CCEntryMethod = 77;
+    optional string CCIAD = 78;
+    optional string CCResultPrinter = 79;
+    optional string CCTC = 80;
+    optional string CCTSI = 81;
+    optional string CCTVR = 82;
+    optional string CCRefNum = 83;
+    optional bool CCIsPartialAuth = 84;
+    optional string CCDetail = 85;
+    optional bool CCIsSignatureCaptured = 86;
+    optional int32 SeqNumber = 87;
+    optional bool CCIsOfflineMode = 88;
+    optional double BillToCustomerIDN = 89;
+    optional double CCSurcharge = 90;
+    optional double TipAmountPinpad = 91;
+    optional double CashDiscount = 92;
+    optional double TaxCCSurcharge = 93;
+    optional bool IsDebit = 94;
+    optional double TipItem = 95;
+}
+
+message JKRTDBDboTGiftcard {
+    int32 IDN = 1;
+    optional double GiftcardIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional double Amount = 10;
+    optional double Balance = 11;
+    optional string GiftcardID = 12;
+    optional double CustomerIDN = 13;
+    optional string Memo = 14;
+    optional int32 SyncStatus = 15;
+    optional double Discount = 16;
+    optional string Expiration = 17;
+    optional double InvoiceIDN = 18;
+    optional string TypeIDC = 19;
+    optional double StartNum = 20;
+    optional double EndNum = 21;
+    optional bool IsVoucher = 22;
+}
+
+message JKRTDBDboRList {
+    int32 IDN = 1;
+    optional double ListIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional string Name = 11;
+    optional double ListCategoryIDN = 12;
+    optional bool IsSystem = 13;
+    optional string TypeIDC = 14;
+    optional string VendorCode = 15;
+    optional string Address = 16;
+    optional string Address2 = 17;
+    optional string City = 18;
+    optional string State = 19;
+    optional string Zipcode = 20;
+    optional string Country = 21;
+    optional string ContactName = 22;
+    optional string Phone = 23;
+    optional string EMail = 24;
+    optional string Fax = 25;
+    optional string Note = 26;
+    optional string Data = 27;
+    optional double SpecialPriceIDN = 28;
+    optional bool IsTaxExempt = 29;
+    optional double AutoGratuityRate = 30;
+}
+
+message JKRTDBDboTInvoiceEdit {
+    int32 IDN = 1;
+    optional double InvoiceEditIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional double InvoiceIDN = 10;
+    optional double AmountBefore = 11;
+    optional double AmountAfter = 12;
+    optional double AmountDifference = 13;
+    optional double PctDifference = 14;
+    optional int32 SyncStatus = 15;
+}
+
+message JKRTDBDboRInventoryDetail {
+    int32 IDN = 1;
+    optional double InventoryDetailIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional double Price = 11;
+    optional int32 Qty = 12;
+    optional int32 QtyOrdered = 13;
+    optional int32 QtyAccumulated = 14;
+    optional string LastOrderDate = 15;
+    optional string LastCheckedDate = 16;
+    optional double InventoryItemIDN = 17;
+    optional int32 QtyProjected = 18;
+}
+
+message JKRTDBDboTItem {
+    int32 IDN = 1;
+    optional double ItemIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional double ReferenceIDN = 10;
+    optional double InvoiceIDN = 11;
+    optional double Subtotal = 12;
+    optional double Balance = 13;
+    optional string Summary = 14;
+    optional double EmployeeIDN = 15;
+    optional double AdjustedPrice = 16;
+    optional double CardIDN = 17;
+    optional bool IsVoid = 18;
+    optional double PackageGroupIDN = 19;
+    optional double PackageIDN = 20;
+    optional string Memo = 21;
+    optional int32 SyncStatus = 22;
+    optional int32 Qty = 23;
+    optional bool IsPrinted = 24;
+    optional int32 SplitCount = 25;
+    optional int32 QtyAdded = 26;
+    optional double Discount = 27;
+    optional string DiscountReason = 28;
+    optional bool IsRecipeCalculated = 29;
+    optional double ItemDiscount = 30;
+    optional double SubtotalOriginal = 31;
+    optional double Tax1 = 32;
+    optional double Tax2 = 33;
+    optional double Tax3 = 34;
+    optional double Tax = 35;
+    optional bool IsCanceled = 36;
+    optional bool IsDeleted = 37;
+    optional int32 QtyActual = 38;
+    optional double Price = 39;
+    optional string GiftcardID = 40;
+    optional string AdjustedTime = 41;
+    optional bool IsSplitted = 42;
+    optional double TotalTaxable = 43;
+    optional double TotalNonTaxable = 44;
+    optional string CreateDateInvoice = 45;
+    optional string MemoPrefix = 46;
+    optional string MemoPostfix = 47;
+    optional string MemoSpecialPrice = 48;
+    optional double Total = 49;
+    optional double ShiftIDN = 50;
+    optional double GiftcardAmount = 51;
+    optional string GiftcardExpiration = 52;
+    optional double TipAmount = 53;
+    optional int32 GuestIndex = 54;
+    optional bool IsRefund = 55;
+    optional bool IsHoldKitchen = 56;
+    optional bool IsOnlineOrder = 57;
+    optional bool IsItemSplitted = 58;
+    optional double CRV = 59;
+    optional bool IsAddedAfterSplit = 60;
+    optional bool IsTimerStopped = 61;
+    optional bool IsHalf = 62;
+    optional int32 ItemOrder = 63;
+    optional string KitchenSendTime = 64;
+    optional bool IsInventoryUpdated = 65;
+    optional int32 HoldTime = 66;
+    optional string SendOn = 67;
+    optional string KDStatus = 68;
+    optional bool IsKDDone = 69;
+    optional int32 HoldStationID = 70;
+    optional bool IsTaxExempt = 71;
+    optional int32 CourseNum = 72;
+    optional double OpenPrice = 73;
+    optional int32 DispenseCount = 74;
+    optional bool IsFired = 75;
+    optional int32 KDBumpStatus = 76;
+    optional double TipItem = 77;
+}
+
+message JKRTDBDboSInputLog {
+    int32 IDN = 1;
+    optional double InputLogIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional string FormName = 11;
+    optional string ControlName = 12;
+    optional int32 ControlIndex = 13;
+    optional string Caption = 14;
+    optional double InvoiceIDN = 15;
+}
+
+message JKRTDBDboTOffday {
+    int32 IDN = 1;
+    optional double OffdayIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional double EmployeeIDN = 10;
+    optional string Date1 = 11;
+    optional string Date2 = 12;
+    optional string Reason = 13;
+    optional bool IsAllDay = 14;
+    optional bool IsApplyToAll = 15;
+    optional string Recurrence = 16;
+    optional int32 SyncStatus = 17;
+    optional double SpecialPriceIDN = 18;
+    optional double HolidayIDN = 19;
+}
+
+message JKRTDBDboTReservation {
+    int32 IDN = 1;
+    optional double ReservationIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional string ReservationDate = 11;
+    optional string Name = 12;
+    optional string Memo = 13;
+    optional int32 GuestNumber = 14;
+    optional string Phone = 15;
+    optional int32 Status = 16;
+    optional string FStatus = 17;
+    optional string FTime = 18;
+    optional bool IsWalkIn = 19;
+    optional int32 GuestOrder = 20;
+    optional string TableNum = 21;
+    optional bool IsReminderTextSent = 22;
+}
+
+message JKRTDBDboTPackage {
+    int32 IDN = 1;
+    optional double PackageIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional double PackageGroupIDN = 10;
+    optional double CustomerIDN = 11;
+    optional double ItemIDN = 12;
+    optional int32 PackageCount = 13;
+    optional bool IsDone = 14;
+    optional bool IsVoid = 15;
+    optional int32 UsedCount = 16;
+    optional int32 SyncStatus = 17;
+}
+
+message JKRTDBDboTPayment {
+    int32 IDN = 1;
+    optional double PaymentIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional double CustomerIDN = 10;
+    optional double InvoiceIDN = 11;
+    optional double Amount = 12;
+    optional double TypeIDN = 13;
+    optional double GiftcardIDN = 14;
+    optional string CCNum = 15;
+    optional string CCExp = 16;
+    optional string CCName = 17;
+    optional string CCTrack = 18;
+    optional string CCAuth = 19;
+    optional double CHIDTypeIDN = 20;
+    optional string CHIDNum = 21;
+    optional string CHNum = 22;
+    optional bool IsVoid = 23;
+    optional string VoidReason = 24;
+    optional string Summary = 25;
+    optional double Change = 26;
+    optional double CCTypeIDN = 27;
+    optional string VoidDate = 28;
+    optional double Tendered = 29;
+    optional double Credit = 30;
+    optional double GiftcardBalance = 31;
+    optional double TipAmount = 32;
+    optional bool IsEncrypted = 33;
+    optional int32 SyncStatus = 34;
+    optional bool TipSettled = 35;
+    optional string CCAuthVoid = 36;
+    optional string CCAVS = 37;
+    optional string CCCVV2 = 38;
+    optional string CCTroutD = 39;
+    optional string CCError = 40;
+    optional string CCResult = 41;
+    optional string CCRespCode = 42;
+    optional string CCTransNum = 43;
+    optional string CCRefNumber = 44;
+    optional int32 InvoiceNumber = 45;
+    optional string FCCNum = 46;
+    optional string CCTroutDVoid = 47;
+    optional double TipTypeIDN = 48;
+    optional bool IsVoidAdjustment = 49;
+    optional double TipSettleAmount = 50;
+    optional bool IsTipSettleAmountEntered = 51;
+    optional bool IsUseTerminal = 52;
+    optional double TipAmountCash = 53;
+    optional double TipSettleAmountCash = 54;
+    optional bool TipSettledCash = 55;
+    optional bool IsTipSettleAmountEnteredCash = 56;
+    optional bool IsTipSettleDone = 57;
+    optional string PaymentTypeIDC = 58;
+    optional double TipAmountAutoGratuity = 59;
+    optional double TipOther = 60;
+    optional string CreateDateInvoice = 61;
+    optional double ShiftIDN = 62;
+    optional bool IsAccountPayment = 63;
+    optional double RunningBalance = 64;
+    optional double ServerIDN = 65;
+    optional string CCRecordNum = 66;
+    optional bool CCIsBatchClosed = 67;
+    optional double CCBalance = 68;
+    optional string CCAcqRefData = 69;
+    optional double TipAmountManual = 70;
+    optional string CCAID = 71;
+    optional string CCAppLabel = 72;
+    optional string CCARC = 73;
+    optional string CCATC = 74;
+    optional string CCCardType = 75;
+    optional string CCCVM = 76;
+    optional string CCEntryMethod = 77;
+    optional string CCIAD = 78;
+    optional string CCResultPrinter = 79;
+    optional string CCTC = 80;
+    optional string CCTSI = 81;
+    optional string CCTVR = 82;
+    optional string CCRefNum = 83;
+    optional bool CCIsPartialAuth = 84;
+    optional string CCDetail = 85;
+    optional bool CCIsSignatureCaptured = 86;
+    optional int32 SeqNumber = 87;
+    optional bool CCIsOfflineMode = 88;
+    optional double BillToCustomerIDN = 89;
+    optional double CCSurcharge = 90;
+    optional double TipAmountPinpad = 91;
+    optional double CashDiscount = 92;
+    optional double TaxCCSurcharge = 93;
+    optional bool IsDebit = 94;
+    optional double TipItem = 95;
+}
+
+message JKRTDBDboRTableLink {
+    int32 IDN = 1;
+    optional double TableLinkIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional double LinkID = 11;
+    optional double TableIDN = 12;
+}
+
+message JKRTDBDboTDelivery {
+    int32 IDN = 1;
+    optional double DeliveryIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional double AmountReturned = 11;
+    optional double AmountTotal = 12;
+    optional double Balance = 13;
+    optional double ChangeGiven = 14;
+    optional string ClosedDate = 15;
+    optional double EmployeeIDN = 16;
+    optional double AmountCollected = 17;
+    optional double Tips = 18;
+}
+
+message JKRTDBDboRSpecialPriceItem {
+    int32 IDN = 1;
+    optional double SpecialPriceItemIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional bool IsEnabled = 11;
+    optional double Price = 12;
+    optional double SpecialPriceIDN = 13;
+    optional double ItemIDN = 14;
+    optional bool IsPriceChanged = 15;
+}
+
+message JKRTDBDboDtproperties {
+    int32 Id = 1;
+    optional int32 Objectid = 2;
+    string Property = 3;
+    optional string Value = 4;
+    optional string Uvalue = 5;
+    optional bytes Lvalue = 6;
+    int32 Version = 7;
+    optional int32 SyncStatus = 8;
+}
+
+message JKRTDBDboTTimeClock {
+    int32 IDN = 1;
+    optional double TimeClockIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional double EmployeeIDN = 10;
+    optional string TimeIn = 11;
+    optional string TimeOut = 12;
+    optional int32 TotalSeconds = 13;
+    optional int32 SyncStatus = 14;
+    optional bool IsBreak = 15;
+    optional int32 Status = 16;
+    optional double Wage = 17;
+    optional double HourlyRate = 18;
+    optional double WageRegular = 19;
+    optional double WageOvertime = 20;
+    optional double OvertimeRate = 21;
+    optional double OvertimeRatePercentage = 22;
+    optional double SecurityGroupIDN = 23;
+    optional bool IsPaidBreak = 24;
+    optional int32 TotalSecondsRegular = 25;
+    optional int32 TotalSecondsOvertime = 26;
+    optional double CashTips = 27;
+    optional bool IsPaidBreakFirstHour = 28;
+    optional int32 TotalSecondsBreak = 29;
+    optional double WagePaidBreak = 30;
+    optional double BreakIDN = 31;
+    optional int32 PaidInFirstMinutes = 32;
+    optional string BreakName = 33;
+    optional double TipsCash = 34;
+    optional double TipsCC = 35;
+    optional bool IsManualEntry = 36;
+    optional bool IsModified = 37;
+    optional int32 TotalSecondsDoubleTime = 38;
+    optional int32 TotalSecondsPaid = 39;
+}
+
+message JKRTDBDboTUpcharge {
+    int32 IDN = 1;
+    optional double UpchargeIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional double ReferenceIDN = 10;
+    optional double ItemIDN = 11;
+    optional double Subtotal = 12;
+    optional double CustomerIDN = 13;
+    optional int32 SyncStatus = 14;
+    optional int32 SplitIndex = 15;
+    optional int32 Qty = 16;
+    optional int32 QtyAdded = 17;
+    optional bool IsRecipeCalculated = 18;
+    optional int32 ItemIndex = 19;
+    optional bool IsCanceled = 20;
+    optional int32 QtyActual = 21;
+    optional double Price = 22;
+    optional double InvoiceIDN = 23;
+    optional bool IsVoid = 24;
+    optional string Memo = 25;
+    optional string Prefix = 26;
+}
+
+message JKRTDBDboTPurchaseOrder {
+    int32 IDN = 1;
+    optional double PurchaseOrderIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional double Balance = 11;
+    optional string BillTo = 12;
+    optional double Credit = 13;
+    optional double Discount = 14;
+    optional string FPaymentTerm = 15;
+    optional string FShippingType = 16;
+    optional string FShipVia = 17;
+    optional string FStatus = 18;
+    optional string FStore = 19;
+    optional bool IsDone = 20;
+    optional bool IsOrderSent = 21;
+    optional bool IsReceived = 22;
+    optional bool IsShipped = 23;
+    optional bool IsVoid = 24;
+    optional string Note = 25;
+    optional string OrderDate = 26;
+    optional double Payment = 27;
+    optional string PaymentDate = 28;
+    optional double PaymentTermIDN = 29;
+    optional string PONumer = 30;
+    optional string ReceiveDate = 31;
+    optional string ShipDate = 32;
+    optional double Shipping = 33;
+    optional double ShippingTypeIDN = 34;
+    optional string ShipTo = 35;
+    optional double ShipViaIDN = 36;
+    optional double StatusIDN = 37;
+    optional double StoreIDN = 38;
+    optional double Subtotal = 39;
+    optional double Tax = 40;
+    optional double Total = 41;
+    optional string TrackingNum = 42;
+    optional string VoidDate = 43;
+    optional double VoidReasonIDN = 44;
+    optional double VoidUserIDN = 45;
+    optional string PONumber = 46;
+    optional double InventoryGroupIDN = 47;
+}
+
+message JKRTDBDboRCommission {
+    int32 IDN = 1;
+    optional double CommissionIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional double EmployeeIDN = 10;
+    optional double ItemIDN = 11;
+    optional double Rate = 12;
+    optional string Unit = 13;
+    optional int32 SyncStatus = 14;
+    optional bool IsAllow = 15;
+}
+
+message JKRTDBDboQtActiveDiscount {
+    int32 IDN = 1;
+    optional double DiscountIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional double InvoiceIDN = 10;
+    optional double ReferenceIDN = 11;
+    optional double Amount = 12;
+    optional string UnitIDC = 13;
+    optional double Total = 14;
+    optional int32 SyncStatus = 15;
+    optional double ItemIDN = 16;
+    optional bool IsItemDiscount = 17;
+    optional string Reason = 18;
+    optional bool IsVoid = 19;
+    optional double ShiftIDN = 20;
+    optional double DiscountIDNOriginal = 21;
+    optional double AmountOriginal = 22;
+    optional string SerialNumber = 23;
+}
+
+message JKRTDBDboRDiscount {
+    int32 IDN = 1;
+    optional double DiscountIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional string Name = 10;
+    optional double Amount = 11;
+    optional string UnitIDC = 12;
+    optional string AppliedCategory = 13;
+    optional string AppliedDay = 14;
+    optional string ExpirationBegin = 15;
+    optional string ExpirationEnd = 16;
+    optional string Duration = 17;
+    optional double MinAmount = 18;
+    optional int32 ItemOrder = 19;
+    optional string Options = 20;
+    optional string Restriction = 21;
+    optional string FSummary = 22;
+    optional bool IsAutomatic = 23;
+    optional bool ApplyOnNewCustomer = 24;
+    optional bool IsItemRestriction = 25;
+    optional string AppliedItems = 26;
+    optional bool PrintAutomatically = 27;
+    optional string ImagePath = 28;
+    optional int32 SyncStatus = 29;
+    optional string AppliedCategoryNames = 30;
+    optional double DiscountGroupIDN = 31;
+    optional string Barcode = 32;
+    optional string TemplateName = 33;
+    optional string TimeStart = 34;
+    optional string TimeEnd = 35;
+    optional double TipRate = 36;
+    optional bool ForceGratuity = 37;
+    optional int32 AppliedNthVisitCount = 38;
+    optional bool IsAppliedNthVisit = 39;
+    optional string InvoiceMemo = 40;
+    optional bool IsBirthdayDiscount = 41;
+    optional string AppliedCategories = 42;
+    optional int32 MinimumDiscountPoint = 43;
+    optional int32 MinimumDiscountPointDays = 44;
+    optional bool PreventMultipleDiscount = 45;
+    optional bool IsPreventDiscountPointAccumulation = 46;
+    optional bool IsPrintOnReceipt = 47;
+    optional bool IsRequireSerialNumberScan = 48;
+    optional bool IsMemberOnly = 49;
+    optional bool ApplyAmountDiscountToEachItem = 50;
+    optional string AppliedOrderType = 51;
+    optional string ValidSerialNumbers = 52;
+}
+
+message JKRTDBDboRDiscountItem {
+    int32 IDN = 1;
+    optional double DiscountItemIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional double DiscountIDN = 10;
+    optional double ItemIDN = 11;
+    optional int32 SyncStatus = 12;
+}
+
+message JKRTDBDboRPackageItem {
+    int32 IDN = 1;
+    optional double PackageItemIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional double ItemIDN = 10;
+    optional double ParentItemIDN = 11;
+    optional int32 SyncStatus = 12;
+    optional int32 ItemOrder = 13;
+}
+
+message JKRTDBDboRTableDeco {
+    int32 IDN = 1;
+    optional double TableDecoIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional int32 Top = 11;
+    optional int32 Left = 12;
+    optional int32 Width = 13;
+    optional int32 Height = 14;
+    optional string PicturePath = 15;
+    optional double TableSectionIDN = 16;
+}
+
+message JKRTDBDboRReference {
+    int32 IDN = 1;
+    optional double ReferenceIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional string TypeIDC = 10;
+    optional string Name = 11;
+    optional string Name1 = 12;
+    optional string Name2 = 13;
+    optional string Name3 = 14;
+    optional string Content = 15;
+    optional string Code = 16;
+    optional string IconName = 17;
+    optional int32 ItemOrder = 18;
+    optional string Options = 19;
+    optional int32 SyncStatus = 20;
+    optional bool IsAttachGroupNameInFront = 21;
+    optional bool IsKitchenOnly = 22;
+    optional bool IsSystem = 23;
+    optional int32 ButtonColor = 24;
+    optional string IDNList = 25;
+    optional bool IsAskQty = 26;
+}
+
+message JKRTDBDboSKitchenDisplay {
+    int32 IDN = 1;
+    optional double KitchenDisplayIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional double InvoiceIDN = 11;
+    optional int32 KitchenIndex = 12;
+    optional string OrderNum = 13;
+    optional string OrderType = 14;
+    optional string Summary = 15;
+    optional bool IsModified = 16;
+    optional bool IsBumped = 17;
+    optional string BumpTime = 18;
+}
+
+message JKRTDBDboRStore {
+    int32 IDN = 1;
+    optional double StoreIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional string OwnerName = 10;
+    optional string Address = 11;
+    optional string City = 12;
+    optional string Name = 13;
+    optional string Zipcode = 14;
+    optional string Country = 15;
+    optional string Memo = 16;
+    optional string Phone = 17;
+    optional string Fax = 18;
+    optional string EMail = 19;
+    optional string Website = 20;
+    optional string IPAddress = 21;
+    optional int32 ItemOrder = 22;
+    optional string State = 23;
+    optional int32 SyncStatus = 24;
+    optional string OwnerPhone = 25;
+    optional string BillTo = 26;
+    optional string ShipTo = 27;
+    optional bool CSyncNow = 28;
+    optional bool CSyncMenu = 29;
+    optional bool CSyncDiscount = 30;
+    optional bool CSyncInventoryItem = 31;
+    optional string AssignedDiscounts = 32;
+    optional string AssignedMenus = 33;
+    optional double GiftCardSalesRewardRate = 34;
+    optional double MarketingFeeRate = 35;
+    optional int32 RoyaltyCutoffWeekNum = 36;
+    optional double RoyaltyRate = 37;
+    optional bool CSyncStore = 38;
+    optional string BranchName = 39;
+    optional string LastSyncDate = 40;
+    optional string Version = 41;
+    optional string Code = 42;
+    optional string Instagram = 43;
+}
+
+message JKRTDBDboTExpense {
+    int32 IDN = 1;
+    optional double ExpenseIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional double Amount = 11;
+    optional string Reason = 12;
+    optional double TypeIDN = 13;
+    optional double ShiftIDN = 14;
+    optional double VendorIDN = 15;
+    optional string FVendor = 16;
+}
+
+message JKRTDBDboRTable {
+    int32 IDN = 1;
+    optional double TableIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 Number = 10;
+    optional bool IsEnabled = 11;
+    optional double TableSectionIDN = 12;
+    optional double ServerIDN = 13;
+    optional int32 MaxSeat = 14;
+    optional double InvoiceIDN = 15;
+    optional int32 GuestNumber = 16;
+    optional string SeatedTime = 17;
+    optional string TableNum = 18;
+    optional int32 SyncStatus = 19;
+    optional double Charge = 20;
+    optional string ChargeUnit = 21;
+    optional int32 ItemOrder = 22;
+    optional int32 Top = 23;
+    optional int32 Left = 24;
+    optional int32 Width = 25;
+    optional int32 Height = 26;
+    optional int32 ServerTipRatio = 27;
+    optional int32 TableGroupNum = 28;
+    optional bool IsBarTab = 29;
+    optional double LinkID = 30;
+    optional string Barcode = 31;
+}
+
+message JKRTDBDboRTableSection {
+    int32 IDN = 1;
+    optional double TableSectionIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional string Name = 10;
+    optional int32 SyncStatus = 11;
+    optional int32 FloorColor = 12;
+    optional string FloorPicturePath = 13;
+    optional int32 ItemOrder = 14;
+    optional int32 ButtonColor = 15;
+}
+
+message JKRTDBDboRUpcharge {
+    int32 IDN = 1;
+    optional double UpchargeIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional double ItemIDN = 10;
+    optional string Name = 11;
+    optional string Name1 = 12;
+    optional string Name2 = 13;
+    optional string Name3 = 14;
+    optional double Price = 15;
+    optional string IconName = 16;
+    optional int32 ItemOrder = 17;
+    optional bool RememberUsage = 18;
+    optional int32 SyncStatus = 19;
+    optional int32 KitchenPrinterNum = 20;
+    optional string NameKitchen = 21;
+    optional bool IsSameDish = 22;
+    optional string NameButton = 23;
+    optional string NameInvoice = 24;
+    optional int32 ButtonColor = 25;
+    optional int32 MinQty = 26;
+    optional int32 MaxQty = 27;
+    optional double UpchargeGroupIDN = 28;
+    optional double ParentUpchargeIDN = 29;
+    optional bool IsPrintOnInvoice = 30;
+    optional int32 FreeQty = 31;
+    optional bool IsPizzaModifier = 32;
+    optional int32 PrintStyle = 33;
+    optional bool ShowIndividualPrice = 34;
+    optional bool IsOpenPrice = 35;
+    optional string ImagePathKiosk = 36;
+    optional bool IsShowOnKiosk = 37;
+    optional string NameKiosk = 38;
+    optional double LinkedItemIDN = 39;
+    optional bool IsPrefix = 40;
+    optional bool IsPrintOnReceipt = 41;
+    optional bool IsShowButtonCaption = 42;
+    optional int32 OnlineModifierID = 43;
+    optional int32 KitchenPrinterIndex = 44;
+    optional bool IsAskMemo = 45;
+    optional bool IsTaxExempt = 46;
+    optional bool IsOnOff = 47;
+    optional bool IsAskQty = 48;
+    optional double PriceHalf = 49;
+    optional double PriceQuarter = 50;
+    optional double PriceThird = 51;
+    optional int32 PrefixPriceAdjustmentRatio = 52;
+    optional bool IsPrintInKitchen = 53;
+    optional string KioskImageName = 54;
+    optional bool IsKioskImageAssigned = 55;
+    optional bool KioskIsMultiSelect = 56;
+    optional bool IsSubModifier = 57;
+    optional bool IsPrintOnlyModifierName = 58;
+}
+
+message JKRTDBDboSDictionary {
+    int32 IDN = 1;
+    optional double DictionaryIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional string Name = 10;
+    optional string Name1 = 11;
+    optional string Name2 = 12;
+    optional string Name3 = 13;
+    optional int32 ItemOrder = 14;
+    optional int32 SyncStatus = 15;
+    optional string Name4 = 16;
+}
+
+message JKRTDBDboROffday {
+    int32 IDN = 1;
+    optional double OffdayIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional string Name = 11;
+    optional string StartDate = 12;
+    optional string EndDate = 13;
+    optional string TypeIDC = 14;
+    optional double SpecialPriceIDN = 15;
+    optional double EmployeeIDN = 16;
+}
+
+message JKRTDBDboTPurchaseOrderItem {
+    int32 IDN = 1;
+    optional double PurchaseOrderItemIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional double PurchaseOrderIDN = 11;
+    optional double Qty = 12;
+    optional double Price = 13;
+    optional double Subtotal = 14;
+    optional double ReferenceIDN = 15;
+    optional string FItem = 16;
+    optional string FVendor = 17;
+}
+
+message JKRTDBDboSDummy {
+    int32 IDN = 1;
+    optional double DummyIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional string Data1 = 10;
+    optional string Data2 = 11;
+    optional int32 SyncStatus = 12;
+}
+
+message JKRTDBDboRUpchargeGroup {
+    int32 IDN = 1;
+    optional double UpchargeGroupIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional string Name = 11;
+    optional int32 ButtonColor = 12;
+    optional int32 MinQty = 13;
+    optional int32 MaxQty = 14;
+    optional double ItemIDN = 15;
+    optional int32 ItemOrder = 16;
+    optional int32 FreeQty = 17;
+    optional string NameKiosk = 18;
+    optional bool IsShowOnKiosk = 19;
+    optional double LinkUpchargeGroupIDN = 20;
+    optional bool IsLinked = 21;
+    optional bool IsOptional = 22;
+    optional double ParentUpchargeIDN = 23;
+    optional bool IsKioskMultiQty = 24;
+}
+
+message JKRTDBDboQtActiveInvoice {
+    int32 IDN = 1;
+    optional double InvoiceIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional double CustomerIDN = 10;
+    optional double AppointmentIDN = 11;
+    optional double Subtotal = 12;
+    optional double Tax = 13;
+    optional double Discount = 14;
+    optional double Total = 15;
+    optional double Payment = 16;
+    optional double Credit = 17;
+    optional string Summary = 18;
+    optional bool IsDone = 19;
+    optional bool IsVoid = 20;
+    optional string VoidDate = 21;
+    optional double VoidUserIDN = 22;
+    optional double VoidReasonIDN = 23;
+    optional double BonusMileageUsed = 24;
+    optional double BonusMileageAdded = 25;
+    optional bool IsHold = 26;
+    optional double TipAmount = 27;
+    optional bool IsStarted = 28;
+    optional string CouponPrintList = 29;
+    optional string TypeIDC = 30;
+    optional int32 GuestNumber = 31;
+    optional string GuestName = 32;
+    optional bool IsDelivering = 33;
+    optional int32 InvoiceNumber = 34;
+    optional int32 SyncStatus = 35;
+    optional bool IsTaxExempt = 36;
+    optional bool IsSplit = 37;
+    optional string SplitTypeIDC = 38;
+    optional string DiscountReason = 39;
+    optional double ParentInvoiceIDN = 40;
+    optional int32 SplitCount = 41;
+    optional double DeliveryCharge = 42;
+    optional int32 OrderNum = 43;
+    optional int32 EditCount = 44;
+    optional double ChangeGiven = 45;
+    optional string TableNum = 46;
+    optional double ServerIDN = 47;
+    optional string VoidReason = 48;
+    optional double DeliveryUserIDN = 49;
+    optional bool IsAutoGratuityExempt = 50;
+    optional double PriceGroupIDN = 51;
+    optional double TableIDN = 52;
+    optional double Tax1 = 53;
+    optional double Tax2 = 54;
+    optional double Tax3 = 55;
+    optional bool IsOnlineOrder = 56;
+    optional double Balance = 57;
+    optional string Memo = 58;
+    optional string QuickOrderTypeIDC = 59;
+    optional bool IsCanceled = 60;
+    optional double Collected = 61;
+    optional double RoomCharge = 62;
+    optional bool IsDelivered = 63;
+    optional bool IsExtraInfoAsked = 64;
+    optional int32 SplitIndex = 65;
+    optional string TicketNumber = 66;
+    optional double TipReserved = 67;
+    optional double SplitAdjustment = 68;
+    optional bool IsCheckPrinted = 69;
+    optional bool IsContainTimedItem = 70;
+    optional double TipAutoGratuity = 71;
+    optional double SpecialPriceIDN = 72;
+    optional double VoidPaymentUserIDN = 73;
+    optional string VoidPaymentDate = 74;
+    optional double TipManual = 75;
+    optional double TipSettleAmount = 76;
+    optional string PaymentType = 77;
+    optional double PaymentUserIDN = 78;
+    optional bool IsInventoryUpdated = 79;
+    optional bool IsClosed = 80;
+    optional double ShiftIDN = 81;
+    optional string PickupTime = 82;
+    optional bool IsChain = 83;
+    optional bool IsAutoGratuity = 84;
+    optional int32 ServerTipRatio = 85;
+    optional string InternetAccessCode = 86;
+    optional bool IsKioskOrder = 87;
+    optional bool IsLabelPrinted = 88;
+    optional string PagerNumber = 89;
+    optional double TaxExemptAmount = 90;
+    optional int32 TipPercentage = 91;
+    optional int32 OnlineOrderID = 92;
+    optional string OnlineOrderTypeIDC = 93;
+    optional double ServiceChargeAutoGratuity = 94;
+    optional double ServiceChargeManual = 95;
+    optional double ServiceCharge = 96;
+    optional int32 ServiceChargePercentage = 97;
+    optional bool IsContainHoldKitchenItem = 98;
+    optional double Shift2IDN = 99;
+    optional string PaymentDate = 100;
+    optional bool IsCommissionCalculated = 101;
+    optional double DeliveryIDN = 102;
+    optional bool IsReleaseTable = 103;
+    optional double TaxAutoGratuity = 104;
+    optional double TotalNonTaxable = 105;
+    optional double TotalTaxable = 106;
+    optional double BagCharge = 107;
+    optional int32 SectionGroupID = 108;
+    optional double CCSurcharge = 109;
+    optional bool IsContainHoldTimeItem = 110;
+    optional bool IsSMSSent = 111;
+    optional bool IsKDDone = 112;
+    optional bool IsDriveThru = 113;
+    optional double DeliveryCompanyIDN = 114;
+    optional double TotalEBT = 115;
+    optional bool IsContainDeposit = 116;
+    optional double CashDiscount = 117;
+    optional bool IsExemptCCSurcharge = 118;
+    optional int32 OrderPin = 119;
+    optional double TaxCCSurcharge = 120;
+    optional double TipItem = 121;
+}
+
+message JKRTDBDboSPreference {
+    int32 IDN = 1;
+    optional double PreferenceIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional string Category = 10;
+    optional string PrefKey = 11;
+    optional string PrefValue = 12;
+    optional string StationName = 13;
+    optional int32 SyncStatus = 14;
+    optional bool IsEncrypted = 15;
+}
+
+message JKRTDBDboSReference {
+    int32 IDN = 1;
+    optional double ReferenceIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional string TypeIDC = 10;
+    optional string CategoryIDC = 11;
+    optional double CategoryIDN = 12;
+    optional string ReferenceIDC = 13;
+    optional string Name = 14;
+    optional string Name1 = 15;
+    optional string Name2 = 16;
+    optional string Name3 = 17;
+    optional int32 Code = 18;
+    optional string IconName = 19;
+    optional int32 ItemOrder = 20;
+    optional string Options = 21;
+    optional bool ShowInHQ = 22;
+    optional int32 SyncStatus = 23;
+    optional bool IsCustom = 24;
+    optional string Memo = 25;
+}
+
+message JKRTDBDboSGeneric {
+    int32 IDN = 1;
+    optional int32 StoreID = 2;
+    optional int32 SyncStatus = 3;
+    optional int32 DataLong = 4;
+    optional double DataCurrency = 5;
+    optional string DataText = 6;
+    optional double DataCurrency2 = 7;
+    optional double DataDecimal = 8;
+    optional double Percentage = 9;
+}
+
+message JKRTDBDboRSpecialPriceModifier {
+    int32 IDN = 1;
+    optional double SpecialPriceModifierIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional double SpecialPriceIDN = 11;
+    optional double Price = 12;
+    optional bool IsPriceChanged = 13;
+    optional double UpchargeIDN = 14;
+}
+
+message JKRTDBDboQtActiveInvoice1 {
+    int32 IDN = 1;
+    optional double InvoiceIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional double CustomerIDN = 10;
+    optional double AppointmentIDN = 11;
+    optional double Subtotal = 12;
+    optional double Tax = 13;
+    optional double Discount = 14;
+    optional double Total = 15;
+    optional double Payment = 16;
+    optional double Credit = 17;
+    optional string Summary = 18;
+    optional bool IsDone = 19;
+    optional bool IsVoid = 20;
+    optional string VoidDate = 21;
+    optional double VoidUserIDN = 22;
+    optional double VoidReasonIDN = 23;
+    optional double BonusMileageUsed = 24;
+    optional double BonusMileageAdded = 25;
+    optional bool IsHold = 26;
+    optional double TipAmount = 27;
+    optional bool IsStarted = 28;
+    optional string CouponPrintList = 29;
+    optional string TypeIDC = 30;
+    optional int32 GuestNumber = 31;
+    optional string GuestName = 32;
+    optional bool IsDelivering = 33;
+    optional int32 InvoiceNumber = 34;
+    optional int32 SyncStatus = 35;
+    optional bool IsTaxExempt = 36;
+    optional bool IsSplit = 37;
+    optional string SplitTypeIDC = 38;
+    optional string DiscountReason = 39;
+    optional double ParentInvoiceIDN = 40;
+    optional int32 SplitCount = 41;
+    optional double DeliveryCharge = 42;
+    optional int32 OrderNum = 43;
+    optional int32 EditCount = 44;
+    optional double ChangeGiven = 45;
+    optional string TableNum = 46;
+    optional double ServerIDN = 47;
+    optional string VoidReason = 48;
+    optional double DeliveryUserIDN = 49;
+    optional bool IsAutoGratuityExempt = 50;
+    optional double PriceGroupIDN = 51;
+    optional double TableIDN = 52;
+    optional double Tax1 = 53;
+    optional double Tax2 = 54;
+    optional double Tax3 = 55;
+    optional bool IsOnlineOrder = 56;
+    optional double Balance = 57;
+    optional string Memo = 58;
+    optional string QuickOrderTypeIDC = 59;
+    optional bool IsCanceled = 60;
+    optional double Collected = 61;
+    optional double RoomCharge = 62;
+    optional bool IsDelivered = 63;
+    optional bool IsExtraInfoAsked = 64;
+    optional int32 SplitIndex = 65;
+    optional string TicketNumber = 66;
+    optional double TipReserved = 67;
+    optional double SplitAdjustment = 68;
+    optional bool IsCheckPrinted = 69;
+    optional bool IsContainTimedItem = 70;
+    optional double TipAutoGratuity = 71;
+    optional double SpecialPriceIDN = 72;
+    optional double VoidPaymentUserIDN = 73;
+    optional string VoidPaymentDate = 74;
+    optional double TipManual = 75;
+    optional double TipSettleAmount = 76;
+    optional string PaymentType = 77;
+    optional double PaymentUserIDN = 78;
+    optional bool IsInventoryUpdated = 79;
+    optional bool IsClosed = 80;
+    optional double ShiftIDN = 81;
+    optional string PickupTime = 82;
+    optional bool IsChain = 83;
+    optional bool IsAutoGratuity = 84;
+    optional int32 ServerTipRatio = 85;
+    optional string InternetAccessCode = 86;
+    optional bool IsKioskOrder = 87;
+    optional bool IsLabelPrinted = 88;
+    optional string PagerNumber = 89;
+    optional double TaxExemptAmount = 90;
+    optional int32 TipPercentage = 91;
+    optional int32 OnlineOrderID = 92;
+    optional string OnlineOrderTypeIDC = 93;
+    optional double ServiceChargeAutoGratuity = 94;
+    optional double ServiceChargeManual = 95;
+    optional double ServiceCharge = 96;
+    optional int32 ServiceChargePercentage = 97;
+    optional bool IsContainHoldKitchenItem = 98;
+    optional double Shift2IDN = 99;
+    optional string PaymentDate = 100;
+    optional bool IsCommissionCalculated = 101;
+    optional double DeliveryIDN = 102;
+    optional bool IsReleaseTable = 103;
+    optional double TaxAutoGratuity = 104;
+    optional double TotalNonTaxable = 105;
+    optional double TotalTaxable = 106;
+    optional double BagCharge = 107;
+    optional int32 SectionGroupID = 108;
+    optional double CCSurcharge = 109;
+    optional bool IsContainHoldTimeItem = 110;
+    optional bool IsSMSSent = 111;
+    optional bool IsKDDone = 112;
+    optional bool IsDriveThru = 113;
+    optional double DeliveryCompanyIDN = 114;
+    optional double TotalEBT = 115;
+    optional bool IsContainDeposit = 116;
+    optional double CashDiscount = 117;
+    optional bool IsExemptCCSurcharge = 118;
+    optional int32 OrderPin = 119;
+    optional double TaxCCSurcharge = 120;
+    optional double TipItem = 121;
+}
+
+message JKRTDBDboSReport {
+    int32 IDN = 1;
+    optional double ReportIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional string CategoryIDC = 10;
+    optional string ReferenceIDC = 11;
+    optional string Code = 12;
+    optional string Name = 13;
+    optional string Name1 = 14;
+    optional string Name2 = 15;
+    optional string Name3 = 16;
+    optional string Parameters = 17;
+    optional string Options = 18;
+    optional int32 ItemOrder = 19;
+    optional string Groups = 20;
+    optional string Sums = 21;
+    optional bool ShowInHQ = 22;
+    optional bool ShowGraph = 23;
+    optional string Graph = 24;
+    optional int32 SyncStatus = 25;
+    optional bool ShowInStore = 26;
+    optional string CustomFieldDef = 27;
+    optional string CustomGroupDef = 28;
+    optional string CustomOrderDef = 29;
+    optional string CustomSQL = 30;
+    optional bool IsCustom = 31;
+    optional bool ShowInMap = 32;
+    optional string Percentage = 33;
+    optional string Note = 34;
+    optional string CrossTab = 35;
+    optional bool IsAllowCrossTab = 36;
+}
+
+message JKRTDBDboTMemo {
+    int32 IDN = 1;
+    optional double MemoIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional double InvoiceIDN = 11;
+    optional double ItemIDN = 12;
+    optional double ReferenceIDN = 13;
+    optional double Subtotal = 14;
+    optional string Summary = 15;
+    optional int32 Qty = 16;
+    optional double AdjustedPrice = 17;
+}
+
+message JKRTDBDboTRoyalty {
+    int32 IDN = 1;
+    optional double RoyaltyIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional double AmountDue = 11;
+    optional double Balance = 12;
+    optional string DateEnd = 13;
+    optional string DateStart = 14;
+    optional double DeliveryCharge = 15;
+    optional double DiscountCoupon = 16;
+    optional double DiscountItem = 17;
+    optional double DiscountMileage = 18;
+    optional double DiscountTotal = 19;
+    optional double GiftCardReward = 20;
+    optional double GiftCardSales = 21;
+    optional double GiftCardSettlement = 22;
+    optional double GrossSales = 23;
+    optional int32 InvoiceNumber = 24;
+    optional double ItemSales = 25;
+    optional double MarketingFee = 26;
+    optional double NetSales = 27;
+    optional double Payment = 28;
+    optional double RoyaltyAmount = 29;
+    optional double RoyaltyBase = 30;
+    optional double SalesTotal = 31;
+    optional double StatusIDN = 32;
+    optional double Tax = 33;
+    optional double TotalSales = 34;
+    optional double Tips = 35;
+}
+
+message JKRTDBDboRSecurityGroup {
+    int32 IDN = 1;
+    optional double SecurityGroupIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional string RestrictedActions = 11;
+    optional string RestrictedDiscounts = 12;
+    optional string Name = 13;
+    optional int32 ItemOrder = 14;
+    optional bool IsSystem = 15;
+    optional string RestrictedReports = 16;
+}
+
+message JKRTDBDboRMemo {
+    int32 IDN = 1;
+    optional double MemoIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional double MemoCategoryIDN = 11;
+    optional string Name = 12;
+    optional bool IsPreFix = 13;
+    optional bool IsPostFix = 14;
+    optional bool IsForceKitchenPrint = 15;
+    optional string ForeignName = 16;
+    optional bool IsOpenPrice = 17;
+    optional double Price = 18;
+    optional int32 ButtonColor = 19;
+    optional int32 ItemOrder = 20;
+}
+
+message JKRTDBDboTPOInvoice {
+    int32 IDN = 1;
+    optional double POInvoiceIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional string InvoiceNumber = 11;
+    optional double Subtotal = 12;
+    optional double Shipping = 13;
+    optional double Credit = 14;
+    optional double Total = 15;
+    optional string BillTo = 16;
+    optional string StartDate = 17;
+    optional string EndDate = 18;
+    optional double StoreIDN = 19;
+    optional string DueDate = 20;
+    optional bool IsSent = 21;
+    optional string FStatus = 22;
+    optional bool IsDone = 23;
+    optional string DateSent = 24;
+    optional bool IsVoid = 25;
+    optional string InvoiceNote = 26;
+    optional double Tax = 27;
+    optional double Discount = 28;
+    optional double Payment = 29;
+    optional double Balance = 30;
+    optional string PaymentDate = 31;
+    optional string InvoiceDate = 32;
+    optional string VoidDate = 33;
+    optional string InvoicedPOItemIDNs = 34;
+}
+
+message JKRTDBDboSTempCustomerByCategoryItemSide2 {
+    int32 IDN = 1;
+    optional int32 StoreID = 2;
+    optional int32 SyncStatus = 3;
+    optional double ItemIDN = 4;
+    optional string Side_Name = 5;
+    optional int32 Side_Qty = 6;
+    optional double Side_Total = 7;
+}
+
+message JKRTDBDboSMessage {
+    int32 IDN = 1;
+    optional int32 StoreID = 2;
+    optional int32 SyncStatus = 3;
+    optional string CreateDate = 4;
+    optional string Message = 5;
+}
+
+message JKRTDBDboSDelete {
+    int32 IDN = 1;
+    optional int32 StoreID = 2;
+    optional int32 SyncStatus = 3;
+    optional double DeletedIDN = 4;
+    optional int32 TableID = 5;
+}
+
+message JKRTDBDboTBatchSettle {
+    int32 IDN = 1;
+    optional double BatchSettleIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional string Result = 11;
+    optional bool IsAccepted = 12;
+    optional int32 ErrorCode = 13;
+    optional string ErrorDesc = 14;
+    optional string Status = 15;
+    optional string ItemCount = 16;
+    optional string BatchNumber = 17;
+    optional string RespCode = 18;
+    optional double Balance = 19;
+    optional double TotalCreditCard = 20;
+    optional double TotalDebit = 21;
+    optional double TotalEBT = 22;
+    optional int32 CountCreditCard = 23;
+    optional int32 CountDebit = 24;
+    optional int32 CountEBT = 25;
+    optional double CCSurchargeAmount = 26;
+    optional double EstimatedDeposit = 27;
+}
+
+message JKRTDBDboSTempCustomerByCategoryItemSide1 {
+    int32 IDN = 1;
+    optional int32 StoreID = 2;
+    optional int32 SyncStatus = 3;
+    optional string Category_Name = 4;
+    optional string Item_Name = 5;
+    optional int32 Item_Qty = 6;
+    optional double Item_Total = 7;
+    optional string Side_Name = 8;
+    optional int32 Side_Qty = 9;
+    optional double Side_Total = 10;
+}
+
+message JKRTDBDboSCheckConnection {
+    int32 IDN = 1;
+    optional double CheckConnectionIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+}
+
+message JKRTDBDboTMessage {
+    int32 IDN = 1;
+    optional double MessageIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional string Message = 11;
+    optional string Title = 12;
+    optional string Attach1FileName = 13;
+    optional string Attach2FileName = 14;
+    optional string Attach3FileName = 15;
+    optional int32 TargetStoreID = 16;
+    optional int32 SourceStoreID = 17;
+    optional string FTargetStoreName = 18;
+    optional string DateSent = 19;
+    optional int32 AttachmentCount = 20;
+    optional bool IsViewed = 21;
+    optional string SentDate = 22;
+    optional string SentToEmployeeIDNs = 23;
+    optional string ViewedEmployeeIDNs = 24;
+    optional bool IsTextMessage = 25;
+    optional string FSentTo = 26;
+    optional bool IsReplied = 27;
+}
+
+message JKRTDBDboSOnlineOrder {
+    int32 IDN = 1;
+    optional int32 StoreID = 2;
+    optional int32 SyncStatus = 3;
+    optional string Data = 4;
+    optional bool IsProcessed = 5;
+    optional string CreateDate = 6;
+}
+
+message JKRTDBDboQvSalesByCategory {
+    optional int32 Year = 1;
+    optional int32 Month = 2;
+    optional string Name = 3;
+    optional double Total = 4;
+}
+
+message JKRTDBDboTDrawerAmount {
+    int32 IDN = 1;
+    optional double DrawerAmountIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional int32 Start_1D = 11;
+    optional int32 Start_2D = 12;
+    optional int32 Start_5D = 13;
+    optional int32 Start_10D = 14;
+    optional int32 Start_20D = 15;
+    optional int32 Start_50D = 16;
+    optional int32 Start_100D = 17;
+    optional int32 Start_1C = 18;
+    optional int32 Start_5C = 19;
+    optional int32 Start_10C = 20;
+    optional int32 Start_25C = 21;
+    optional int32 Start_50C = 22;
+    optional int32 Start_100C = 23;
+    optional int32 End_1D = 24;
+    optional int32 End_2D = 25;
+    optional int32 End_5D = 26;
+    optional int32 End_10D = 27;
+    optional int32 End_20D = 28;
+    optional int32 End_50D = 29;
+    optional int32 End_100D = 30;
+    optional int32 End_1C = 31;
+    optional int32 End_5C = 32;
+    optional int32 End_10C = 33;
+    optional int32 End_25C = 34;
+    optional int32 End_50C = 35;
+    optional int32 End_100C = 36;
+    optional double AmountStart = 37;
+    optional double AmountEnd = 38;
+    optional double AmountDifference = 39;
+    optional int32 Status = 40;
+    optional int32 DrawerNum = 41;
+    optional double End_Roll = 42;
+    optional double Start_Roll = 43;
+    optional string StartDate = 44;
+    optional string EndDate = 45;
+    optional double Difference = 46;
+    optional double CCTipAsCash = 47;
+    optional double StartEmployeeIDN = 48;
+    optional double EndEmployeeIDN = 49;
+    optional int32 DrawerInOutMethod = 50;
+    optional bool IsAutoIn = 51;
+    optional double CCTipFee = 52;
+}
+
+message JKRTDBDboSPCChargeTrans {
+    int32 IDN = 1;
+    optional int32 StoreID = 2;
+    optional int32 SyncStatus = 3;
+    optional int32 Number = 4;
+    optional string Invoice__ = 5;
+    optional string Trans_Date = 6;
+    optional string CC_Action = 7;
+    optional double Amount = 8;
+    optional double Gratuity = 9;
+    optional double Total = 10;
+    optional double Tax_Amount = 11;
+    optional string Result = 12;
+    optional string Auth = 13;
+    optional string Manual = 14;
+    optional string Station = 15;
+    optional string Processor = 16;
+    optional string Card = 17;
+    optional string Issuer = 18;
+    optional string Status = 19;
+}
+
+message JKRTDBDboQvSalesByDay {
+    optional int32 Year = 1;
+    optional int32 Month = 2;
+    optional int32 Day = 3;
+    optional double Total = 4;
+}
+
+message JKRTDBDboRBreak {
+    int32 IDN = 1;
+    optional double BreakIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional string Name = 11;
+    optional int32 MinimumMinutes = 12;
+    optional string BreakEveryHourMinute = 13;
+    optional int32 PayFirstMinutes = 14;
+    optional int32 NotifyBeforeMinutes = 15;
+    optional string NotificationEMail = 16;
+    optional double NotificationSecurityGroupIDN = 17;
+    optional bool IsSendTextMessage = 18;
+    optional bool IsSendMessage = 19;
+    optional bool IsSendEMail = 20;
+    optional bool IsPaidBreak = 21;
+    optional bool IsBreakActive = 22;
+    optional string Message = 23;
+}
+
+message JKRTDBDboRKioskCategory {
+    int32 IDN = 1;
+    optional double KioskCategoryIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional int32 ButtonColor = 11;
+    optional bool IsIconAssigned = 12;
+    optional int32 ItemButtonBaseIndex = 13;
+    optional string ItemCaptionPosition = 14;
+    optional int32 ItemColumnCount = 15;
+    optional string ItemFontName = 16;
+    optional int32 ItemFontSize = 17;
+    optional int32 ItemIconMargin = 18;
+    optional int32 ItemOrder = 19;
+    optional string ItemPriceFontName = 20;
+    optional int32 ItemPriceFontSize = 21;
+    optional string ItemPricePosition = 22;
+    optional int32 ItemRowCount = 23;
+    optional string Name = 24;
+    optional int32 ItemFontSizePrice = 25;
+}
+
+message JKRTDBDboTInvoiceStat {
+    int32 IDN = 1;
+    optional double InvoiceStatIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional double SyncIDN = 11;
+    optional double CustomerIDN = 12;
+    optional double BonusMileageUsed = 13;
+    optional double BonusMileageAdded = 14;
+    optional bool IsDone = 15;
+}
+
+message JKRTDBDboTInventoryReceive {
+    int32 IDN = 1;
+    optional double InventoryReceiveIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional double InventoryItemIDN = 11;
+    optional int32 BoxQty = 12;
+    optional int32 PackageQty = 13;
+    optional double Total = 14;
+    optional double PurchaseOrderIDN = 15;
+    optional string PONumber = 16;
+    optional int32 Qty = 17;
+}
+
+message JKRTDBDboTWeather {
+    int32 IDN = 1;
+    optional double WeatherIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional string D_city = 11;
+    optional string D_region = 12;
+    optional string D_country = 13;
+    optional int32 D_chill = 14;
+    optional string D_direction = 15;
+    optional int32 D_speed = 16;
+    optional int32 D_humidity = 17;
+    optional int32 D_visibility = 18;
+    optional int32 D_pressure = 19;
+    optional int32 D_rising = 20;
+    optional string D_sunrise = 21;
+    optional string D_sunset = 22;
+    optional string D_text = 23;
+    optional string D_day = 24;
+    optional int32 D_low = 25;
+    optional int32 D_high = 26;
+    optional int32 D_code = 27;
+    optional int32 D_temp = 28;
+    optional string Zipcode = 29;
+}
+
+message JKRTDBDboQvSalesByMonth {
+    optional int32 Year = 1;
+    optional int32 Month = 2;
+    optional double Total = 3;
+}
+
+message JKRTDBDboQtActiveItem {
+    optional string PaymentDate = 1;
+    int32 IDN = 2;
+    optional double ItemIDN = 3;
+    optional string CreateDate = 4;
+    optional double CreateUserIDN = 5;
+    optional string ModifyDate = 6;
+    optional double ModifyUserIDN = 7;
+    optional bool IsActive = 8;
+    optional int32 StoreID = 9;
+    optional int32 StationID = 10;
+    optional double ReferenceIDN = 11;
+    optional double InvoiceIDN = 12;
+    optional double Subtotal = 13;
+    optional double Balance = 14;
+    optional string Summary = 15;
+    optional double EmployeeIDN = 16;
+    optional double AdjustedPrice = 17;
+    optional double CardIDN = 18;
+    optional bool IsVoid = 19;
+    optional double PackageGroupIDN = 20;
+    optional double PackageIDN = 21;
+    optional string Memo = 22;
+    optional int32 SyncStatus = 23;
+    optional int32 Qty = 24;
+    optional bool IsPrinted = 25;
+    optional int32 SplitCount = 26;
+    optional int32 QtyAdded = 27;
+    optional double Discount = 28;
+    optional string DiscountReason = 29;
+    optional bool IsRecipeCalculated = 30;
+    optional double ItemDiscount = 31;
+    optional double SubtotalOriginal = 32;
+    optional double Tax1 = 33;
+    optional double Tax2 = 34;
+    optional double Tax3 = 35;
+    optional double Tax = 36;
+    optional bool IsCanceled = 37;
+    optional bool IsDeleted = 38;
+    optional int32 QtyActual = 39;
+    optional double Price = 40;
+    optional string GiftcardID = 41;
+    optional string AdjustedTime = 42;
+    optional bool IsSplitted = 43;
+    optional double TotalTaxable = 44;
+    optional double TotalNonTaxable = 45;
+    optional string CreateDateInvoice = 46;
+    optional string MemoPrefix = 47;
+    optional string MemoPostfix = 48;
+    optional string MemoSpecialPrice = 49;
+    optional double Total = 50;
+    optional double ShiftIDN = 51;
+    optional double GiftcardAmount = 52;
+    optional string GiftcardExpiration = 53;
+    optional double TipAmount = 54;
+    optional int32 GuestIndex = 55;
+    optional bool IsRefund = 56;
+    optional bool IsHoldKitchen = 57;
+    optional bool IsOnlineOrder = 58;
+    optional bool IsItemSplitted = 59;
+    optional double CRV = 60;
+    optional bool IsAddedAfterSplit = 61;
+    optional bool IsTimerStopped = 62;
+    optional bool IsHalf = 63;
+    optional int32 ItemOrder = 64;
+    optional string KitchenSendTime = 65;
+    optional bool IsInventoryUpdated = 66;
+    optional int32 HoldTime = 67;
+    optional string SendOn = 68;
+    optional string KDStatus = 69;
+    optional bool IsKDDone = 70;
+    optional int32 HoldStationID = 71;
+    optional bool IsTaxExempt = 72;
+    optional int32 CourseNum = 73;
+    optional double OpenPrice = 74;
+    optional int32 DispenseCount = 75;
+    optional bool IsFired = 76;
+    optional int32 KDBumpStatus = 77;
+    optional double TipItem = 78;
+}
+
+message JKRTDBDboTInvoice {
+    int32 IDN = 1;
+    optional double InvoiceIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional double CustomerIDN = 10;
+    optional double AppointmentIDN = 11;
+    optional double Subtotal = 12;
+    optional double Tax = 13;
+    optional double Discount = 14;
+    optional double Total = 15;
+    optional double Payment = 16;
+    optional double Credit = 17;
+    optional string Summary = 18;
+    optional bool IsDone = 19;
+    optional bool IsVoid = 20;
+    optional string VoidDate = 21;
+    optional double VoidUserIDN = 22;
+    optional double VoidReasonIDN = 23;
+    optional double BonusMileageUsed = 24;
+    optional double BonusMileageAdded = 25;
+    optional bool IsHold = 26;
+    optional double TipAmount = 27;
+    optional bool IsStarted = 28;
+    optional string CouponPrintList = 29;
+    optional string TypeIDC = 30;
+    optional int32 GuestNumber = 31;
+    optional string GuestName = 32;
+    optional bool IsDelivering = 33;
+    optional int32 InvoiceNumber = 34;
+    optional int32 SyncStatus = 35;
+    optional bool IsTaxExempt = 36;
+    optional bool IsSplit = 37;
+    optional string SplitTypeIDC = 38;
+    optional string DiscountReason = 39;
+    optional double ParentInvoiceIDN = 40;
+    optional int32 SplitCount = 41;
+    optional double DeliveryCharge = 42;
+    optional int32 OrderNum = 43;
+    optional int32 EditCount = 44;
+    optional double ChangeGiven = 45;
+    optional string TableNum = 46;
+    optional double ServerIDN = 47;
+    optional string VoidReason = 48;
+    optional double DeliveryUserIDN = 49;
+    optional bool IsAutoGratuityExempt = 50;
+    optional double PriceGroupIDN = 51;
+    optional double TableIDN = 52;
+    optional double Tax1 = 53;
+    optional double Tax2 = 54;
+    optional double Tax3 = 55;
+    optional bool IsOnlineOrder = 56;
+    optional double Balance = 57;
+    optional string Memo = 58;
+    optional string QuickOrderTypeIDC = 59;
+    optional bool IsCanceled = 60;
+    optional double Collected = 61;
+    optional double RoomCharge = 62;
+    optional bool IsDelivered = 63;
+    optional bool IsExtraInfoAsked = 64;
+    optional int32 SplitIndex = 65;
+    optional string TicketNumber = 66;
+    optional double TipReserved = 67;
+    optional double SplitAdjustment = 68;
+    optional bool IsCheckPrinted = 69;
+    optional bool IsContainTimedItem = 70;
+    optional double TipAutoGratuity = 71;
+    optional double SpecialPriceIDN = 72;
+    optional double VoidPaymentUserIDN = 73;
+    optional string VoidPaymentDate = 74;
+    optional double TipManual = 75;
+    optional double TipSettleAmount = 76;
+    optional string PaymentType = 77;
+    optional double PaymentUserIDN = 78;
+    optional bool IsInventoryUpdated = 79;
+    optional bool IsClosed = 80;
+    optional double ShiftIDN = 81;
+    optional string PickupTime = 82;
+    optional bool IsChain = 83;
+    optional bool IsAutoGratuity = 84;
+    optional int32 ServerTipRatio = 85;
+    optional string InternetAccessCode = 86;
+    optional bool IsKioskOrder = 87;
+    optional bool IsLabelPrinted = 88;
+    optional string PagerNumber = 89;
+    optional double TaxExemptAmount = 90;
+    optional int32 TipPercentage = 91;
+    optional int32 OnlineOrderID = 92;
+    optional string OnlineOrderTypeIDC = 93;
+    optional double ServiceChargeAutoGratuity = 94;
+    optional double ServiceChargeManual = 95;
+    optional double ServiceCharge = 96;
+    optional int32 ServiceChargePercentage = 97;
+    optional bool IsContainHoldKitchenItem = 98;
+    optional double Shift2IDN = 99;
+    optional string PaymentDate = 100;
+    optional bool IsCommissionCalculated = 101;
+    optional double DeliveryIDN = 102;
+    optional bool IsReleaseTable = 103;
+    optional double TaxAutoGratuity = 104;
+    optional double TotalNonTaxable = 105;
+    optional double TotalTaxable = 106;
+    optional double BagCharge = 107;
+    optional int32 SectionGroupID = 108;
+    optional double CCSurcharge = 109;
+    optional bool IsContainHoldTimeItem = 110;
+    optional bool IsSMSSent = 111;
+    optional bool IsKDDone = 112;
+    optional bool IsDriveThru = 113;
+    optional double DeliveryCompanyIDN = 114;
+    optional double TotalEBT = 115;
+    optional bool IsContainDeposit = 116;
+    optional double CashDiscount = 117;
+    optional bool IsExemptCCSurcharge = 118;
+    optional int32 OrderPin = 119;
+    optional double TaxCCSurcharge = 120;
+    optional double TipItem = 121;
+}
+
+message JKRTDBDboRItem {
+    int32 IDN = 1;
+    optional double ItemIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional double CategoryIDN = 10;
+    optional string Name = 11;
+    optional string Name1 = 12;
+    optional string Name2 = 13;
+    optional string Name3 = 14;
+    optional double TaxRate = 15;
+    optional double Price = 16;
+    optional string IconName = 17;
+    optional int32 ItemOrder = 18;
+    optional bool IsPackage = 19;
+    optional int32 PackageCount = 20;
+    optional bool RememberUsage = 21;
+    optional int32 Length = 22;
+    optional string UPC = 23;
+    optional int32 SyncStatus = 24;
+    optional int32 Qty = 25;
+    optional int32 UpchargeRequiredCount = 26;
+    optional bool IsGroupItems = 27;
+    optional double GroupIDN = 28;
+    optional int32 MinUpchargeQty = 29;
+    optional double PriceLunch = 30;
+    optional string NameKitchen = 31;
+    optional int32 ButtonColor = 32;
+    optional string NameButton = 33;
+    optional string NameInvoice = 34;
+    optional bool IsWeightedItem = 35;
+    optional bool IsEnabled = 36;
+    optional bool IsOpenPrice = 37;
+    optional bool IsPrintOnInvoice = 38;
+    optional bool IsTaxExempt = 39;
+    optional double TaxRate2 = 40;
+    optional double TaxRate3 = 41;
+    optional string Barcode = 42;
+    optional string KitchenPrinterAssigned = 43;
+    optional int32 KitchenPrinterNum = 44;
+    optional string KitchenMemo = 45;
+    optional bool IsPizza = 46;
+    optional string AppliedOrderType = 47;
+    optional bool IsSystem = 48;
+    optional bool IsBonusMileageEligible = 49;
+    optional bool IsSideDishOptional = 50;
+    optional string TimedInterval = 51;
+    optional int32 TimedRoundOff = 52;
+    optional int32 TimedGracePeriod = 53;
+    optional double TimedPricePerInterval = 54;
+    optional bool IsInventory = 55;
+    optional bool IsGiftcard = 56;
+    optional bool IsKaraoke = 57;
+    optional double ParentItemIDN = 58;
+    optional bool IsTaxIncluded = 59;
+    optional double TareWeight = 60;
+    optional string ImagePathKiosk = 61;
+    optional bool IsShowOnKiosk = 62;
+    optional string Recipe = 63;
+    optional string NameKiosk = 64;
+    optional bool IsInActive = 65;
+    optional bool IsCombineSides = 66;
+    optional double DepartmentIDN = 67;
+    optional string InvoiceMemo = 68;
+    optional int32 DiscountPoints = 69;
+    optional bool IsGiftCertificate = 70;
+    optional string Ingredients = 71;
+    optional bool IsAskMemo = 72;
+    optional bool IsIconAssigned = 73;
+    optional bool IsPrintOnKitchen = 74;
+    optional bool IsPrintOnOrderSheet = 75;
+    optional bool IsPrintOnReceipt = 76;
+    optional bool IsShowButtonCaption = 77;
+    optional double Label1IDN = 78;
+    optional double UpchargeLinkItemIDN = 79;
+    optional int32 OnlineItemID = 80;
+    optional double QtyMinimum = 81;
+    optional double QtyLimited = 82;
+    optional bool IsLimitedQty = 83;
+    optional int32 Priority = 84;
+    optional bool IsAskServer = 85;
+    optional bool IsHoldWhenAdded = 86;
+    optional bool AlwaysCollectTax = 87;
+    optional double CRV = 88;
+    optional bool IsCRV = 89;
+    optional bool IsExcludeFromDiscount = 90;
+    optional double TipSharingRatio = 91;
+    optional bool IsPrintSeparatelyInKitchen = 92;
+    optional bool IsPrintAllModifiersInKitchen = 93;
+    optional bool IsKaraokeIntervalRoundUp = 94;
+    optional bool IsPrintBarcode = 95;
+    optional bool IsSyncJKRetail = 96;
+    optional double SubDepartmentIDN = 97;
+    optional string Size = 98;
+    optional bool IsOpenWeight = 99;
+    optional bool IsHide = 100;
+    optional string KioskImageName = 101;
+    optional double PricePromotion = 102;
+    optional bool IsShowInKitchenDisplay = 103;
+    optional bool IsKioskImageAssigned = 104;
+    optional string Description = 105;
+    optional string Description1 = 106;
+    optional bool IsEBT = 107;
+    optional string IsTaxedByOrderType = 108;
+    optional bool IsDeposit = 109;
+    optional bool IsLiquorControlled = 110;
+    optional double VoucherPrice = 111;
+    optional int32 KDSColor = 112;
+    optional string ExtraInfoIDC = 113;
+    optional string Description2 = 114;
+    optional double ItemTagIDN = 115;
+    optional double TipRate = 116;
+    optional string TipTypeIDC = 117;
+}
+
+message JKRTDBDboTTipSharing {
+    int32 IDN = 1;
+    optional double TipSharingIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional string PaymentDate = 11;
+    optional double FromEmployeeIDN = 12;
+    optional double ToEmployeeIDN = 13;
+    optional double Amount = 14;
+}
+
+message JKRTDBDboRKioskItem {
+    int32 IDN = 1;
+    optional double KioskItemIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional int32 ButtonColor = 11;
+    optional bool IsIconAssigned = 12;
+    optional bool IsShowName = 13;
+    optional bool IsShowPrice = 14;
+    optional int32 ItemOrder = 15;
+    optional double KioskCategoryIDN = 16;
+    optional double LinkedItemIDN = 17;
+    optional string Name = 18;
+    optional string Message = 19;
+}
+
+message JKRTDBDboRDiscountGroup {
+    int32 IDN = 1;
+    optional double DiscountGroupIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional int32 ItemOrder = 11;
+    optional string Name = 12;
+}
+
+message JKRTDBDboEInvoice {
+    int32 IDN = 1;
+    optional double InvoiceIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional int32 Count = 11;
+    optional double Subtotal = 12;
+    optional double Discount = 13;
+    optional double Tax = 14;
+    optional double TipAmount = 15;
+    optional double Total = 16;
+    optional string OrderType = 17;
+    optional int32 GuestNumber = 18;
+    optional double Average = 19;
+    optional double Max = 20;
+}
+
+message JKRTDBDboTInventoryChange {
+    int32 IDN = 1;
+    optional double InventoryChangeIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional double InvoiceIDN = 11;
+    optional double InventoryItemIDN = 12;
+    optional int32 InvoiceNumber = 13;
+    optional double InventoryChangeTypeIDN = 14;
+    optional double QtyBefore = 15;
+    optional double QtyAfter = 16;
+    optional double QtyChange = 17;
+}
+
+message JKRTDBDboRGroup {
+    int32 IDN = 1;
+    optional double GroupIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional double CategoryIDN = 11;
+    optional int32 ItemOrder = 12;
+    optional string Name = 13;
+    optional int32 Color = 14;
+}
+
+message JKRTDBDboTWaiver {
+    int32 IDN = 1;
+    optional double WaiverIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional double IDTypeIDN = 11;
+    optional string IDNumber = 12;
+    optional string FirstName = 13;
+    optional string LastName = 14;
+    optional string BirthDate = 15;
+    optional string Phone = 16;
+    optional string Address = 17;
+    optional string City = 18;
+    optional string State = 19;
+    optional string Zipcode = 20;
+    optional string Country = 21;
+    optional double LinkedTableIDN = 22;
+    optional double LinkedInvoiceIDN = 23;
+    optional double LinkedMergedInvoiceIDN = 24;
+    optional int32 InvoiceNumber = 25;
+    optional string TableNumber = 26;
+    optional double CustomerIDN = 27;
+    optional string Memo = 28;
+}
+
+message JKRTDBDboSSync {
+    int32 IDN = 1;
+    optional double SyncIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional string Command = 11;
+    optional bool CSyncNow = 12;
+    optional bool CSyncMenu = 13;
+    optional bool CSyncDiscount = 14;
+    optional bool CSyncInventoryItem = 15;
+    optional string LastSyncDate = 16;
+    optional string City = 17;
+    optional string State = 18;
+    optional int32 InvoiceCount = 19;
+    optional string StoreName = 20;
+    optional string Version = 21;
+    optional int32 TimeZone = 22;
+}
+
+message JKRTDBDboSLogOnlineOrder {
+    int32 IDN = 1;
+    optional double LogOnlineOrderIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional string Log = 11;
+}
+
+message JKRTDBDboRKioskModifier {
+    int32 IDN = 1;
+    optional double KioskModifierIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional int32 ButtonColor = 11;
+    optional bool IsIconAssigned = 12;
+    optional bool IsShowName = 13;
+    optional bool IsShowPrice = 14;
+    optional int32 ItemOrder = 15;
+    optional double KioskItemIDN = 16;
+    optional double KioskModifierGroupIDN = 17;
+    optional double LinkedModifierIDN = 18;
+    optional string Name = 19;
+}
+
+message JKRTDBDboRInventoryGroup {
+    int32 IDN = 1;
+    optional double InventoryGroupIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional string Name = 11;
+    optional bool IsSystem = 12;
+}
+
+message JKRTDBDboTAlert {
+    int32 IDN = 1;
+    optional double AlertIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional double EmployeeIDN = 11;
+    optional string Description = 12;
+    optional string TableNum = 13;
+    optional int32 InvoiceNum = 14;
+    optional string OrderNum = 15;
+    optional string InvoiceDate = 16;
+    optional string Date2 = 17;
+    optional double AmountOriginal = 18;
+    optional double Amount2 = 19;
+    optional string Reason = 20;
+    optional double Percentage = 21;
+    optional double ReferenceIDN = 22;
+    optional double InvoiceIDN = 23;
+    optional double Total = 24;
+    optional double Subtotal = 25;
+    optional int32 QtyOriginal = 26;
+    optional int32 Qty = 27;
+    optional double InvoiceIDN2 = 28;
+    optional string VoidDate = 29;
+    optional string OrderType = 30;
+}
+
+message JKRTDBDboEItem {
+    int32 IDN = 1;
+    optional double ItemIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional double ReferenceIDN = 11;
+    optional int32 QtyActual = 12;
+    optional double Subtotal = 13;
+    optional double Discount = 14;
+    optional double Tax = 15;
+    optional double Total = 16;
+    optional double TotalTaxable = 17;
+    optional double TotalNonTaxable = 18;
+    optional double Average = 19;
+    optional double Max = 20;
+}
+
+message JKRTDBDboSCCTransLog {
+    int32 IDN = 1;
+    optional int32 StoreID = 2;
+    optional int32 SyncStatus = 3;
+    optional string CreateDate = 4;
+    optional int32 StationID = 5;
+    optional bool IsSuccess = 6;
+    optional int32 InvoiceNumber = 7;
+    optional double EmployeeIDN = 8;
+    optional string PaymentType = 9;
+    optional string TransType = 10;
+    optional string CCAuth = 11;
+    optional string CCResult = 12;
+    optional double Amount = 13;
+    optional int32 Duration = 14;
+    optional string Log = 15;
+}
+
+message JKRTDBDboTAccountBilling {
+    int32 IDN = 1;
+    optional double AccountBillingIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional string StartDate = 11;
+    optional string EndDate = 12;
+    optional double CustomerIDN = 13;
+}
+
+message JKRTDBDboSKitchenDisplayItem {
+    int32 IDN = 1;
+    optional int32 StoreID = 2;
+    optional int32 SyncStatus = 3;
+    optional double InvoiceIDN = 4;
+    optional double ItemIDN = 5;
+    optional string CreateDate = 6;
+    optional bool One = 7;
+    optional bool Two = 8;
+    optional bool Three = 9;
+    optional bool Four = 10;
+    optional bool Five = 11;
+    optional bool Six = 12;
+    optional bool Seven = 13;
+    optional bool Eight = 14;
+    optional bool Nine = 15;
+    optional bool One0 = 16;
+}
+
+message JKRTDBDboRKioskModifierGroup {
+    int32 IDN = 1;
+    optional double KioskModifierGroupIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional string Instruction = 11;
+    optional int32 ItemOrder = 12;
+    optional double KioskItemIDN = 13;
+    optional int32 ModifierButtonBaseIndex = 14;
+    optional string ModifierCaptionPosition = 15;
+    optional int32 ModifierColumnCount = 16;
+    optional string ModifierFontName = 17;
+    optional int32 ModifierFontSize = 18;
+    optional int32 ModifierIconMargin = 19;
+    optional string ModifierPriceFontName = 20;
+    optional int32 ModifierPriceFontSize = 21;
+    optional string ModifierPricePosition = 22;
+    optional int32 ModifierRowCount = 23;
+    optional string Name = 24;
+    optional int32 MaxItem = 25;
+    optional string Message = 26;
+}
+
+message JKRTDBDboRInventoryReceive {
+    int32 IDN = 1;
+    optional double InventoryReceiveIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional int32 BoxQty = 11;
+    optional double InventoryItemIDN = 12;
+    optional int32 PackageQty = 13;
+    optional double Total = 14;
+}
+
+message JKRTDBDboEPayment {
+    int32 IDN = 1;
+    optional double PaymentIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional double TypeIDN = 11;
+    optional double Amount = 12;
+    optional int32 Count = 13;
+    optional double TipAmount = 14;
+    optional double Average = 15;
+    optional double Max = 16;
+}
+
+message JKRTDBDboSTable {
+    int32 IDN = 1;
+    optional double TableIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional string Name = 11;
+    optional int32 ItemOrder = 12;
+    optional string Options = 13;
+    optional bool C2S = 14;
+    optional bool IsSyncAll = 15;
+    optional bool IsSyncHQ2Store = 16;
+    optional bool IsSyncStore2HQ = 17;
+    optional string ParentTable = 18;
+    optional string PrimaryKey = 19;
+    optional bool S2C = 20;
+    optional int32 TableID = 21;
+}
+
+message JKRTDBDboSGuestInternetCode {
+    int32 IDN = 1;
+    optional int32 StoreID = 2;
+    optional int32 SyncStatus = 3;
+    optional string Code = 4;
+    optional string CreateDate = 5;
+}
+
+message JKRTDBDboRMenuGroup {
+    int32 IDN = 1;
+    optional double MenuGroupIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional int32 ItemOrder = 11;
+    optional string Name = 12;
+    optional string ActiveCategories = 13;
+    optional string StartTime = 14;
+    optional string EndTime = 15;
+    optional string ActiveStations = 16;
+    optional bool IsOn = 17;
+}
+
+message JKRTDBDboTPayroll {
+    int32 IDN = 1;
+    optional double PayrollIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional string PayTypeIDC = 11;
+    optional string PayFreqIDC = 12;
+    optional string DateStart = 13;
+    optional string DateEnd = 14;
+    optional string PayDate = 15;
+    optional double Amount = 16;
+    optional double EmployeeIDN = 17;
+    optional bool IsPaid = 18;
+    optional double SalaryAmount = 19;
+    optional double HourlyAmount = 20;
+    optional string Memo = 21;
+    optional int32 TotalSeconds = 22;
+    optional string FSummary = 23;
+}
+
+message JKRTDBDboSStation {
+    int32 IDN = 1;
+    optional int32 StoreID = 2;
+    optional int32 SyncStatus = 3;
+    optional string IPAddress = 4;
+    optional string LastActiveDate = 5;
+    optional string StationName = 6;
+}
+
+message JKRTDBDboSAction {
+    int32 IDN = 1;
+    optional double ActionIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional double InvoiceIDN = 11;
+    optional int32 InvoiceNumber = 12;
+    optional string Memo = 13;
+    optional double Subtotal = 14;
+    optional double Discount = 15;
+    optional double Tax = 16;
+    optional double Total = 17;
+    optional string ComputerName = 18;
+    optional string MemoInternal = 19;
+    optional string TableNum = 20;
+}
+
+message JKRTDBDboRDepartment {
+    int32 IDN = 1;
+    optional double DepartmentIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional string Name = 11;
+    optional int32 MaxQtyPerOrder = 12;
+}
+
+message JKRTDBDboTGiftCardTrans {
+    int32 IDN = 1;
+    optional double GiftCardTransIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional double GiftcardIDN = 11;
+    optional double Amount = 12;
+    optional double Balance = 13;
+    optional string Description = 14;
+    optional double InvoiceIDN = 15;
+    optional double Used = 16;
+    optional string TypeIDC = 17;
+    optional int32 InvoiceNum = 18;
+    optional string Description1 = 19;
+}
+
+message JKRTDBDboRPriceGroup {
+    int32 IDN = 1;
+    optional double PriceGroupIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional string AppliedDays = 11;
+    optional string DateEnd = 12;
+    optional string DateStart = 13;
+    optional bool IsDefault = 14;
+    optional int32 ItemOrder = 15;
+    optional double MenuGroupIDN = 16;
+    optional string Name = 17;
+}
+
+message JKRTDBDboSEditingInvoice {
+    int32 IDN = 1;
+    optional double EditingInvoiceIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional double InvoiceIDN = 11;
+    optional string StationName = 12;
+    optional double TableIDN = 13;
+    optional double EmployeeIDN = 14;
+}
+
+message JKRTDBDboRPOItem {
+    int32 IDN = 1;
+    optional double POItemIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional string Name = 11;
+    optional string Description = 12;
+    optional string ProductNumber = 13;
+    optional string UPC = 14;
+    optional double Price = 15;
+    optional double OnHand = 16;
+    optional double MinOrderQty = 17;
+    optional double Size = 18;
+    optional double SizeUnitIDN = 19;
+    optional string FSize = 20;
+    optional double PackageSize = 21;
+    optional double PackageSizeUnitIDN = 22;
+    optional string FPackageSize = 23;
+    optional double Weight = 24;
+    optional double WeightUnitIDN = 25;
+    optional string FWeight = 26;
+    optional double CategoryIDN = 27;
+    optional double Category2IDN = 28;
+    optional double Category3IDN = 29;
+    optional double OriginIDN = 30;
+    optional double VendorIDN = 31;
+    optional double BrandIDN = 32;
+    optional double Margin = 33;
+    optional double Cost = 34;
+    optional double CasePrice = 35;
+    optional bool IsDiscontinued = 36;
+    optional string FCategory = 37;
+    optional string FCategory2 = 38;
+    optional string FCategory3 = 39;
+    optional string FOrigin = 40;
+    optional string FVendor = 41;
+    optional string FBrand = 42;
+    optional string VendorItemNumer = 43;
+    optional string FS_ubDepartment = 44;
+    optional double SubDepartmentIDN = 45;
+}
+
+message JKRTDBDboTShift {
+    int32 IDN = 1;
+    optional double ShiftIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional string Name = 11;
+    optional string StartDate = 12;
+    optional string EndDate = 13;
+    optional int32 Status = 14;
+    optional int32 ShiftID = 15;
+    optional double StartUserIDN = 16;
+    optional double EndUserIDN = 17;
+    optional string FDuration = 18;
+    optional int32 GroupID = 19;
+}
+
+message JKRTDBDboRRecipeItem {
+    int32 IDN = 1;
+    optional double RecipeItemIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional double InventoryItemIDN = 11;
+    optional double ItemIDN = 12;
+    optional int32 ItemOrder = 13;
+    optional double Qty = 14;
+    optional string Unit = 15;
+    optional double UpchargeIDN = 16;
+}
+
+message JKRTDBDboRInventoryItem {
+    int32 IDN = 1;
+    optional double InventoryItemIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional double CategoryIDN = 10;
+    optional string Name = 11;
+    optional string Name1 = 12;
+    optional string Name2 = 13;
+    optional string Name3 = 14;
+    optional double TaxRate = 15;
+    optional double Price = 16;
+    optional string IconName = 17;
+    optional int32 ItemOrder = 18;
+    optional int32 Length = 19;
+    optional string UPC = 20;
+    optional int32 Qty = 21;
+    optional int32 SyncStatus = 22;
+    optional string TypeIDC = 23;
+    optional string ItemNumber = 24;
+    optional string Size = 25;
+    optional string Unit = 26;
+    optional string BarcodeBox = 27;
+    optional string BarcodeItem = 28;
+    optional double InventoryGroupIDN = 29;
+    optional bool IsRecipeItem = 30;
+    optional int32 MinQtyBeforeReorder = 31;
+    optional double QtyNow = 32;
+    optional double QtyPerBox = 33;
+    optional double QtyPerPackage = 34;
+    optional double QtyUsed = 35;
+    optional int32 TargetQtyToReorder = 36;
+    optional double ItemIDN = 37;
+    optional string Ingredient = 38;
+    optional string Memo = 39;
+    optional double Weight = 40;
+}
+
+message JKRTDBDboRCategory {
+    int32 IDN = 1;
+    optional double CategoryIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional string Name = 10;
+    optional string Name1 = 11;
+    optional string Name2 = 12;
+    optional string Name3 = 13;
+    optional string Code = 14;
+    optional double TaxRate = 15;
+    optional string IconName = 16;
+    optional int32 ItemOrder = 17;
+    optional int32 SyncStatus = 18;
+    optional string NameButton = 19;
+    optional int32 ButtonColor = 20;
+    optional double PriceGroupIDN = 21;
+    optional double TaxRate2 = 22;
+    optional double TaxRate3 = 23;
+    optional bool IsSystem = 24;
+    optional string ImagePathKiosk = 25;
+    optional bool IsShowOnKiosk = 26;
+    optional string NameKiosk = 27;
+    optional string AvailableSpecialPrice = 28;
+    optional double TipRate = 29;
+    optional bool IsHide = 30;
+    optional string KioskImageName = 31;
+    optional bool UseBarTabFoodTax = 32;
+    optional bool IsKioskImageAssigned = 33;
+    optional double AvailableSpecialPriceIDN = 34;
+    optional bool IsOnline = 35;
+    optional bool IsTableOrder = 36;
+}
+
+message JKRTDBDboSField {
+    int32 IDN = 1;
+    optional double FieldIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional double CategoryReferenceIDN = 11;
+    optional string CategoryName = 12;
+    optional string DataType = 13;
+    optional string FieldName = 14;
+    optional string ForeignFieldName = 15;
+    optional bool IsAllowCount = 16;
+    optional bool IsAllowSum = 17;
+    optional int32 ItemOrder = 18;
+    optional string Name = 19;
+    optional double TableIDN = 20;
+    optional string TableName = 21;
+}
+
+message JKRTDBDboSTempCustomerByCategoryItemSide {
+    int32 IDN = 1;
+    optional int32 StoreID = 2;
+    optional int32 SyncStatus = 3;
+    optional string Category_Name = 4;
+    optional string Item_Name = 5;
+    optional int32 Item_Qty = 6;
+    optional double Item_Total = 7;
+    optional string Side_Name = 8;
+    optional int32 Side_Qty = 9;
+    optional double Side_Total = 10;
+    optional double ReferenceIDN = 11;
+    optional double ItemIDN = 12;
+}
+
+message JKRTDBDboTAction {
+    int32 IDN = 1;
+    optional double ActionIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional string ActionIDC = 10;
+    optional double EmployeeIDN = 11;
+    optional double CustomerIDN = 12;
+    optional double Amount = 13;
+    optional int32 SyncStatus = 14;
+    optional double InvoiceIDN = 15;
+    optional string Memo = 16;
+    optional bool IsDebug = 17;
+    optional double ReferenceIDN = 18;
+    optional string ComputerName = 19;
+    optional double ShiftIDN = 20;
+}
+
+message JKRTDBDboTAppointment {
+    int32 IDN = 1;
+    optional double AppointmentIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional double CustomerIDN = 10;
+    optional string ApptDate = 11;
+    optional string Duration = 12;
+    optional bool IsDone = 13;
+    optional int32 Status = 14;
+    optional double EmployeeIDN = 15;
+    optional string Description = 16;
+    optional double InvoiceIDN = 17;
+    optional string Memo = 18;
+    optional int32 SyncStatus = 19;
+}
+
+message JKRTDBDboRSpecialPrice {
+    int32 IDN = 1;
+    optional double SpecialPriceIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional string Name = 11;
+    optional string StartDate = 12;
+    optional string EndDate = 13;
+    optional string AppliedDay = 14;
+    optional string StartTime = 15;
+    optional string EndTime = 16;
+    optional bool IsRetainPrice = 17;
+    optional string RestrictedStationList = 18;
+    optional string AppliedOrderType = 19;
+    optional bool IsDeliveryAppOnly = 20;
+}
+
+message JKRTDBDboTUser {
+    int32 IDN = 1;
+    optional double UserIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional string UserName = 11;
+    optional string Password = 12;
+    optional double SecurityGroupIDN = 13;
+    optional string MSR = 14;
+}
+
+message JKRTDBDboTCallerID {
+    int32 IDN = 1;
+    optional double CallerIDIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional string Name = 10;
+    optional string Phone = 11;
+    optional int32 LineNum = 12;
+    optional int32 SyncStatus = 13;
+}
+
+message JKRTDBDboTCommission {
+    int32 IDN = 1;
+    optional double CommissionIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional double EmployeeIDN = 10;
+    optional double ItemIDN = 11;
+    optional double Amount = 12;
+    optional double Rate = 13;
+    optional string Unit = 14;
+    optional int32 SyncStatus = 15;
+    optional bool IsAfterDiscount = 16;
+    optional double InvoiceIDN = 17;
+}
+
+message JKRTDBDboTCredit {
+    int32 IDN = 1;
+    optional double CreditIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional double CustomerIDN = 10;
+    optional double EmployeeIDN = 11;
+    optional double Amount = 12;
+    optional string Reason = 13;
+    optional int32 SyncStatus = 14;
+}
+
+message JKRTDBDboTCustomer {
+    int32 IDN = 1;
+    optional double CustomerIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional string LastName = 10;
+    optional string FirstName = 11;
+    optional string Address = 12;
+    optional string City = 13;
+    optional string State = 14;
+    optional string Zipcode = 15;
+    optional string Phone = 16;
+    optional string EMail = 17;
+    optional string BirthDate = 18;
+    optional string MemberID = 19;
+    optional double BonusAmount = 20;
+    optional double CreditAmount = 21;
+    optional string Memo = 22;
+    optional string InvoiceMemo = 23;
+    optional string FName = 24;
+    optional string FPhone = 25;
+    optional string FAddress = 26;
+    optional string Options = 27;
+    optional string FBirthday = 28;
+    optional double BonusAdjustment = 29;
+    optional string Phone2 = 30;
+    optional string Phone3 = 31;
+    optional bool SendApptReminderEmail = 32;
+    optional int32 SyncStatus = 33;
+    optional string APT = 34;
+    optional string CompanyName = 35;
+    optional string PhoneExt = 36;
+    optional double DeliveryCharge = 37;
+    optional bool IsAccount = 38;
+    optional double AccountBalance = 39;
+    optional int32 DiscountPoints = 40;
+    optional string LastDateDiscountPointAdded = 41;
+    optional string DeliveryInstruction = 42;
+    optional string MembershipBeginDate = 43;
+    optional string MembershipEndDate = 44;
+    optional double DiscountIDN = 45;
+    optional string DiscountBeginDate = 46;
+    optional string DiscountEndDate = 47;
+    optional bool IsBillToAccount = 48;
+    optional double BillToCustomerIDN = 49;
+    optional bool IsConsented = 50;
+    optional double BonusPrinted = 51;
+    optional int32 OnlineCustomerID = 52;
+    optional bool IsRestricted = 53;
+}
+
+message JKRMDBDboSZipcode {
+    optional string AreaCode = 1;
+    optional string State = 2;
+    optional string City = 3;
+    optional string Zipcode = 4;
+}
+
+message JKRMDBDboSAction {
+    int32 IDN = 1;
+    optional double ActionIDN = 2;
+    optional string CreateDate = 3;
+    optional double CreateUserIDN = 4;
+    optional string ModifyDate = 5;
+    optional double ModifyUserIDN = 6;
+    optional bool IsActive = 7;
+    optional int32 StoreID = 8;
+    optional int32 StationID = 9;
+    optional int32 SyncStatus = 10;
+    optional double InvoiceIDN = 11;
+    optional int32 InvoiceNumber = 12;
+    optional string Memo = 13;
+    optional double Subtotal = 14;
+    optional double Discount = 15;
+    optional double Tax = 16;
+    optional double Total = 17;
+    optional string ComputerName = 18;
+    optional string MemoInternal = 19;
+    optional string TableNum = 20;
+}
+
+message JKRMDBDboDtproperties {
+    int32 Id = 1;
+    optional int32 Objectid = 2;
+    string Property = 3;
+    optional string Value = 4;
+    optional string Uvalue = 5;
+    optional bytes Lvalue = 6;
+    int32 Version = 7;
+}

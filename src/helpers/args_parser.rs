@@ -1,3 +1,4 @@
+use crate::helpers::config::{STRUCT_FILE_NAME, STRUCT_PROTO_FILE_NAME};
 use clap::{Parser, ValueEnum};
 
 #[derive(Parser)] // requires `derive` feature
@@ -56,9 +57,15 @@ pub struct Cli {
 
     #[arg(
         value_name = "PATH",
-        help = "The path to the file to execute.\n- Defaults to struct.rs"
+        help = format!("The path to the rs file to execute.\n- Defaults to {}", STRUCT_FILE_NAME)
     )]
     pub path: Option<String>,
+
+    #[arg(
+        value_name = "PROTO PATH",
+        help = format!("The path to the proto file to execute.\n- Defaults to {}", STRUCT_PROTO_FILE_NAME)
+    )]
+    pub proto_path: Option<String>,
 }
 
 /// Doc comment

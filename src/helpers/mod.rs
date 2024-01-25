@@ -1,7 +1,10 @@
 pub mod args_parser;
+pub mod auth_handler;
 pub mod common;
+pub mod config;
 pub mod get_database_tables;
 pub mod get_table_schema;
+pub mod proto_file_writer;
+pub mod rs_file_writer;
 pub mod strucks;
 pub mod traits;
-pub mod win_auth;

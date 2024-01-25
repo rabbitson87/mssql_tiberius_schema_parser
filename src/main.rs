@@ -1,6 +1,6 @@
-use crate::helpers::args_parser::{AuthType, Cli};
+use crate::helpers::args_parser::Cli;
 use clap::Parser;
-use helpers::win_auth::win_auth;
+use helpers::auth_handler::auth_handler;
 
 mod helpers;
 
@@ -8,10 +8,7 @@ mod helpers;
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args = Cli::parse();
 
-    match args._type {
-        AuthType::WinAuth => win_auth(args).await?,
-        AuthType::ServerAuth => println!("SQL Authentication"),
-    }
+    auth_handler(args).await?;
 
     Ok(())
 }
