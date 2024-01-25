@@ -3,11 +3,11 @@ Generates the schema of all tables in mssql as a structure.
 
 # How to use
 cargo install mssql_tiberius_schema_parser
-mssql_tiberius_schema_parser [OPTIONS] -u <USER> -p <PASSWORD> -t <TYPE> [HOST] [PORT] [PATH]  
+mssql_tiberius_schema_parser [OPTIONS] -u <USER> -p <PASSWORD> -t <TYPE> [HOST] [PORT] [PATH] [PROTO PATH]     
 
 Arguments:
   [HOST]
-          A host or ip address to connect to.        
+          A host or ip address to connect to.
           - Defaults to `localhost`
 
   [PORT]
@@ -15,8 +15,12 @@ Arguments:
           - Defaults to `61363`
 
   [PATH]
-          The path to the file to execute.
-          - Defaults to struct.rs
+          The path to the rs file to execute.
+          - Defaults to structs.rs
+
+  [PROTO PATH]
+          The path to the proto file to execute.
+          - Defaults to structs.proto
 
 Options:
   -d <DATABASE>
@@ -25,12 +29,12 @@ Options:
 
   -a <APPLICATION NAME>
           Sets the application name to the connection,
-          queryable with the `APP_NAME()` command.   
+          queryable with the `APP_NAME()` command.
           - Defaults to no name specified.
 
   -i <INSTANCE NAME>
           The instance name as defined in the SQL Browser.
-          Only available on Windows platforms.       
+          Only available on Windows platforms.
           If specified, the port is replaced with the value returned from the browser.
           If you write win_auth, please write down except the computer name
           - Required for win_auth
@@ -50,11 +54,11 @@ Options:
           - Required
 
           Possible values:
-          - win_auth:    Use Windows Authentication  
+          - win_auth:    Use Windows Authentication
           - server_auth: Use SQL Server Authentication
 
   -h, --help
-          Print help (see a summary with '-h')       
+          Print help (see a summary with '-h')
 
   -V, --version
           Print version
