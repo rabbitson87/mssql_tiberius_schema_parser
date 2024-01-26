@@ -3,26 +3,17 @@ Generates the schema of all tables in mssql as a structure.
 
 # How to use
 cargo install mssql_tiberius_schema_parser
-mssql_tiberius_schema_parser [OPTIONS] -u <USER> -p <PASSWORD> -t <TYPE> [HOST] [PORT] [PATH] [PROTO PATH]     
+mssql_tiberius_schema_parser.exe [OPTIONS] -u <USER> -p <PASSWORD> -t <TYPE>
 
-Arguments:
-  [HOST]
+Options:
+      --host <HOST>
           A host or ip address to connect to.
           - Defaults to `localhost`
 
-  [PORT]
+      --port <PORT>
           The server port.
           - Defaults to `61363`
 
-  [PATH]
-          The path to the rs file to execute.
-          - Defaults to structs.rs
-
-  [PROTO PATH]
-          The path to the proto file to execute.
-          - Defaults to structs.proto
-
-Options:
   -d <DATABASE>
           The database to connect to.
           - Defaults to `master`
@@ -56,6 +47,22 @@ Options:
           Possible values:
           - win_auth:    Use Windows Authentication
           - server_auth: Use SQL Server Authentication
+
+      --use_proto_parser
+          Use date time to string. add cli option with --use_proto_parser.
+          - Defaults to false
+
+      --use_split_file
+          Use split file. add cli option with --use_split_file.
+          - Defaults to false
+
+      --path <PATH>
+          The path to the rs file to execute.
+          - Defaults to structs.rs
+
+      --proto_path <PROTO PATH>
+          The path to the proto file to execute.
+          - Defaults to structs.proto
 
   -h, --help
           Print help (see a summary with '-h')

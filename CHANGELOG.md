@@ -1,3 +1,7 @@
+## 0.3.2+1
+
+- Fixed read me file for execution cli.
+
 ## 0.3.2
 
 - Fixed string parsing error in to_dart function for [rinf](https://github.com/cunarist/rinf) adapter.
