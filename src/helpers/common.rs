@@ -18,7 +18,7 @@ pub fn convert_text_first_char_to_uppercase(text: &str) -> String {
 
 pub fn convert_text_to_all_lowercase_snake_case(text: &str) -> String {
     let mut result = String::new();
-    let mut is_uppercase = false;
+    let mut is_uppercase = true;
     let mut is_first = true;
     for cha in text.chars() {
         if is_first {
@@ -31,9 +31,11 @@ pub fn convert_text_to_all_lowercase_snake_case(text: &str) -> String {
                 }
                 result.push_str(&cha.to_lowercase().to_string());
                 is_uppercase = true;
-            }
-            if cha.is_lowercase() {
+            } else if cha.is_lowercase() {
                 result.push(cha);
+                is_uppercase = false;
+            } else {
+                result.push_str(&cha.to_string());
                 is_uppercase = false;
             }
         }
@@ -87,7 +89,6 @@ pub async fn write_files(
         .keys()
         .find(|file_name| file_name.split("/").count() > 1);
 
-    print!("first_path: {:?}\n", first_path);
     if first_path.is_some() {
         let folder_path = first_path
             .unwrap()
@@ -101,7 +102,6 @@ pub async fn write_files(
                     },
                 }
             });
-        print!("folder_path: {:?}\n", folder_path);
         tokio::fs::create_dir_all(folder_path).await?;
     }
 
@@ -109,7 +109,6 @@ pub async fn write_files(
         let tx_copy = tx.clone();
         tokio::spawn(async move {
             let result = tokio::fs::File::create(file_name).await?;
-            print!("file result: {:?}\n", result);
             let mut writer: tokio::io::BufWriter<tokio::fs::File> =
                 tokio::io::BufWriter::new(result);
             writer.write_all(file.as_bytes()).await?;

@@ -83,11 +83,22 @@ pub async fn rs_split_file_writer(
             );
             for column in &table.columns {
                 let column_name = get_column_name(column);
+                let data_type = match column.data_type.as_str() {
+                    "datetime" => ".to_rfc3339()",
+                    "real" => " as f64",
+                    "tinyint" => " as i32",
+                    "smallint" => " as i32",
+                    _ => "",
+                };
+
                 file.push_str(
                     format!(
-                        "            {}: self.{},\n",
+                        "            {}: {},\n",
                         convert_text_to_all_lowercase_snake_case(&column_name),
-                        column_name
+                        match column.is_nullable.as_str() == "YES" {
+                            true => format!("Some(self.{}.unwrap(){})", column_name, data_type),
+                            false => format!("self.{}{}", column_name, data_type),
+                        }
                     )
                     .as_str(),
                 );
@@ -104,7 +115,6 @@ pub async fn rs_split_file_writer(
         let current_path = current_path.replacen("\"", "", 2);
         let current_path = format!("{}\\sample\\{}.rs", current_path, file_name);
         let current_path = current_path.replacen("\\", "/", current_path.len());
-        print!("current_path22: {:?}\n", &current_path);
         file_list.insert(current_path, file);
     }
     write_files(file_list).await?;

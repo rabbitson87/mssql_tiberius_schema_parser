@@ -1,3 +1,7 @@
+## 0.3.1
+
+- Fixed Customize with [rinf](https://github.com/cunarist/rinf) only adapter that associates with the proto file in the struct file.
+
 ## 0.3.0
 
 - Now `mssql_tiberius_schema_parser` can be divided into a single file or table reference files.

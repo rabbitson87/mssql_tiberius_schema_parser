@@ -58,6 +58,24 @@ pub async fn proto_split_file_writer(
         let (table_name, _, file_name) = get_table_names(table);
         let mut file: String = format!("syntax = \"proto3\";\npackage {};\n\n", file_name);
 
+        file.push_str(
+            format!(
+                "// [RINF:DART-SIGNAL]\nmessage {}Input {}",
+                table_name, "{}\n\n"
+            )
+            .as_str(),
+        );
+
+        file.push_str(
+            format!(
+                "// [RINF:RUST-SIGNAL]\nmessage {}Output {}",
+                table_name, "{\n"
+            )
+            .as_str(),
+        );
+        file.push_str(format!("    repeated {} {} = 1;\n", table_name, table_name).as_str());
+        file.push_str("}\n\n");
+
         file.push_str(make_message(table_name.as_str(), table).as_str());
         file.pop();
 
@@ -65,7 +83,6 @@ pub async fn proto_split_file_writer(
         let current_path = current_path.replacen("\"", "", 2);
         let current_path = format!("{}\\sample\\{}.proto", current_path, file_name);
         let current_path = current_path.replacen("\\", "/", current_path.len());
-        print!("current_path22: {:?}\n", &current_path);
         file_list.insert(current_path, file);
     }
     write_files(file_list).await?;
