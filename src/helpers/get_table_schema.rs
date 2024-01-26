@@ -15,7 +15,14 @@ where
         for column in &select_parser.columns {
             let row_data = row.get(index).unwrap();
             if let ColumnData::String(Some(data)) = row_data {
-                json.push_str(format!("\"{}\": \"{}\"", column.name(), data).as_str());
+                json.push_str(
+                    format!(
+                        "\"{}\": \"{}\"",
+                        column.name(),
+                        data.replacen("\"", "\\\"", data.len())
+                    )
+                    .as_str(),
+                );
             } else if let ColumnData::I32(Some(data)) = row_data {
                 json.push_str(format!("\"{}\": {}", column.name(), data.to_string()).as_str());
             } else if let ColumnData::I16(Some(data)) = row_data {

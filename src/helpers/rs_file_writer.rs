@@ -97,13 +97,17 @@ pub async fn rs_split_file_writer(
                         convert_text_to_all_lowercase_snake_case(&column_name),
                         match column.is_nullable.as_str() == "YES" {
                             true => match column.data_type.as_str() {
-                                "ntext" =>
-                                    format!("Some(self.{}.as_deref().unwrap().into())", column_name),
-                                "nvarchar" =>
-                                format!("Some(self.{}.as_deref().unwrap().into())", column_name),
-                                "text" =>
-                                format!("Some(self.{}.as_deref().unwrap().into())", column_name),
-                                _ => format!("Some(self.{}.unwrap(){})", column_name, data_type),
+                                "ntext" => make_string_matcher(&column_name),
+                                "nvarchar" => make_string_matcher(&column_name),
+                                "text" => make_string_matcher(&column_name),
+                                "datetime" => make_matcher(
+                                    format!("Some(Into::into(&*value{}))", data_type).as_str(),
+                                    &column_name
+                                ),
+                                "real" => make_number_matcher(&column_name, data_type),
+                                "tinyint" => make_number_matcher(&column_name, data_type),
+                                "smallint" => make_number_matcher(&column_name, data_type),
+                                _ => format!("self.{}{}", column_name, data_type),
                             },
                             false => format!("self.{}{}", column_name, data_type),
                         }
@@ -128,6 +132,25 @@ pub async fn rs_split_file_writer(
     write_files(file_list).await?;
 
     Ok(())
+}
+
+fn make_string_matcher(column_name: &str) -> String {
+    make_matcher("Some(value.into())", &column_name)
+}
+
+fn make_number_matcher(column_name: &str, data_type: &str) -> String {
+    make_matcher(format!("Some(*value{})", data_type).as_str(), &column_name)
+}
+
+fn make_matcher(some_text: &str, column_name: &str) -> String {
+    format!(
+        "match &self.{} {}{}{}{}",
+        &column_name,
+        "{\n",
+        "                Some(value) => ",
+        some_text,
+        ",\n                None => None,\n            }"
+    )
 }
 
 fn make_struct(table_name: &str, table: &Table) -> String {

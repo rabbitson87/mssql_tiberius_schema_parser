@@ -1,3 +1,7 @@
+## 0.3.3
+
+- Fixed option parser error in to_dart function for [rinf](https://github.com/cunarist/rinf) adapter.
+
 ## 0.3.2+1
 
 - Fixed read me file for execution cli.

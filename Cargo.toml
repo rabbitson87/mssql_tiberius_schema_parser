@@ -1,6 +1,6 @@
 [package]
 name = "mssql_tiberius_schema_parser"
-version = "0.3.2+1"
+version = "0.3.3"
 edition = "2021"
 readme = "README.md"
 license = "MIT"
