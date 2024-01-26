@@ -5,12 +5,17 @@ use clap::{Parser, ValueEnum};
 #[command(author, version = env!("CARGO_PKG_VERSION"), about, long_about = None)]
 pub struct Cli {
     #[arg(
+        long = "host",
         value_name = "HOST",
         help = "A host or ip address to connect to.\n- Defaults to `localhost`"
     )]
     pub host: Option<String>,
 
-    #[arg(value_name = "PORT", help = "The server port.\n- Defaults to `61363`")]
+    #[arg(
+        long = "port",
+        value_name = "PORT",
+        help = "The server port.\n- Defaults to `61363`"
+    )]
     pub port: Option<u16>,
 
     #[arg(
@@ -56,12 +61,30 @@ pub struct Cli {
     pub _type: AuthType,
 
     #[arg(
+        long = "use_proto_parser",
+        value_name = "USE PROTO PARSER",
+        help = "Use date time to string. add cli option with --use_proto_parser.\n- Defaults to false",
+        default_value = "false"
+    )]
+    pub use_proto_parser: bool,
+
+    #[arg(
+        long = "use_split_file",
+        value_name = "USE SPLIT FILE",
+        help = "Use split file. add cli option with --use_split_file.\n- Defaults to false",
+        default_value = "false"
+    )]
+    pub use_split_file: bool,
+
+    #[arg(
+        long = "path",
         value_name = "PATH",
         help = format!("The path to the rs file to execute.\n- Defaults to {}", STRUCT_FILE_NAME)
     )]
     pub path: Option<String>,
 
     #[arg(
+        long = "proto_path",
         value_name = "PROTO PATH",
         help = format!("The path to the proto file to execute.\n- Defaults to {}", STRUCT_PROTO_FILE_NAME)
     )]

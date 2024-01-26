@@ -107,9 +107,6 @@ pub async fn auth_handler(args: Cli) -> Result<(), Box<dyn std::error::Error>> {
     drop(tx);
 
     let mut table_list: Vec<Table> = vec![];
-    let mut use_date_time = false;
-    let mut use_date_time_option = false;
-    let mut use_date_time_real = false;
     while let Some((tables, columns)) = rx.recv().await {
         let table_names = get_table_schema::<TableName>(tables);
         let column_names = get_table_schema::<ColumnName>(columns);
@@ -123,21 +120,6 @@ pub async fn auth_handler(args: Cli) -> Result<(), Box<dyn std::error::Error>> {
                 if &table_name.table_name == &column_name.table_name {
                     table.columns.push(column_name.clone());
                 }
-                if column_name.data_type == "datetime" && !use_date_time {
-                    use_date_time = true;
-                }
-                if column_name.data_type == "datetime"
-                    && column_name.is_nullable == "NO"
-                    && !use_date_time_real
-                {
-                    use_date_time_real = true;
-                }
-                if column_name.data_type == "datetime"
-                    && column_name.is_nullable == "YES"
-                    && !use_date_time_option
-                {
-                    use_date_time_option = true;
-                }
             });
             table_list.push(table);
         }
@@ -145,13 +127,12 @@ pub async fn auth_handler(args: Cli) -> Result<(), Box<dyn std::error::Error>> {
 
     rs_file_writer(
         &args.path,
+        args.use_proto_parser,
+        args.use_split_file,
         &table_list,
-        use_date_time,
-        use_date_time_option,
-        use_date_time_real,
     )
     .await?;
 
-    proto_file_writer(&args.proto_path, &table_list).await?;
+    proto_file_writer(&args.proto_path, args.use_split_file, &table_list).await?;
     Ok(())
 }

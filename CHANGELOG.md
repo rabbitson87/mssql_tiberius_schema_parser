@@ -1,3 +1,7 @@
+## 0.3.0
+
+- Now `mssql_tiberius_schema_parser` can be divided into a single file or table reference files.
+
 ## 0.2.2
 
 - Fixed change struct to pub struct for sharing.
