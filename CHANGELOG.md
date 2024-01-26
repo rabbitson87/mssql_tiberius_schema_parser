@@ -1,3 +1,7 @@
+## 0.3.2
+
+- Fixed string parsing error in to_dart function for [rinf](https://github.com/cunarist/rinf) adapter.
+
 ## 0.3.1
 
 - Fixed Customize with [rinf](https://github.com/cunarist/rinf) only adapter that associates with the proto file in the struct file.

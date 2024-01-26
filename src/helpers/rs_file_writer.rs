@@ -96,7 +96,15 @@ pub async fn rs_split_file_writer(
                         "            {}: {},\n",
                         convert_text_to_all_lowercase_snake_case(&column_name),
                         match column.is_nullable.as_str() == "YES" {
-                            true => format!("Some(self.{}.unwrap(){})", column_name, data_type),
+                            true => match column.data_type.as_str() {
+                                "ntext" =>
+                                    format!("Some(self.{}.as_deref().unwrap().into())", column_name),
+                                "nvarchar" =>
+                                format!("Some(self.{}.as_deref().unwrap().into())", column_name),
+                                "text" =>
+                                format!("Some(self.{}.as_deref().unwrap().into())", column_name),
+                                _ => format!("Some(self.{}.unwrap(){})", column_name, data_type),
+                            },
                             false => format!("self.{}{}", column_name, data_type),
                         }
                     )
