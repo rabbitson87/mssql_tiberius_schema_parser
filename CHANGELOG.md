@@ -1,3 +1,7 @@
+## 0.3.4
+
+- Fixed fot get_table_schema function, update dependency.
+
 ## 0.3.3
 
 - Fixed option parser error in to_dart function for [rinf](https://github.com/cunarist/rinf) adapter.

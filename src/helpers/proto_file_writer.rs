@@ -157,9 +157,9 @@ fn make_message(table_name: &str, table: &Table) -> String {
         file.push_str(
             format!(
                 "    {} {} = {};\n",
-                match column.is_nullable.as_str() {
-                    "YES" => format!("optional {}", data_type),
-                    _ => data_type.into(),
+                match column.is_nullable.as_str() == "YES" {
+                    true => format!("optional {}", data_type),
+                    false => data_type.into(),
                 },
                 column_name,
                 column_index

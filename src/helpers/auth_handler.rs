@@ -108,8 +108,8 @@ pub async fn auth_handler(args: Cli) -> Result<(), Box<dyn std::error::Error>> {
 
     let mut table_list: Vec<Table> = vec![];
     while let Some((tables, columns)) = rx.recv().await {
-        let table_names = get_table_schema::<TableName>(tables);
-        let column_names = get_table_schema::<ColumnName>(columns);
+        let table_names = get_table_schema::<TableName>(&tables);
+        let column_names = get_table_schema::<ColumnName>(&columns);
 
         for table_name in table_names {
             let mut table = Table {

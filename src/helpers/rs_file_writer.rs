@@ -189,9 +189,9 @@ fn make_struct(table_name: &str, table: &Table) -> String {
             format!(
                 "    pub {}: {},\n",
                 column_name,
-                match column.is_nullable.as_str() {
-                    "YES" => format!("Option<{}>", data_type),
-                    _ => data_type.into(),
+                match column.is_nullable.as_str() == "YES" {
+                    true => format!("Option<{}>", data_type),
+                    false => data_type.into(),
                 }
             )
             .as_str(),
