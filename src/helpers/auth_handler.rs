@@ -21,16 +21,18 @@ pub async fn auth_handler(args: Cli) -> Result<(), Box<dyn std::error::Error>> {
     let mut config = Config::new();
     let hostname = gethostname();
 
-    config.authentication(match args._type {
-        AuthType::ServerAuth => AuthMethod::sql_server(
-            format!("{:?}\\{}", hostname, args.user.as_str()),
-            args.password.as_str(),
-        ),
-        AuthType::WinAuth => AuthMethod::windows(
-            format!("{:?}\\{}", hostname, args.user.as_str()),
-            args.password.as_str(),
-        ),
-    });
+    match args._type {
+        AuthType::WinAuth => {
+            config.authentication(AuthMethod::windows(
+                format!("{:?}\\{}", hostname, args.user),
+                &args.password,
+            ));
+        }
+        AuthType::ServerAuth => {
+            config.authentication(AuthMethod::sql_server(&args.user, &args.password));
+        }
+    }
+
     if args.instance_name.is_none() {
         return Err("instance_name is required")?;
     }

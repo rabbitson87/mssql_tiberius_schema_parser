@@ -1,6 +1,10 @@
+## 0.3.5
+
+- Fixed connect for server_auth.
+
 ## 0.3.4
 
-- Fixed fot get_table_schema function, update dependency.
+- Fixed for get_table_schema function, update dependency.
 
 ## 0.3.3
 

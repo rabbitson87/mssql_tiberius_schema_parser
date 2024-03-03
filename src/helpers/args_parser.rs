@@ -1,7 +1,7 @@
 use crate::helpers::config::{STRUCT_FILE_NAME, STRUCT_PROTO_FILE_NAME};
 use clap::{Parser, ValueEnum};
 
-#[derive(Parser)] // requires `derive` feature
+#[derive(Parser, Debug)] // requires `derive` feature
 #[command(author, version = env!("CARGO_PKG_VERSION"), about, long_about = None)]
 pub struct Cli {
     #[arg(
