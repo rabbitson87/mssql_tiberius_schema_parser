@@ -1,3 +1,7 @@
+## 0.3.6
+
+- Fixed add character is "\" for an open character string.
+
 ## 0.3.5
 
 - Fixed connect for server_auth.

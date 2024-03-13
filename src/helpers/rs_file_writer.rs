@@ -135,7 +135,16 @@ pub async fn rs_split_file_writer(
 }
 
 fn make_string_matcher(column_name: &str) -> String {
-    make_matcher("Some(value.into())", &column_name)
+    make_matcher(
+        r#"Some(
+                    value.replace("\"", "\\\"")
+                        .replace("\n", "\\\\n")
+                        .replace("\r", "\\\\r")
+                        .replace("\t", "\\\\t")
+                        .into()
+                )"#,
+        &column_name,
+    )
 }
 
 fn make_number_matcher(column_name: &str, data_type: &str) -> String {

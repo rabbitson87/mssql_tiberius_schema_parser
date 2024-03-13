@@ -20,7 +20,10 @@ where
                     format!(
                         "\"{}\": \"{}\"",
                         column.name(),
-                        data.replacen("\"", "\\\"", data.len())
+                        data.replace("\"", "\\\"")
+                            .replace("\n", "\\\\n")
+                            .replace("\r", "\\\\r")
+                            .replace("\t", "\\\\t"),
                     )
                     .as_str(),
                 );
