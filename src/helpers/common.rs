@@ -1,7 +1,3 @@
-pub fn get_static_str(text: String) -> &'static str {
-    Box::leak(text.into_boxed_str())
-}
-
 pub fn convert_text_first_char_to_uppercase(text: &str) -> String {
     let mut result = String::new();
     let mut first_char = true;

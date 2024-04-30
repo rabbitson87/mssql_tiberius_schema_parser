@@ -3,9 +3,7 @@ use std::{collections::HashMap, env};
 use tokio::{fs::File, io::AsyncWriteExt};
 
 use crate::helpers::{
-    common::{convert_text_first_char_to_uppercase, get_static_str},
-    config::STRUCT_FILE_NAME,
-    strucks::Table,
+    common::convert_text_first_char_to_uppercase, config::STRUCT_FILE_NAME, strucks::Table,
 };
 
 use super::{
@@ -238,10 +236,10 @@ fn get_column_name(column: &ColumnName) -> String {
 
             column.column_name.chars().for_each(|c| {
                 let char_item = match !c.is_ascii_alphabetic() {
-                    true => "_",
-                    false => get_static_str(c.to_string()),
+                    true => "_".into(),
+                    false => c.to_string(),
                 };
-                column_name.push_str(char_item);
+                column_name.push_str(char_item.as_str());
             });
             convert_text_first_char_to_uppercase(column_name.as_str())
         }

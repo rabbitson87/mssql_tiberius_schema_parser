@@ -16,36 +16,28 @@ pub async fn get_database_tables<'a>(
 ) -> Result<(), Box<dyn std::error::Error>> {
     let mut client = client.lock().await;
     let tables = client
-        .query(
-            format!(
-                "SELECT
+        .simple_query(format!(
+            "SELECT
                 *
             FROM
             {}.INFORMATION_SCHEMA.TABLES
             ",
-                database_name
-            )
-            .as_str(),
-            &[],
-        )
+            database_name
+        ))
         .await?
         .into_results()
         .await?
         .select_parser();
 
     let columns = client
-        .query(
-            format!(
-                "SELECT
+        .simple_query(format!(
+            "SELECT
                 *
             FROM
             {}.INFORMATION_SCHEMA.COLUMNS
             ",
-                database_name
-            )
-            .as_str(),
-            &[],
-        )
+            database_name
+        ))
         .await?
         .into_results()
         .await?

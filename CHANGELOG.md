@@ -1,3 +1,7 @@
+## 0.3.7
+
+- Fixed add numeric case for selectParser to parse json.
+
 ## 0.3.6
 
 - Fixed add character is "\" for an open character string.

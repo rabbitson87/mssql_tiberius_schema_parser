@@ -3,7 +3,7 @@ use std::sync::Arc;
 use crate::helpers::{
     args_parser::{AuthType, Cli},
     get_database_tables::get_database_tables,
-    get_table_schema::get_table_schema,
+    get_table_schema::GetTableSchema,
     proto_file_writer::proto_file_writer,
     rs_file_writer::rs_file_writer,
     strucks::{ColumnName, Table, TableName},
@@ -110,8 +110,8 @@ pub async fn auth_handler(args: Cli) -> Result<(), Box<dyn std::error::Error>> {
 
     let mut table_list: Vec<Table> = vec![];
     while let Some((tables, columns)) = rx.recv().await {
-        let table_names = get_table_schema::<TableName>(&tables);
-        let column_names = get_table_schema::<ColumnName>(&columns);
+        let table_names = tables.get_table_schema::<TableName>();
+        let column_names = columns.get_table_schema::<ColumnName>();
 
         for table_name in table_names {
             let mut table = Table {
