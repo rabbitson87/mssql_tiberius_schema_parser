@@ -59,6 +59,22 @@ impl GetTableSchema for SelectParser<'_> {
                     json.push_str(
                         format!("\"{}\": {}", column.name(), date.timestamp().to_string()).as_str(),
                     );
+                } else if let ColumnData::DateTimeOffset(Some(data)) = row_data {
+                    let seconds = (data.datetime2().time().increments() as i64)
+                        / i64::pow(10, data.datetime2().time().scale() as u32);
+                    let milliseconds = ((data.datetime2().time().increments() as i64)
+                        % i64::pow(10, data.datetime2().time().scale() as u32))
+                        * 1000;
+                    let date = DateTime::from_timestamp(
+                        (data.datetime2().date().days() as i64) * 24 * 60 * 60
+                            - (get_days_from_years(1969) * 24 * 60 * 60)
+                            + seconds,
+                        milliseconds as u32,
+                    )
+                    .unwrap();
+                    json.push_str(
+                        format!("\"{}\": {}", column.name(), date.timestamp().to_string()).as_str(),
+                    );
                 } else if let ColumnData::Bit(data) = row_data {
                     json.push_str(
                         format!(
@@ -91,4 +107,12 @@ impl GetTableSchema for SelectParser<'_> {
         });
         select_list
     }
+}
+
+pub fn get_days_from_years(years: i64) -> i64 {
+    let mut days = years * 365;
+    days += years.div_euclid(4);
+    days -= years.div_euclid(100);
+    days += years.div_euclid(400);
+    days
 }

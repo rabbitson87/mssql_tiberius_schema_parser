@@ -1,3 +1,7 @@
+## 0.3.8
+
+- Fixed add DateTimeOffset case for ColumnData to parse.
+
 ## 0.3.7
 
 - Fixed add numeric case for selectParser to parse json.
