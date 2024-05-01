@@ -1,3 +1,7 @@
+## 0.3.9
+
+- Fixed parse for DateTimeOffset with milliseconds.
+
 ## 0.3.8
 
 - Fixed add DateTimeOffset case for ColumnData to parse.

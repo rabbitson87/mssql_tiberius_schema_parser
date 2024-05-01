@@ -64,7 +64,8 @@ impl GetTableSchema for SelectParser<'_> {
                         / i64::pow(10, data.datetime2().time().scale() as u32);
                     let milliseconds = ((data.datetime2().time().increments() as i64)
                         % i64::pow(10, data.datetime2().time().scale() as u32))
-                        * 1000;
+                        * 100;
+                    let milliseconds = milliseconds - milliseconds % 1000;
                     let date = DateTime::from_timestamp(
                         (data.datetime2().date().days() as i64) * 24 * 60 * 60
                             - (get_days_from_years(1969) * 24 * 60 * 60)
