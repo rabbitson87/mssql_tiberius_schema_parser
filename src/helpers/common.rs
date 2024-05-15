@@ -85,11 +85,9 @@ pub async fn write_files(
         .keys()
         .find(|file_name| file_name.split("/").count() > 1);
 
-    if first_path.is_some() {
-        let folder_path = first_path
-            .unwrap()
-            .split("/")
-            .fold(String::new(), |acc, x| {
+    match first_path {
+        Some(path) => {
+            let folder_path = path.split("/").fold(String::new(), |acc, x| {
                 match x.contains(".") || x.is_empty() {
                     true => acc,
                     false => match acc.is_empty() {
@@ -98,7 +96,11 @@ pub async fn write_files(
                     },
                 }
             });
-        tokio::fs::create_dir_all(folder_path).await?;
+            tokio::fs::create_dir_all(folder_path).await?;
+        }
+        None => {
+            return Err("No file path found".into());
+        }
     }
 
     for (file_name, file) in file_list {

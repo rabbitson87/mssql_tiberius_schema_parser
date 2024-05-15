@@ -33,10 +33,14 @@ pub async fn auth_handler(args: Cli) -> Result<(), Box<dyn std::error::Error>> {
         }
     }
 
-    if args.instance_name.is_none() {
-        return Err("instance_name is required")?;
+    match args.instance_name {
+        Some(instance_name) => {
+            config.instance_name(format!("{:?}\\{}", hostname, instance_name));
+        }
+        None => {
+            return Err("instance_name is required")?;
+        }
     }
-    config.instance_name(format!("{:?}\\{}", hostname, args.instance_name.unwrap()));
     config.port(61363);
     config.trust_cert();
 

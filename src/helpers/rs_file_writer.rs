@@ -28,9 +28,9 @@ pub async fn rs_one_file_writer(
     path: &Option<String>,
     table_list: &Vec<Table>,
 ) -> Result<(), Box<dyn std::error::Error>> {
-    let result = File::create(match path.is_some() {
-        true => path.as_ref().unwrap().as_str(),
-        false => STRUCT_FILE_NAME,
+    let result = File::create(match path {
+        Some(path) => path.as_str(),
+        None => STRUCT_FILE_NAME,
     })
     .await?;
     let mut writer: tokio::io::BufWriter<File> = tokio::io::BufWriter::new(result);

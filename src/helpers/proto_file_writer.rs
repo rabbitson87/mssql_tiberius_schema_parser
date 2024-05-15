@@ -28,9 +28,9 @@ pub async fn proto_one_file_writer(
     path: &Option<String>,
     table_list: &Vec<Table>,
 ) -> Result<(), Box<dyn std::error::Error>> {
-    let result = File::create(match path.is_some() {
-        true => path.as_ref().unwrap().as_str(),
-        false => STRUCT_PROTO_FILE_NAME,
+    let result = File::create(match path {
+        Some(path) => path.as_str(),
+        None => STRUCT_PROTO_FILE_NAME,
     })
     .await?;
     let mut writer = tokio::io::BufWriter::new(result);
@@ -111,12 +111,13 @@ fn make_message(table_name: &str, table: &Table) -> String {
             }
             false => {
                 let mut column_name = column.column_name.clone();
-                if column_name
-                    .char_indices()
-                    .next()
-                    .unwrap()
-                    .1
-                    .is_ascii_digit()
+                if !column_name.is_empty()
+                    && column_name
+                        .char_indices()
+                        .next()
+                        .unwrap()
+                        .1
+                        .is_ascii_digit()
                 {
                     column_name = match column_name.char_indices().next().unwrap().1 {
                         '0' => format!("zero{}", &column_name[1..]),
