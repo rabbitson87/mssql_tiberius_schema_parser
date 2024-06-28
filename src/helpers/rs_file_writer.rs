@@ -77,10 +77,13 @@ pub async fn rs_split_file_writer(
             for column in &table.columns {
                 let column_name = get_column_name(column);
                 let data_type = match column.data_type.as_str() {
+                    "tinyint" => " as u8",
+                    "smallint" => " as i16",
+                    "int" => " as i32",
+                    "bigint" => " as i64",
+                    "float" => " as f64",
                     "datetime" => ".to_rfc3339()",
                     "real" => " as f64",
-                    "tinyint" => " as i32",
-                    "smallint" => " as i32",
                     _ => "",
                 };
 
@@ -96,9 +99,12 @@ pub async fn rs_split_file_writer(
                                 &format!("Some(Into::into(&*value{}))", data_type),
                                 &column_name
                             ),
-                            "real" => make_number_matcher(&column_name, data_type),
                             "tinyint" => make_number_matcher(&column_name, data_type),
                             "smallint" => make_number_matcher(&column_name, data_type),
+                            "int" => make_number_matcher(&column_name, data_type),
+                            "bigint" => make_number_matcher(&column_name, data_type),
+                            "float" => make_number_matcher(&column_name, data_type),
+                            "real" => make_number_matcher(&column_name, data_type),
                             _ => format!("self.{}{}", column_name, data_type),
                         },
                         false => format!("self.{}{}", column_name, data_type),
@@ -169,18 +175,20 @@ fn make_struct(table_name: &str, table: &Table) -> String {
         }
 
         let data_type = match column.data_type.as_str() {
+            "bit" => "bool",
+            "tinyint" => "u8",
+            "smallint" => "i16",
             "int" => "i32",
+            "bigint" => "i64",
+            "real" => "f32",
+            "float" => "f64",
             "money" => "f64",
             "datetime" => "DateTime<Utc>",
-            "bit" => "bool",
-            "smallint" => "i16",
+            "binary" => "Vec<u8>",
+            "image" => "Vec<u8>",
             "ntext" => "String",
             "nvarchar" => "String",
             "text" => "String",
-            "real" => "f32",
-            "tinyint" => "u8",
-            "binary" => "Vec<u8>",
-            "image" => "Vec<u8>",
             _ => "String",
         };
 

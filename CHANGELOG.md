@@ -1,3 +1,7 @@
+## 0.3.12
+
+- Fixed cast type for numeric(bigint, float).
+
 ## 0.3.11
 
 - Fixed connect option to default port, connection method change.

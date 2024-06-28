@@ -135,18 +135,20 @@ fn make_message(table_name: &str, table: &Table) -> String {
         };
 
         let data_type = match column.data_type.as_str() {
+            "bit" => "bool",
+            "tinyint" => "uint8",
+            "smallint" => "int16",
             "int" => "int32",
+            "bigint" => "int64",
+            "real" => "double",
+            "float" => "double",
             "money" => "double",
             "datetime" => "string",
-            "bit" => "bool",
-            "smallint" => "int32",
+            "binary" => "bytes",
+            "image" => "bytes",
             "ntext" => "string",
             "nvarchar" => "string",
             "text" => "string",
-            "real" => "double",
-            "tinyint" => "int32",
-            "binary" => "bytes",
-            "image" => "bytes",
             _ => "string",
         };
 
