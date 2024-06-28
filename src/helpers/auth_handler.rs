@@ -10,7 +10,7 @@ use crate::helpers::{
     traits::select_parser::SelectParserTrait,
 };
 use gethostname::gethostname;
-use tiberius::{AuthMethod, Client, ColumnData, Config};
+use tiberius::{AuthMethod, Client, ColumnData, Config, SqlBrowser};
 use tokio::{
     net::TcpStream,
     sync::{mpsc, Mutex},
@@ -35,16 +35,15 @@ pub async fn auth_handler(args: Cli) -> Result<(), Box<dyn std::error::Error>> {
 
     match args.instance_name {
         Some(instance_name) => {
-            config.instance_name(format!("{:?}\\{}", hostname, instance_name));
+            config.instance_name(instance_name);
         }
         None => {
             return Err("instance_name is required")?;
         }
     }
-    config.port(61363);
     config.trust_cert();
 
-    let tcp = TcpStream::connect(config.get_addr()).await?;
+    let tcp = TcpStream::connect_named(&config).await?;
     tcp.set_nodelay(true)?;
 
     let client: Client<Compat<TcpStream>> = match Client::connect(config, tcp.compat_write()).await

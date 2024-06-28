@@ -14,7 +14,7 @@ pub struct Cli {
     #[arg(
         long = "port",
         value_name = "PORT",
-        help = "The server port.\n- Defaults to `61363`"
+        help = "The server port.\n- Defaults to `1434`"
     )]
     pub port: Option<u16>,
 

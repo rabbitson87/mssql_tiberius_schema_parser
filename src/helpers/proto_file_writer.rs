@@ -37,7 +37,7 @@ pub async fn proto_one_file_writer(
     let mut file: String = "syntax = \"proto3\";\npackage database;\n\n".into();
 
     for table in table_list {
-        let (table_name, _, _) = get_table_names(table);
+        let (table_name, _, _, _) = get_table_names(table);
 
         file.push_str(make_message(table_name.as_str(), table).as_str());
     }
@@ -53,28 +53,25 @@ pub async fn proto_split_file_writer(
     let mut file_list: HashMap<String, String> = HashMap::new();
 
     for table in table_list {
-        let (table_name, _, file_name) = get_table_names(table);
+        let (table_name, _, file_name, _) = get_table_names(table);
         let mut file: String = format!("syntax = \"proto3\";\npackage {};\n\n", file_name);
 
-        file.push_str(
-            format!(
-                "// [RINF:DART-SIGNAL]\nmessage {}Input {}",
-                table_name, "{}\n\n"
-            )
-            .as_str(),
-        );
+        file.push_str(&format!(
+            "// [RINF:DART-SIGNAL]\nmessage {}Input {}",
+            table_name, "{}\n\n"
+        ));
 
-        file.push_str(
-            format!(
-                "// [RINF:RUST-SIGNAL]\nmessage {}Output {}",
-                table_name, "{\n"
-            )
-            .as_str(),
-        );
-        file.push_str(format!("    repeated {} {} = 1;\n", table_name, table_name).as_str());
+        file.push_str(&format!(
+            "// [RINF:RUST-SIGNAL]\nmessage {}Output {}",
+            table_name, "{\n"
+        ));
+        file.push_str(&format!(
+            "    repeated {} {} = 1;\n",
+            table_name, table_name
+        ));
         file.push_str("}\n\n");
 
-        file.push_str(make_message(table_name.as_str(), table).as_str());
+        file.push_str(&make_message(table_name.as_str(), table));
         file.pop();
 
         let current_path: String = env::current_dir()?.to_str().unwrap().into();
@@ -89,7 +86,7 @@ pub async fn proto_split_file_writer(
 
 fn make_message(table_name: &str, table: &Table) -> String {
     let mut file = String::new();
-    file.push_str(format!("message {} {}", table_name, "{\n").as_str());
+    file.push_str(&format!("message {} {}", table_name, "{\n"));
     let mut column_index = 1;
     for column in &table.columns {
         let column_name = match column

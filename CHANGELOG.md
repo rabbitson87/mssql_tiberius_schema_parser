@@ -1,3 +1,11 @@
+## 0.3.11
+
+- Fixed connect option to default port, connection method change.
+
+## 0.3.10
+
+- Fixed unwrap that is not required for functions.
+
 ## 0.3.9
 
 - Fixed parse for DateTimeOffset with milliseconds.

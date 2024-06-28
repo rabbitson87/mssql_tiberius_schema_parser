@@ -53,7 +53,7 @@ pub fn convert_text_first_char_to_uppercase_else_lowercase(text: &str) -> String
     result
 }
 
-pub fn get_table_names(table: &crate::helpers::strucks::Table) -> (String, String, String) {
+pub fn get_table_names(table: &crate::helpers::strucks::Table) -> (String, String, String, String) {
     let table_name = format!(
         "{}{}{}",
         convert_text_first_char_to_uppercase(table.name.table_catalog.as_str()),
@@ -72,7 +72,11 @@ pub fn get_table_names(table: &crate::helpers::strucks::Table) -> (String, Strin
         table.name.table_schema.to_lowercase(),
         table.name.table_name.to_lowercase()
     );
-    (table_name, table_name_dart, file_name)
+    let sql_table_name = format!(
+        "{}.{}.{}",
+        table.name.table_catalog, table.name.table_schema, table.name.table_name
+    );
+    (table_name, table_name_dart, file_name, sql_table_name)
 }
 
 pub async fn write_files(

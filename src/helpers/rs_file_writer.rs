@@ -37,7 +37,7 @@ pub async fn rs_one_file_writer(
     let mut file: String = "use serde::{Deserialize, Serialize};\n\n".into();
 
     for table in table_list {
-        let (table_name, _, _) = get_table_names(table);
+        let (table_name, _, _, _) = get_table_names(table);
         file.push_str(make_struct(table_name.as_str(), table).as_str());
     }
     file.pop();
@@ -57,28 +57,23 @@ pub async fn rs_split_file_writer(
 
     for table in table_list {
         let mut file: String = "use serde::{Deserialize, Serialize};\n\n".into();
-        let (table_name, table_name_dart, file_name) = get_table_names(table);
+        let (table_name, table_name_dart, file_name, sql_table_name) = get_table_names(table);
 
-        file.push_str(make_struct(table_name.as_str(), table).as_str());
+        file.push_str(&make_struct(table_name.as_str(), table));
+        file.push_str(&make_columns(sql_table_name.as_str(), table));
 
         if use_proto_parser {
-            file.push_str(format!("impl {} ", &table_name).as_str());
+            file.push_str(&format!("impl {} ", &table_name));
             file.push_str("{\n");
 
-            file.push_str(
-                format!(
-                    "    pub fn to_dart(&self) -> crate::messages::{}::{} {}",
-                    &file_name, &table_name_dart, "{\n"
-                )
-                .as_str(),
-            );
-            file.push_str(
-                format!(
-                    "        crate::messages::{}::{} {}",
-                    &file_name, &table_name_dart, "{\n"
-                )
-                .as_str(),
-            );
+            file.push_str(&format!(
+                "    pub fn to_dart(&self) -> crate::messages::{}::{} {}",
+                &file_name, &table_name_dart, "{\n"
+            ));
+            file.push_str(&format!(
+                "        crate::messages::{}::{} {}",
+                &file_name, &table_name_dart, "{\n"
+            ));
             for column in &table.columns {
                 let column_name = get_column_name(column);
                 let data_type = match column.data_type.as_str() {
@@ -89,29 +84,26 @@ pub async fn rs_split_file_writer(
                     _ => "",
                 };
 
-                file.push_str(
-                    format!(
-                        "            {}: {},\n",
-                        convert_text_to_all_lowercase_snake_case(&column_name),
-                        match column.is_nullable.as_str() == "YES" {
-                            true => match column.data_type.as_str() {
-                                "ntext" => make_string_matcher(&column_name),
-                                "nvarchar" => make_string_matcher(&column_name),
-                                "text" => make_string_matcher(&column_name),
-                                "datetime" => make_matcher(
-                                    format!("Some(Into::into(&*value{}))", data_type).as_str(),
-                                    &column_name
-                                ),
-                                "real" => make_number_matcher(&column_name, data_type),
-                                "tinyint" => make_number_matcher(&column_name, data_type),
-                                "smallint" => make_number_matcher(&column_name, data_type),
-                                _ => format!("self.{}{}", column_name, data_type),
-                            },
-                            false => format!("self.{}{}", column_name, data_type),
-                        }
-                    )
-                    .as_str(),
-                );
+                file.push_str(&format!(
+                    "            {}: {},\n",
+                    convert_text_to_all_lowercase_snake_case(&column_name),
+                    match column.is_nullable.as_str() == "YES" {
+                        true => match column.data_type.as_str() {
+                            "ntext" => make_string_matcher(&column_name),
+                            "nvarchar" => make_string_matcher(&column_name),
+                            "text" => make_string_matcher(&column_name),
+                            "datetime" => make_matcher(
+                                &format!("Some(Into::into(&*value{}))", data_type),
+                                &column_name
+                            ),
+                            "real" => make_number_matcher(&column_name, data_type),
+                            "tinyint" => make_number_matcher(&column_name, data_type),
+                            "smallint" => make_number_matcher(&column_name, data_type),
+                            _ => format!("self.{}{}", column_name, data_type),
+                        },
+                        false => format!("self.{}{}", column_name, data_type),
+                    }
+                ));
             }
             file.push_str("        }\n");
             file.push_str("    }\n");
@@ -146,7 +138,7 @@ fn make_string_matcher(column_name: &str) -> String {
 }
 
 fn make_number_matcher(column_name: &str, data_type: &str) -> String {
-    make_matcher(format!("Some(*value{})", data_type).as_str(), &column_name)
+    make_matcher(&format!("Some(*value{})", data_type), &column_name)
 }
 
 fn make_matcher(some_text: &str, column_name: &str) -> String {
@@ -164,7 +156,7 @@ fn make_struct(table_name: &str, table: &Table) -> String {
     let mut file = String::new();
     file.push_str("#[allow(non_snake_case, non_camel_case_types)]\n");
     file.push_str("#[derive(Serialize, Deserialize, Debug)]\n");
-    file.push_str(format!("pub struct {} ", table_name).as_str());
+    file.push_str(&format!("pub struct {} ", table_name));
     file.push_str("{\n");
     for column in &table.columns {
         let column_name = get_column_name(column);
@@ -192,19 +184,41 @@ fn make_struct(table_name: &str, table: &Table) -> String {
             _ => "String",
         };
 
-        file.push_str(
-            format!(
-                "    pub {}: {},\n",
-                column_name,
-                match column.is_nullable.as_str() == "YES" {
-                    true => format!("Option<{}>", data_type),
-                    false => data_type.into(),
-                }
-            )
-            .as_str(),
-        );
+        file.push_str(&format!(
+            "    pub {}: {},\n",
+            column_name,
+            match column.is_nullable.as_str() == "YES" {
+                true => format!("Option<{}>", data_type),
+                false => data_type.into(),
+            }
+        ));
     }
     file.push_str("}\n\n");
+    file
+}
+
+fn make_columns(table_name: &str, table: &Table) -> String {
+    let mut file = String::new();
+    let table_name_uppercase = table.name.table_name.to_uppercase();
+    file.push_str(&format!(
+        "pub const {}_TABLE_NAME: &'static str = \"{}\";\n\n",
+        table_name_uppercase, table_name
+    ));
+    file.push_str(&format!(
+        "pub const {}_COLUMNS: &'static str = \"\n",
+        table_name_uppercase
+    ));
+    let mut index = 0;
+    for column in &table.columns {
+        let column_name = get_column_name(column);
+
+        if index != 0 {
+            file.push_str(",");
+        }
+        file.push_str(&format!("[{}]\n", column_name,));
+        index += 1;
+    }
+    file.push_str("\";\n\n");
     file
 }
 
@@ -266,7 +280,7 @@ fn get_column_name(column: &ColumnName) -> String {
                     _ => column_name,
                 };
             }
-            convert_text_first_char_to_uppercase(column_name.as_str())
+            convert_text_first_char_to_uppercase(&column_name)
         }
     }
 }
