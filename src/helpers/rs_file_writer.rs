@@ -77,8 +77,8 @@ pub async fn rs_split_file_writer(
             for column in &table.columns {
                 let column_name = get_column_name(column);
                 let data_type = match column.data_type.as_str() {
-                    "tinyint" => " as u8",
-                    "smallint" => " as i16",
+                    "tinyint" => " as u32",
+                    "smallint" => " as i32",
                     "int" => " as i32",
                     "bigint" => " as i64",
                     "float" => " as f64",
@@ -176,8 +176,8 @@ fn make_struct(table_name: &str, table: &Table) -> String {
 
         let data_type = match column.data_type.as_str() {
             "bit" => "bool",
-            "tinyint" => "u8",
-            "smallint" => "i16",
+            "tinyint" => "u32",
+            "smallint" => "i32",
             "int" => "i32",
             "bigint" => "i64",
             "real" => "f32",

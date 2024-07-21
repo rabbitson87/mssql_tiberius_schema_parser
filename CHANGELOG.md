@@ -1,3 +1,7 @@
+## 0.3.13
+
+- Fixed cast type for numeric(smallint, tinyint).
+
 ## 0.3.12
 
 - Fixed cast type for numeric(bigint, float).

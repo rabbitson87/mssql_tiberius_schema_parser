@@ -136,8 +136,8 @@ fn make_message(table_name: &str, table: &Table) -> String {
 
         let data_type = match column.data_type.as_str() {
             "bit" => "bool",
-            "tinyint" => "uint8",
-            "smallint" => "int16",
+            "tinyint" => "uint32",
+            "smallint" => "int32",
             "int" => "int32",
             "bigint" => "int64",
             "real" => "double",
