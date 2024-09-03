@@ -1,3 +1,7 @@
+## 0.3.14
+
+- Fixed for rs struct cast type using numeric(smallint, tinyint).
+
 ## 0.3.13
 
 - Fixed cast type for numeric(smallint, tinyint).

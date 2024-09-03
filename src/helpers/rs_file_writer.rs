@@ -176,8 +176,8 @@ fn make_struct(table_name: &str, table: &Table) -> String {
 
         let data_type = match column.data_type.as_str() {
             "bit" => "bool",
-            "tinyint" => "u32",
-            "smallint" => "i32",
+            "tinyint" => "u8",
+            "smallint" => "i16",
             "int" => "i32",
             "bigint" => "i64",
             "real" => "f32",
