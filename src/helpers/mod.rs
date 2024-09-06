@@ -6,5 +6,5 @@ pub mod get_database_tables;
 pub mod get_table_schema;
 pub mod proto_file_writer;
 pub mod rs_file_writer;
-pub mod strucks;
+pub mod structs;
 pub mod traits;

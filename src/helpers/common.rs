@@ -1,3 +1,5 @@
+use std::path::PathBuf;
+
 pub fn convert_text_first_char_to_uppercase(text: &str) -> String {
     let mut result = String::new();
     let mut first_char = true;
@@ -53,58 +55,28 @@ pub fn convert_text_first_char_to_uppercase_else_lowercase(text: &str) -> String
     result
 }
 
-pub fn get_table_names(table: &crate::helpers::strucks::Table) -> (String, String, String, String) {
-    let table_name = format!(
-        "{}{}{}",
-        convert_text_first_char_to_uppercase(table.name.table_catalog.as_str()),
-        convert_text_first_char_to_uppercase(table.name.table_schema.as_str()),
-        convert_text_first_char_to_uppercase(table.name.table_name.as_str())
-    );
-    let table_name_dart = format!(
-        "{}{}{}",
-        convert_text_first_char_to_uppercase_else_lowercase(table.name.table_catalog.as_str()),
-        convert_text_first_char_to_uppercase_else_lowercase(table.name.table_schema.as_str()),
-        convert_text_first_char_to_uppercase_else_lowercase(table.name.table_name.as_str())
-    );
-    let file_name = format!(
-        "{}_{}_{}",
-        table.name.table_catalog.to_lowercase(),
-        table.name.table_schema.to_lowercase(),
-        table.name.table_name.to_lowercase()
-    );
-    let sql_table_name = format!(
-        "{}.{}.{}",
-        table.name.table_catalog, table.name.table_schema, table.name.table_name
-    );
+pub fn get_table_names(table: &crate::helpers::structs::Table) -> (String, String, String, String) {
+    let table_name = table.name.get_table_name();
+    let table_name_dart = table.name.get_table_name_dart();
+    let file_name = table.name.get_file_name();
+    let sql_table_name = table.name.get_sql_table_name();
     (table_name, table_name_dart, file_name, sql_table_name)
 }
 
 pub async fn write_files(
-    file_list: std::collections::HashMap<String, String>,
+    file_list: std::collections::HashMap<PathBuf, String>,
 ) -> Result<(), Box<dyn std::error::Error>> {
     use tokio::io::AsyncWriteExt;
 
     let (tx, mut rx) = tokio::sync::mpsc::channel(32);
-    let first_path = file_list
-        .keys()
-        .find(|file_name| file_name.split("/").count() > 1);
+    let first_path = file_list.keys().next().unwrap();
 
-    match first_path {
-        Some(path) => {
-            let folder_path = path.split("/").fold(String::new(), |acc, x| {
-                match x.contains(".") || x.is_empty() {
-                    true => acc,
-                    false => match acc.is_empty() {
-                        true => x.into(),
-                        false => format!("{}/{}", acc, x),
-                    },
-                }
-            });
-            tokio::fs::create_dir_all(folder_path).await?;
-        }
-        None => {
-            return Err("No file path found".into());
-        }
+    let folder_path = match first_path.is_dir() {
+        true => first_path.to_path_buf(),
+        false => first_path.parent().unwrap().to_path_buf(),
+    };
+    if !folder_path.exists() {
+        tokio::fs::create_dir_all(folder_path).await?;
     }
 
     for (file_name, file) in file_list {

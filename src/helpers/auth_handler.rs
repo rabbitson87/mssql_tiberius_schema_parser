@@ -1,4 +1,4 @@
-use std::sync::Arc;
+use std::{collections::HashMap, sync::Arc};
 
 use crate::helpers::{
     args_parser::{AuthType, Cli},
@@ -6,8 +6,8 @@ use crate::helpers::{
     get_table_schema::GetTableSchema,
     proto_file_writer::proto_file_writer,
     rs_file_writer::rs_file_writer,
-    strucks::{ColumnName, Table, TableName},
-    traits::select_parser::SelectParserTrait,
+    structs::{ColumnName, InnerArgs, Table, TableConfig, TableName},
+    traits::{select_parser::SelectParserTrait, StringUtil},
 };
 use gethostname::gethostname;
 use tiberius::{AuthMethod, Client, ColumnData, Config, SqlBrowser};
@@ -17,10 +17,24 @@ use tokio::{
 };
 use tokio_util::compat::{Compat, TokioAsyncWriteCompatExt};
 
+#[test]
+fn test_parse_toml() {
+    let config_path = "config.toml";
+    let config = std::fs::read_to_string(config_path).unwrap();
+    println!("{:?}", toml::from_str::<InnerArgs>(&config).unwrap());
+}
+
 pub async fn auth_handler(args: Cli) -> Result<(), Box<dyn std::error::Error>> {
     let mut config = Config::new();
     let hostname = gethostname();
 
+    let args = match args.config_path {
+        Some(config_path) => {
+            let config = std::fs::read_to_string(config_path)?;
+            toml::from_str::<InnerArgs>(&config)?
+        }
+        None => args.to_inner_args(),
+    };
     match args._type {
         AuthType::WinAuth => {
             config.authentication(AuthMethod::windows(
@@ -31,6 +45,10 @@ pub async fn auth_handler(args: Cli) -> Result<(), Box<dyn std::error::Error>> {
         AuthType::ServerAuth => {
             config.authentication(AuthMethod::sql_server(&args.user, &args.password));
         }
+    }
+
+    if let Some(database_name) = args.database_name {
+        config.database(database_name);
     }
 
     match args.instance_name {
@@ -111,15 +129,37 @@ pub async fn auth_handler(args: Cli) -> Result<(), Box<dyn std::error::Error>> {
     }
     drop(tx);
 
+    let mut tables_options: HashMap<String, TableConfig> = HashMap::new();
+    let mut use_import_special = false;
+    if let Some(database) = args.database {
+        use_import_special = database.use_import_special;
+        if let Some(tables) = database.tables {
+            tables.into_iter().for_each(|table| {
+                tables_options.insert(table.table_name.copy_string(), table);
+            });
+        }
+    }
+
     let mut table_list: Vec<Table> = vec![];
     while let Some((tables, columns)) = rx.recv().await {
         let table_names = tables.get_table_schema::<TableName>();
         let column_names = columns.get_table_schema::<ColumnName>();
 
         for table_name in table_names {
+            if use_import_special && !tables_options.contains_key(&table_name.get_file_name()) {
+                continue;
+            }
             let mut table = Table {
                 name: table_name.clone(),
                 columns: vec![],
+                use_proto_parser: match tables_options.get(&table_name.get_file_name()) {
+                    Some(table_config) => table_config.use_proto_parser,
+                    None => false,
+                },
+                use_proto_file: match tables_options.get(&table_name.get_file_name()) {
+                    Some(table_config) => table_config.use_proto_file,
+                    None => true,
+                },
             };
             column_names.iter().for_each(|column_name| {
                 if &table_name.table_name == &column_name.table_name {
@@ -130,13 +170,7 @@ pub async fn auth_handler(args: Cli) -> Result<(), Box<dyn std::error::Error>> {
         }
     }
 
-    rs_file_writer(
-        &args.path,
-        args.use_proto_parser,
-        args.use_split_file,
-        &table_list,
-    )
-    .await?;
+    rs_file_writer(&args.path, args.use_split_file, &table_list).await?;
 
     proto_file_writer(&args.proto_path, args.use_split_file, &table_list).await?;
     Ok(())

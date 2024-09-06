@@ -1,3 +1,7 @@
+## 0.4.0
+
+- Add config_file option for handle to tables(config.toml).
+
 ## 0.3.14
 
 - Fixed for rs struct cast type using numeric(smallint, tinyint).

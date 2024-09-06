@@ -1,0 +1,9 @@
+instance_name = "instance_name"
+user = "user"
+password = "password"
+type = "ServerAuth"
+use_split_file = true
+
+[database]
+use_import_special = true
+tables = [{ table_name = "catalog_schema_name", use_proto_file = false }]

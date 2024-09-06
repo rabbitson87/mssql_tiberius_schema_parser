@@ -1,9 +1,9 @@
-use std::{collections::HashMap, env};
+use std::{collections::HashMap, env, path::PathBuf, str::FromStr};
 
 use tokio::{fs::File, io::AsyncWriteExt};
 
 use crate::helpers::{
-    common::convert_text_first_char_to_uppercase, config::STRUCT_PROTO_FILE_NAME, strucks::Table,
+    common::convert_text_first_char_to_uppercase, config::STRUCT_PROTO_FILE_NAME, structs::Table,
 };
 
 use super::common::{get_table_names, write_files};
@@ -15,7 +15,7 @@ pub async fn proto_file_writer(
 ) -> Result<(), Box<dyn std::error::Error>> {
     match use_split_file {
         true => {
-            proto_split_file_writer(table_list).await?;
+            proto_split_file_writer(path, table_list).await?;
         }
         false => {
             proto_one_file_writer(path, table_list).await?;
@@ -29,15 +29,33 @@ pub async fn proto_one_file_writer(
     table_list: &Vec<Table>,
 ) -> Result<(), Box<dyn std::error::Error>> {
     let result = File::create(match path {
-        Some(path) => path.as_str(),
-        None => STRUCT_PROTO_FILE_NAME,
+        Some(path) => PathBuf::from_str(path.as_str())?,
+        None => env::current_dir()?.join(STRUCT_PROTO_FILE_NAME),
     })
     .await?;
     let mut writer = tokio::io::BufWriter::new(result);
     let mut file: String = "syntax = \"proto3\";\npackage database;\n\n".into();
 
     for table in table_list {
+        if table.use_proto_file == false {
+            continue;
+        }
         let (table_name, _, _, _) = get_table_names(table);
+
+        file.push_str(&format!(
+            "// [RINF:DART-SIGNAL]\nmessage {}Input {}",
+            table_name, "{}\n\n"
+        ));
+
+        file.push_str(&format!(
+            "// [RINF:RUST-SIGNAL]\nmessage {}Output {}",
+            table_name, "{\n"
+        ));
+        file.push_str(&format!(
+            "    repeated {} {} = 1;\n",
+            table_name, table_name
+        ));
+        file.push_str("}\n\n");
 
         file.push_str(make_message(table_name.as_str(), table).as_str());
     }
@@ -48,11 +66,19 @@ pub async fn proto_one_file_writer(
 }
 
 pub async fn proto_split_file_writer(
+    path: &Option<String>,
     table_list: &Vec<Table>,
 ) -> Result<(), Box<dyn std::error::Error>> {
-    let mut file_list: HashMap<String, String> = HashMap::new();
+    let path = match path {
+        Some(path) => PathBuf::from_str(path.as_str())?,
+        None => env::current_dir()?.join("sample"),
+    };
+    let mut file_list: HashMap<PathBuf, String> = HashMap::new();
 
     for table in table_list {
+        if table.use_proto_file == false {
+            continue;
+        }
         let (table_name, _, file_name, _) = get_table_names(table);
         let mut file: String = format!("syntax = \"proto3\";\npackage {};\n\n", file_name);
 
@@ -74,10 +100,7 @@ pub async fn proto_split_file_writer(
         file.push_str(&make_message(table_name.as_str(), table));
         file.pop();
 
-        let current_path: String = env::current_dir()?.to_str().unwrap().into();
-        let current_path = current_path.replacen("\"", "", 2);
-        let current_path = format!("{}\\sample\\{}.proto", current_path, file_name);
-        let current_path = current_path.replacen("\\", "/", current_path.len());
+        let current_path = path.join(format!("{}.proto", file_name));
         file_list.insert(current_path, file);
     }
     write_files(file_list).await?;
