@@ -1,9 +1,36 @@
-instance_name = "instance_name"
-user = "user"
-password = "password"
+instance_name = "JKSOFT"
+user = "sa"
+password = "crusher22betacharlie"
 type = "ServerAuth"
 use_split_file = true
+path = "D:\\git\\JKPOS365_Windows_App\\native\\hub\\src\\helpers\\structs"
+proto_path = "D:\\git\\JKPOS365_Windows_App\\messages"
 
 [database]
 use_import_special = true
-tables = [{ table_name = "catalog_schema_name", use_proto_file = false }]
+tables = [
+    { table_name = "jkrtdb_dbo_rcategory", use_proto_parser = true },
+    { table_name = "jkrtdb_dbo_ritem", use_proto_parser = true },
+    { table_name = "jkrtdb_dbo_rreference", use_proto_parser = true },
+    { table_name = "jkrtdb_dbo_rstore", use_proto_file = false },
+    { table_name = "jkrtdb_dbo_rtable", use_proto_file = false },
+    { table_name = "jkrtdb_dbo_rtablesection", use_proto_file = false },
+    { table_name = "jkrtdb_dbo_rupcharge", use_proto_parser = true },
+    { table_name = "jkrtdb_dbo_rupchargegroup", use_proto_parser = true },
+    { table_name = "jkrtdb_dbo_saction", use_proto_file = false },
+    { table_name = "jkrtdb_dbo_seditinginvoice", use_proto_file = false },
+    { table_name = "jkrtdb_dbo_sidentity", use_proto_file = false },
+    { table_name = "jkrtdb_dbo_smessage", use_proto_file = false },
+    { table_name = "jkrtdb_dbo_spreference", use_proto_file = false },
+    { table_name = "jkrtdb_dbo_tinvoice", use_proto_file = false },
+    { table_name = "jkrtdb_dbo_titem", use_proto_file = false },
+    { table_name = "jkrtdb_dbo_tupcharge", use_proto_file = false },
+    { table_name = "jkttdb_dbo_ritem", use_proto_parser = true },
+    { table_name = "jkttdb_dbo_rlist", use_proto_file = false },
+    { table_name = "jkttdb_dbo_rpromotion", use_proto_file = false },
+    { table_name = "jkttdb_dbo_rpromotionitem", use_proto_file = false },
+    { table_name = "jkttdb_dbo_rstore", use_proto_file = false },
+    { table_name = "jkttdb_dbo_temployee", use_proto_file = false },
+    { table_name = "jkttdb_dbo_ttimeclock", use_proto_file = false },
+
+]

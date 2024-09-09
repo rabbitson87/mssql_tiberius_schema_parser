@@ -29,7 +29,7 @@ impl TableName {
             "{}{}{}",
             convert_text_first_char_to_uppercase_else_lowercase(self.table_catalog.as_str()),
             convert_text_first_char_to_uppercase_else_lowercase(self.table_schema.as_str()),
-            convert_text_first_char_to_uppercase_else_lowercase(self.table_name.as_str())
+            convert_text_first_char_to_uppercase(self.table_name.as_str())
         )
     }
     pub fn get_file_name(&self) -> String {

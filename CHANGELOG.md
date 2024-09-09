@@ -1,3 +1,7 @@
+## 0.4.1
+
+- Fixed for naming in tableName.
+
 ## 0.4.0
 
 - Add config_file option for handle to tables(config.toml).

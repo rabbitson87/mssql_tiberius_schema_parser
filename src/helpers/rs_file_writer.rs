@@ -159,11 +159,12 @@ fn make_proto_parser(
 fn make_string_matcher(column_name: &str) -> String {
     make_matcher(
         r#"Some(
-                    value.replace("\"", "\\\"")
+                    value
+                        .replace("\"", "\\\"")
                         .replace("\n", "\\\\n")
                         .replace("\r", "\\\\r")
                         .replace("\t", "\\\\t")
-                        .into()
+                        .into(),
                 )"#,
         &column_name,
     )

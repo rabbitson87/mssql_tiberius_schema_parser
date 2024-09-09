@@ -18,13 +18,25 @@ pub fn convert_text_to_all_lowercase_snake_case(text: &str) -> String {
     let mut result = String::new();
     let mut is_uppercase = true;
     let mut is_first = true;
+    let original_text = text.chars();
+    let mut index = 0;
+
     for cha in text.chars() {
         if is_first {
             result.push_str(&cha.to_lowercase().to_string());
             is_first = false;
         } else {
             if cha.is_uppercase() {
-                if !is_uppercase {
+                if !is_uppercase
+                    || index + 1 <= original_text.as_str().len()
+                        && original_text.clone().nth(index + 1).is_some()
+                        && original_text
+                            .clone()
+                            .nth(index + 1)
+                            .as_ref()
+                            .unwrap()
+                            .is_lowercase()
+                {
                     result.push_str("_");
                 }
                 result.push_str(&cha.to_lowercase().to_string());
@@ -33,10 +45,11 @@ pub fn convert_text_to_all_lowercase_snake_case(text: &str) -> String {
                 result.push(cha);
                 is_uppercase = false;
             } else {
-                result.push_str(&cha.to_string());
+                result.push(cha);
                 is_uppercase = false;
             }
         }
+        index += 1;
     }
     result
 }
