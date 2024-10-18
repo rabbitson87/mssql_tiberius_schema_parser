@@ -6,16 +6,21 @@ use crate::helpers::{
     common::convert_text_first_char_to_uppercase, config::STRUCT_PROTO_FILE_NAME, structs::Table,
 };
 
-use super::common::{get_table_names, write_files};
+use super::{
+    common::{get_table_names, write_files},
+    structs::SplitDirectoryConfig,
+    traits::StringUtil,
+};
 
 pub async fn proto_file_writer(
     path: &Option<String>,
     use_split_file: bool,
     table_list: &Vec<Table>,
+    split_directorys: &Vec<SplitDirectoryConfig>,
 ) -> Result<(), Box<dyn std::error::Error>> {
     match use_split_file {
         true => {
-            proto_split_file_writer(path, table_list).await?;
+            proto_split_file_writer(path, table_list, split_directorys).await?;
         }
         false => {
             proto_one_file_writer(path, table_list).await?;
@@ -43,12 +48,12 @@ pub async fn proto_one_file_writer(
         let (table_name, _, _, _) = get_table_names(table);
 
         file.push_str(&format!(
-            "// [RINF:DART-SIGNAL]\nmessage {}Input {}",
+            "// [DART-SIGNAL]\nmessage {}Input {}",
             table_name, "{}\n\n"
         ));
 
         file.push_str(&format!(
-            "// [RINF:RUST-SIGNAL]\nmessage {}Output {}",
+            "// [RUST-SIGNAL]\nmessage {}Output {}",
             table_name, "{\n"
         ));
         file.push_str(&format!(
@@ -68,6 +73,7 @@ pub async fn proto_one_file_writer(
 pub async fn proto_split_file_writer(
     path: &Option<String>,
     table_list: &Vec<Table>,
+    split_directorys: &Vec<SplitDirectoryConfig>,
 ) -> Result<(), Box<dyn std::error::Error>> {
     let path = match path {
         Some(path) => PathBuf::from_str(path.as_str())?,
@@ -83,12 +89,12 @@ pub async fn proto_split_file_writer(
         let mut file: String = format!("syntax = \"proto3\";\npackage {};\n\n", file_name);
 
         file.push_str(&format!(
-            "// [RINF:DART-SIGNAL]\nmessage {}Input {}",
+            "// [DART-SIGNAL]\nmessage {}Input {}",
             table_name, "{}\n\n"
         ));
 
         file.push_str(&format!(
-            "// [RINF:RUST-SIGNAL]\nmessage {}Output {}",
+            "// [RUST-SIGNAL]\nmessage {}Output {}",
             table_name, "{\n"
         ));
         file.push_str(&format!(
@@ -100,7 +106,20 @@ pub async fn proto_split_file_writer(
         file.push_str(&make_message(table_name.as_str(), table));
         file.pop();
 
-        let current_path = path.join(format!("{}.proto", file_name));
+        let current_path = match split_directorys.is_empty() {
+            true => path.join(format!("{}.proto", file_name)),
+            false => {
+                let mut current_path = path.clone();
+                for split_directory in split_directorys {
+                    if file_name.starts_with(&split_directory.starts_with_name) {
+                        current_path =
+                            current_path.join(split_directory.directory_name.copy_string());
+                        break;
+                    }
+                }
+                current_path.join(format!("{}.proto", file_name))
+            }
+        };
         file_list.insert(current_path, file);
     }
     write_files(file_list).await?;

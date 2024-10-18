@@ -8,9 +8,14 @@ proto_path = "D:\\git\\JKPOS365_Windows_App\\messages"
 
 [database]
 use_import_special = true
+split_directory = [
+    { starts_with_name = "jkrtdb", directory_name = "jk_restaurant" },
+    { starts_with_name = "jkttdb", directory_name = "jk_retail" },
+]
 tables = [
     { table_name = "jkrtdb_dbo_rcategory", use_proto_parser = true },
     { table_name = "jkrtdb_dbo_ritem", use_proto_parser = true },
+    { table_name = "jkrtdb_dbo_rpricegroup", use_proto_file = false },
     { table_name = "jkrtdb_dbo_rreference", use_proto_parser = true },
     { table_name = "jkrtdb_dbo_rstore", use_proto_file = false },
     { table_name = "jkrtdb_dbo_rtable", use_proto_file = false },
@@ -21,7 +26,8 @@ tables = [
     { table_name = "jkrtdb_dbo_seditinginvoice", use_proto_file = false },
     { table_name = "jkrtdb_dbo_sidentity", use_proto_file = false },
     { table_name = "jkrtdb_dbo_smessage", use_proto_file = false },
-    { table_name = "jkrtdb_dbo_spreference", use_proto_file = false },
+    { table_name = "jkrtdb_dbo_spreference", use_proto_parser = true },
+    { table_name = "jkrtdb_dbo_sdictionary", use_proto_parser = true },
     { table_name = "jkrtdb_dbo_tinvoice", use_proto_file = false },
     { table_name = "jkrtdb_dbo_titem", use_proto_file = false },
     { table_name = "jkrtdb_dbo_tupcharge", use_proto_file = false },

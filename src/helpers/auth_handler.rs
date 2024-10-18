@@ -131,12 +131,16 @@ pub async fn auth_handler(args: Cli) -> Result<(), Box<dyn std::error::Error>> {
 
     let mut tables_options: HashMap<String, TableConfig> = HashMap::new();
     let mut use_import_special = false;
+    let mut split_directory = vec![];
     if let Some(database) = args.database {
         use_import_special = database.use_import_special;
         if let Some(tables) = database.tables {
             tables.into_iter().for_each(|table| {
                 tables_options.insert(table.table_name.copy_string(), table);
             });
+        }
+        if let Some(split_directories) = database.split_directory {
+            split_directory = split_directories;
         }
     }
 
@@ -170,8 +174,20 @@ pub async fn auth_handler(args: Cli) -> Result<(), Box<dyn std::error::Error>> {
         }
     }
 
-    rs_file_writer(&args.path, args.use_split_file, &table_list).await?;
+    rs_file_writer(
+        &args.path,
+        args.use_split_file,
+        &table_list,
+        &split_directory,
+    )
+    .await?;
 
-    proto_file_writer(&args.proto_path, args.use_split_file, &table_list).await?;
+    proto_file_writer(
+        &args.proto_path,
+        args.use_split_file,
+        &table_list,
+        &split_directory,
+    )
+    .await?;
     Ok(())
 }

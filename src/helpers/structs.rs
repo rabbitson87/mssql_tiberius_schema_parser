@@ -119,6 +119,7 @@ pub struct DatabaseConfig {
     #[serde(default = "use_import_special_default")]
     pub use_import_special: bool,
     pub tables: Option<Vec<TableConfig>>,
+    pub split_directory: Option<Vec<SplitDirectoryConfig>>,
 }
 
 fn use_import_special_default() -> bool {
@@ -132,6 +133,12 @@ pub struct TableConfig {
     pub use_proto_parser: bool,
     #[serde(default = "use_proto_file_default")]
     pub use_proto_file: bool,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct SplitDirectoryConfig {
+    pub starts_with_name: String,
+    pub directory_name: String,
 }
 
 fn use_proto_file_default() -> bool {

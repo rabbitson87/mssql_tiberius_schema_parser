@@ -1,3 +1,7 @@
+## 0.4.2
+
+- Add split_folder option for split_files.
+
 ## 0.4.1
 
 - Fixed for naming in tableName.

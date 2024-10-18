@@ -82,17 +82,15 @@ pub async fn write_files(
     use tokio::io::AsyncWriteExt;
 
     let (tx, mut rx) = tokio::sync::mpsc::channel(32);
-    let first_path = file_list.keys().next().unwrap();
-
-    let folder_path = match first_path.is_dir() {
-        true => first_path.to_path_buf(),
-        false => first_path.parent().unwrap().to_path_buf(),
-    };
-    if !folder_path.exists() {
-        tokio::fs::create_dir_all(folder_path).await?;
-    }
 
     for (file_name, file) in file_list {
+        let folder_path = match file_name.is_dir() {
+            true => file_name.to_path_buf(),
+            false => file_name.parent().unwrap().to_path_buf(),
+        };
+        if !folder_path.exists() {
+            tokio::fs::create_dir_all(folder_path).await?;
+        }
         let tx_copy = tx.clone();
         tokio::spawn(async move {
             let result = tokio::fs::File::create(file_name).await?;

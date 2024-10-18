@@ -8,16 +8,18 @@ use crate::helpers::{
 
 use super::{
     common::{convert_text_to_all_lowercase_snake_case, get_table_names, write_files},
-    structs::ColumnName,
+    structs::{ColumnName, SplitDirectoryConfig},
+    traits::StringUtil,
 };
 
 pub async fn rs_file_writer(
     path: &Option<String>,
     use_split_file: bool,
     table_list: &Vec<Table>,
+    split_directorys: &Vec<SplitDirectoryConfig>,
 ) -> Result<(), Box<dyn std::error::Error>> {
     match use_split_file {
-        true => rs_split_file_writer(path, table_list).await?,
+        true => rs_split_file_writer(path, table_list, split_directorys).await?,
         false => rs_one_file_writer(path, table_list).await?,
     }
     Ok(())
@@ -36,17 +38,12 @@ pub async fn rs_one_file_writer(
     let mut file: String = "\n".into();
 
     for table in table_list {
-        let (table_name, table_name_dart, file_name, sql_table_name) = get_table_names(table);
+        let (table_name, table_name_dart, _file_name, sql_table_name) = get_table_names(table);
         file.push_str(make_struct(table_name.as_str(), table).as_str());
         file.push_str(&make_columns(sql_table_name.as_str(), table));
 
         if table.use_proto_parser {
-            file.push_str(&make_proto_parser(
-                table,
-                &table_name,
-                &table_name_dart,
-                &file_name,
-            ));
+            file.push_str(&make_proto_parser(table, &table_name, &table_name_dart));
         }
     }
     file.pop();
@@ -61,12 +58,14 @@ pub async fn rs_one_file_writer(
 pub async fn rs_split_file_writer(
     path: &Option<String>,
     table_list: &Vec<Table>,
+    split_directorys: &Vec<SplitDirectoryConfig>,
 ) -> Result<(), Box<dyn std::error::Error>> {
     let path = match path {
         Some(path) => PathBuf::from_str(path.as_str())?,
         None => env::current_dir()?.join("sample"),
     };
     let mut file_list: HashMap<PathBuf, String> = HashMap::new();
+    let mut mod_list: HashMap<String, Vec<String>> = HashMap::new();
 
     for table in table_list {
         let mut file: String = "\n".into();
@@ -76,42 +75,73 @@ pub async fn rs_split_file_writer(
         file.push_str(&make_columns(sql_table_name.as_str(), table));
 
         if table.use_proto_parser {
-            file.push_str(&make_proto_parser(
-                table,
-                &table_name,
-                &table_name_dart,
-                &file_name,
-            ));
+            file.push_str(&make_proto_parser(table, &table_name, &table_name_dart));
         }
         file.pop();
 
         file = format!("{}{}", import_file(&file), file);
 
-        let current_path = path.join(format!("{}.rs", file_name));
+        let current_path = match split_directorys.is_empty() {
+            true => path.join(format!("{}.rs", file_name)),
+            false => {
+                let mut current_path = path.clone();
+                for split_directory in split_directorys {
+                    if file_name.starts_with(&split_directory.starts_with_name) {
+                        current_path =
+                            current_path.join(split_directory.directory_name.copy_string());
+                        match mod_list.get_mut(current_path.to_str().unwrap()) {
+                            Some(mod_list) => {
+                                mod_list.push(file_name.copy_string());
+                            }
+                            None => {
+                                mod_list.insert(
+                                    current_path.to_str().unwrap().into(),
+                                    vec![file_name.copy_string()],
+                                );
+                            }
+                        }
+                        break;
+                    }
+                }
+                current_path.join(format!("{}.rs", file_name))
+            }
+        };
         file_list.insert(current_path, file);
     }
+    write_mod_files(mod_list).await?;
     write_files(file_list).await?;
 
     Ok(())
 }
 
-fn make_proto_parser(
-    table: &Table,
-    table_name: &str,
-    table_name_dart: &str,
-    file_name: &str,
-) -> String {
+async fn write_mod_files(
+    mod_list: HashMap<String, Vec<String>>,
+) -> Result<(), Box<dyn std::error::Error>> {
+    let mut file_list: HashMap<PathBuf, String> = HashMap::new();
+    for (path, file_names) in mod_list {
+        let path = PathBuf::from_str(path.as_str())?;
+        let mut file: String = "".into();
+        for file_name in file_names {
+            file.push_str(&format!("pub mod {};\n", file_name));
+        }
+        file_list.insert(path.join("mod.rs"), file);
+    }
+    write_files(file_list).await?;
+    Ok(())
+}
+
+fn make_proto_parser(table: &Table, table_name: &str, table_name_dart: &str) -> String {
     let mut file: String = "".into();
     file.push_str(&format!("impl {} ", table_name));
     file.push_str("{\n");
 
     file.push_str(&format!(
-        "    pub fn to_dart(&self) -> crate::messages::{}::{} {}",
-        &file_name, &table_name_dart, "{\n"
+        "    pub fn to_dart(&self) -> crate::messages::{} {}",
+        &table_name_dart, "{\n"
     ));
     file.push_str(&format!(
-        "        crate::messages::{}::{} {}",
-        &file_name, &table_name_dart, "{\n"
+        "        crate::messages::{} {}",
+        &table_name_dart, "{\n"
     ));
     for column in &table.columns {
         let column_name = get_column_name(column);
