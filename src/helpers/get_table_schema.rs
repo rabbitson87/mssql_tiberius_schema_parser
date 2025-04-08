@@ -3,7 +3,7 @@ use tiberius::ColumnData;
 
 use crate::helpers::traits::select_parser::SelectParser;
 use serde::de::DeserializeOwned;
-
+use serde_json::Value;
 pub trait GetTableSchema {
     fn get_table_schema<T>(self: &Self) -> Vec<T>
     where
@@ -16,15 +16,27 @@ impl GetTableSchema for SelectParser<'_> {
         T: DeserializeOwned,
     {
         let mut select_list: Vec<T> = Vec::new();
-        self.rows.iter().for_each(|row| {
+        for row in self.rows.iter() {
             let mut json: String = "{".into();
             let mut index = 0;
             let total_count = &self.columns.len();
+            let mut string_columns: Vec<&str> = Vec::new();
             for column in &self.columns {
                 if let Some(row_data) = row.get(index) {
                     match row_data {
                         ColumnData::String(Some(data)) => {
-                            json.push_str(format!("\"{}\": \"{}\"", column.name(), data,).as_str());
+                            json.push_str(
+                                format!(
+                                    "\"{}\": \"{}\"",
+                                    column.name(),
+                                    data.replace("\"", "\\\"")
+                                        .replace("\n", "\\\\n")
+                                        .replace("\r", "\\\\r")
+                                        .replace("\t", "\\\\t"),
+                                )
+                                .as_str(),
+                            );
+                            string_columns.push(column.name());
                         }
                         ColumnData::U8(Some(data)) => {
                             json.push_str(
@@ -123,13 +135,32 @@ impl GetTableSchema for SelectParser<'_> {
                 }
                 index += 1;
             }
-            match serde_json::from_str(&json) {
-                Ok(json) => select_list.push(json),
+            match serde_json::from_str::<Value>(&json) {
+                Ok(mut json) => {
+                    for column in string_columns.iter() {
+                        if let Some(value) = json.get_mut(column) {
+                            if value.is_string() {
+                                *value = Value::String(
+                                    value
+                                        .as_str()
+                                        .unwrap()
+                                        .replace("\\\"", "\"")
+                                        .replace("\\\\n", "\n")
+                                        .replace("\\\\r", "\r")
+                                        .replace("\\\\t", "\t")
+                                        .to_string(),
+                                );
+                            }
+                        }
+                    }
+                    let json: T = serde_json::from_value(json).unwrap();
+                    select_list.push(json);
+                }
                 Err(e) => {
-                    println!("Error: {}", e);
+                    println!("make json Error: {}", e);
                 }
             };
-        });
+        }
         select_list
     }
 }

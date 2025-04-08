@@ -1,3 +1,7 @@
+## 0.5.1
+
+- Add parser for escape chars in String.
+
 ## 0.5.0
 
 - Adjust from rinf 8v.
