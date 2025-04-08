@@ -1,3 +1,7 @@
+## 0.5.0
+
+- Adjust from rinf 8v.
+
 ## 0.4.2
 
 - Add split_folder option for split_files.

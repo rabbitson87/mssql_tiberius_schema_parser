@@ -1,8 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use crate::helpers::common::{
-    convert_text_first_char_to_uppercase, convert_text_first_char_to_uppercase_else_lowercase,
-};
+use crate::helpers::common::convert_text_first_char_to_uppercase;
 
 use super::args_parser::AuthType;
 
@@ -21,14 +19,6 @@ impl TableName {
             "{}{}{}",
             convert_text_first_char_to_uppercase(self.table_catalog.as_str()),
             convert_text_first_char_to_uppercase(self.table_schema.as_str()),
-            convert_text_first_char_to_uppercase(self.table_name.as_str())
-        )
-    }
-    pub fn get_table_name_dart(&self) -> String {
-        format!(
-            "{}{}{}",
-            convert_text_first_char_to_uppercase_else_lowercase(self.table_catalog.as_str()),
-            convert_text_first_char_to_uppercase_else_lowercase(self.table_schema.as_str()),
             convert_text_first_char_to_uppercase(self.table_name.as_str())
         )
     }
@@ -80,10 +70,12 @@ pub struct ColumnName {
 pub struct Table {
     pub name: TableName,
     pub columns: Vec<ColumnName>,
-    #[serde(default = "use_proto_parser_default")]
-    pub use_proto_parser: bool,
-    #[serde(default = "use_proto_file_default")]
-    pub use_proto_file: bool,
+    #[serde(default = "use_signal_parser_default")]
+    pub use_signal_parser: bool,
+    #[serde(default = "use_signal_file_default")]
+    pub use_signal_file: bool,
+    #[serde(default = "use_insert_query_default")]
+    pub use_insert_query: bool,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -97,16 +89,18 @@ pub struct InnerArgs {
     pub password: String,
     #[serde(rename = "type")]
     pub _type: AuthType,
-    #[serde(default = "use_proto_parser_default")]
-    pub use_proto_parser: bool,
+    #[serde(default = "use_signal_parser_default")]
+    pub use_signal_parser: bool,
     #[serde(default = "use_split_file_default")]
     pub use_split_file: bool,
+    #[serde(default = "use_insert_query_default")]
+    pub use_insert_query: bool,
     pub path: Option<String>,
-    pub proto_path: Option<String>,
+    pub signal_path: Option<String>,
     pub database: Option<DatabaseConfig>,
 }
 
-fn use_proto_parser_default() -> bool {
+fn use_signal_parser_default() -> bool {
     false
 }
 
@@ -129,10 +123,12 @@ fn use_import_special_default() -> bool {
 #[derive(Serialize, Deserialize, Debug)]
 pub struct TableConfig {
     pub table_name: String,
-    #[serde(default = "use_proto_parser_default")]
-    pub use_proto_parser: bool,
-    #[serde(default = "use_proto_file_default")]
-    pub use_proto_file: bool,
+    #[serde(default = "use_signal_parser_default")]
+    pub use_signal_parser: bool,
+    #[serde(default = "use_signal_file_default")]
+    pub use_signal_file: bool,
+    #[serde(default = "use_insert_query_default")]
+    pub use_insert_query: bool,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -141,6 +137,10 @@ pub struct SplitDirectoryConfig {
     pub directory_name: String,
 }
 
-fn use_proto_file_default() -> bool {
+fn use_signal_file_default() -> bool {
+    true
+}
+
+fn use_insert_query_default() -> bool {
     true
 }

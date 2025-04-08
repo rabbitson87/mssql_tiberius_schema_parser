@@ -4,7 +4,7 @@ password = "crusher22betacharlie"
 type = "ServerAuth"
 use_split_file = true
 path = "D:\\git\\JKPOS365_Windows_App\\native\\hub\\src\\helpers\\structs"
-proto_path = "D:\\git\\JKPOS365_Windows_App\\messages"
+signal_path = "D:\\git\\JKPOS365_Windows_App\\native\\hub\\src\\signals"
 
 [database]
 use_import_special = true
@@ -13,30 +13,30 @@ split_directory = [
     { starts_with_name = "jkttdb", directory_name = "jk_retail" },
 ]
 tables = [
-    { table_name = "jkrtdb_dbo_rcategory", use_proto_parser = true },
-    { table_name = "jkrtdb_dbo_ritem", use_proto_parser = true },
-    { table_name = "jkrtdb_dbo_rpricegroup", use_proto_file = false },
-    { table_name = "jkrtdb_dbo_rreference", use_proto_parser = true },
-    { table_name = "jkrtdb_dbo_rstore", use_proto_file = false },
-    { table_name = "jkrtdb_dbo_rtable", use_proto_file = false },
-    { table_name = "jkrtdb_dbo_rtablesection", use_proto_file = false },
-    { table_name = "jkrtdb_dbo_rupcharge", use_proto_parser = true },
-    { table_name = "jkrtdb_dbo_rupchargegroup", use_proto_parser = true },
-    { table_name = "jkrtdb_dbo_saction", use_proto_file = false },
-    { table_name = "jkrtdb_dbo_seditinginvoice", use_proto_file = false },
-    { table_name = "jkrtdb_dbo_sidentity", use_proto_file = false },
-    { table_name = "jkrtdb_dbo_smessage", use_proto_file = false },
-    { table_name = "jkrtdb_dbo_spreference", use_proto_parser = true },
-    { table_name = "jkrtdb_dbo_sdictionary", use_proto_parser = true },
-    { table_name = "jkrtdb_dbo_tinvoice", use_proto_file = false },
-    { table_name = "jkrtdb_dbo_titem", use_proto_file = false },
-    { table_name = "jkrtdb_dbo_tupcharge", use_proto_file = false },
-    { table_name = "jkttdb_dbo_ritem", use_proto_parser = true },
-    { table_name = "jkttdb_dbo_rlist", use_proto_file = false },
-    { table_name = "jkttdb_dbo_rpromotion", use_proto_file = false },
-    { table_name = "jkttdb_dbo_rpromotionitem", use_proto_file = false },
-    { table_name = "jkttdb_dbo_rstore", use_proto_file = false },
-    { table_name = "jkttdb_dbo_temployee", use_proto_file = false },
-    { table_name = "jkttdb_dbo_ttimeclock", use_proto_file = false },
+    { table_name = "jkrtdb_dbo_rcategory", use_signal_parser = true },
+    { table_name = "jkrtdb_dbo_ritem", use_signal_parser = true },
+    { table_name = "jkrtdb_dbo_rpricegroup", use_signal_file = false },
+    { table_name = "jkrtdb_dbo_rreference", use_signal_parser = true },
+    { table_name = "jkrtdb_dbo_rstore", use_signal_file = false },
+    { table_name = "jkrtdb_dbo_rtable", use_signal_file = false },
+    { table_name = "jkrtdb_dbo_rtablesection", use_signal_file = false },
+    { table_name = "jkrtdb_dbo_rupcharge", use_signal_parser = true },
+    { table_name = "jkrtdb_dbo_rupchargegroup", use_signal_parser = true },
+    { table_name = "jkrtdb_dbo_saction", use_signal_file = false },
+    { table_name = "jkrtdb_dbo_seditinginvoice", use_signal_file = false },
+    { table_name = "jkrtdb_dbo_sidentity", use_signal_file = false },
+    { table_name = "jkrtdb_dbo_smessage", use_signal_file = false },
+    { table_name = "jkrtdb_dbo_spreference", use_signal_parser = true },
+    { table_name = "jkrtdb_dbo_sdictionary", use_signal_parser = true },
+    { table_name = "jkrtdb_dbo_tinvoice", use_signal_file = false },
+    { table_name = "jkrtdb_dbo_titem", use_signal_file = false },
+    { table_name = "jkrtdb_dbo_tupcharge", use_signal_file = false },
+    { table_name = "jkttdb_dbo_ritem", use_signal_parser = true },
+    { table_name = "jkttdb_dbo_rlist", use_signal_file = false },
+    { table_name = "jkttdb_dbo_rpromotion", use_signal_file = false },
+    { table_name = "jkttdb_dbo_rpromotionitem", use_signal_file = false },
+    { table_name = "jkttdb_dbo_rstore", use_signal_file = false },
+    { table_name = "jkttdb_dbo_temployee", use_signal_file = false },
+    { table_name = "jkttdb_dbo_ttimeclock", use_signal_file = false },
 
 ]

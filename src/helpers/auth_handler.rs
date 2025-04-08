@@ -4,8 +4,8 @@ use crate::helpers::{
     args_parser::{AuthType, Cli},
     get_database_tables::get_database_tables,
     get_table_schema::GetTableSchema,
-    proto_file_writer::proto_file_writer,
     rs_file_writer::rs_file_writer,
+    signal_file_writer::signal_file_writer,
     structs::{ColumnName, InnerArgs, Table, TableConfig, TableName},
     traits::{select_parser::SelectParserTrait, StringUtil},
 };
@@ -156,12 +156,16 @@ pub async fn auth_handler(args: Cli) -> Result<(), Box<dyn std::error::Error>> {
             let mut table = Table {
                 name: table_name.clone(),
                 columns: vec![],
-                use_proto_parser: match tables_options.get(&table_name.get_file_name()) {
-                    Some(table_config) => table_config.use_proto_parser,
+                use_signal_parser: match tables_options.get(&table_name.get_file_name()) {
+                    Some(table_config) => table_config.use_signal_parser,
                     None => false,
                 },
-                use_proto_file: match tables_options.get(&table_name.get_file_name()) {
-                    Some(table_config) => table_config.use_proto_file,
+                use_signal_file: match tables_options.get(&table_name.get_file_name()) {
+                    Some(table_config) => table_config.use_signal_file,
+                    None => true,
+                },
+                use_insert_query: match tables_options.get(&table_name.get_file_name()) {
+                    Some(table_config) => table_config.use_insert_query,
                     None => true,
                 },
             };
@@ -182,8 +186,8 @@ pub async fn auth_handler(args: Cli) -> Result<(), Box<dyn std::error::Error>> {
     )
     .await?;
 
-    proto_file_writer(
-        &args.proto_path,
+    signal_file_writer(
+        &args.signal_path,
         args.use_split_file,
         &table_list,
         &split_directory,

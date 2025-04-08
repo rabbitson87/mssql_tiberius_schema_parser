@@ -48,8 +48,8 @@ Options:
           - win_auth:    Use Windows Authentication
           - server_auth: Use SQL Server Authentication
 
-      --use_proto_parser
-          Use date time to string. add cli option with --use_proto_parser.
+      --use_signal_parser
+          Use date time to string. add cli option with --use_signal_parser.
           - Defaults to false
 
       --use_split_file
@@ -60,9 +60,9 @@ Options:
           The path to the rs file to execute.
           - Defaults to structs.rs
 
-      --proto_path <PROTO PATH>
-          The path to the proto file to execute.
-          - Defaults to structs.proto
+      --signal_path <SIGNAL PATH>
+          The path to the signal file to execute.
+          - Defaults to signals.rs
 
   -h, --help
           Print help (see a summary with '-h')

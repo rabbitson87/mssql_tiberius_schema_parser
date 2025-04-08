@@ -24,17 +24,7 @@ impl GetTableSchema for SelectParser<'_> {
                 if let Some(row_data) = row.get(index) {
                     match row_data {
                         ColumnData::String(Some(data)) => {
-                            json.push_str(
-                                format!(
-                                    "\"{}\": \"{}\"",
-                                    column.name(),
-                                    data.replace("\"", "\\\"")
-                                        .replace("\n", "\\\\n")
-                                        .replace("\r", "\\\\r")
-                                        .replace("\t", "\\\\t"),
-                                )
-                                .as_str(),
-                            );
+                            json.push_str(format!("\"{}\": \"{}\"", column.name(), data,).as_str());
                         }
                         ColumnData::U8(Some(data)) => {
                             json.push_str(

@@ -2,13 +2,12 @@ use std::{collections::HashMap, env, path::PathBuf, str::FromStr};
 
 use tokio::{fs::File, io::AsyncWriteExt};
 
-use crate::helpers::{
-    common::convert_text_first_char_to_uppercase, config::STRUCT_FILE_NAME, structs::Table,
-};
+use crate::helpers::{config::STRUCT_FILE_NAME, structs::Table};
 
 use super::{
-    common::{convert_text_to_all_lowercase_snake_case, get_table_names, write_files},
-    structs::{ColumnName, SplitDirectoryConfig},
+    common::{get_table_names, write_files},
+    signal_file_writer::get_column_name,
+    structs::SplitDirectoryConfig,
     traits::StringUtil,
 };
 
@@ -37,18 +36,23 @@ pub async fn rs_one_file_writer(
     let mut writer: tokio::io::BufWriter<File> = tokio::io::BufWriter::new(result);
     let mut file: String = "\n".into();
 
+    let mut use_insert_query = false;
     for table in table_list {
-        let (table_name, table_name_dart, _file_name, sql_table_name) = get_table_names(table);
-        file.push_str(make_struct(table_name.as_str(), table).as_str());
+        let (table_name, _file_name, sql_table_name) = get_table_names(table);
+        file.push_str(make_struct(table_name.as_str(), sql_table_name.as_str(), table).as_str());
         file.push_str(&make_columns(sql_table_name.as_str(), table));
 
-        if table.use_proto_parser {
-            file.push_str(&make_proto_parser(table, &table_name, &table_name_dart));
+        if table.use_signal_parser {
+            file.push_str(&make_signal_parser(table, &table_name, &table_name));
+        }
+
+        if table.use_insert_query {
+            use_insert_query = true;
         }
     }
     file.pop();
 
-    file = format!("{}{}", import_file(&file), file);
+    file = format!("{}{}", import_file(&file, use_insert_query), file);
 
     writer.write_all(file.as_bytes()).await?;
     writer.flush().await?;
@@ -69,17 +73,21 @@ pub async fn rs_split_file_writer(
 
     for table in table_list {
         let mut file: String = "\n".into();
-        let (table_name, table_name_dart, file_name, sql_table_name) = get_table_names(table);
+        let (table_name, file_name, sql_table_name) = get_table_names(table);
 
-        file.push_str(&make_struct(table_name.as_str(), table));
+        file.push_str(&make_struct(
+            table_name.as_str(),
+            sql_table_name.as_str(),
+            table,
+        ));
         file.push_str(&make_columns(sql_table_name.as_str(), table));
 
-        if table.use_proto_parser {
-            file.push_str(&make_proto_parser(table, &table_name, &table_name_dart));
+        if table.use_signal_parser {
+            file.push_str(&make_signal_parser(table, &table_name, &table_name));
         }
         file.pop();
 
-        file = format!("{}{}", import_file(&file), file);
+        file = format!("{}{}", import_file(&file, table.use_insert_query), file);
 
         let current_path = match split_directorys.is_empty() {
             true => path.join(format!("{}.rs", file_name)),
@@ -130,50 +138,35 @@ async fn write_mod_files(
     Ok(())
 }
 
-fn make_proto_parser(table: &Table, table_name: &str, table_name_dart: &str) -> String {
+fn make_signal_parser(table: &Table, table_name: &str, table_name_dart: &str) -> String {
     let mut file: String = "".into();
     file.push_str(&format!("impl {} ", table_name));
     file.push_str("{\n");
 
     file.push_str(&format!(
-        "    pub fn to_dart(&self) -> crate::messages::{} {}",
+        "    pub fn to_dart(self) -> crate::signals::{} {}",
         &table_name_dart, "{\n"
     ));
     file.push_str(&format!(
-        "        crate::messages::{} {}",
+        "        crate::signals::{} {}",
         &table_name_dart, "{\n"
     ));
     for column in &table.columns {
         let column_name = get_column_name(column);
         let data_type = match column.data_type.as_str() {
-            "tinyint" => " as u32",
-            "smallint" => " as i32",
-            "int" => " as i32",
-            "bigint" => " as i64",
-            "float" => " as f64",
             "datetime" => ".to_rfc3339()",
-            "real" => " as f64",
             _ => "",
         };
 
         file.push_str(&format!(
             "            {}: {},\n",
-            convert_text_to_all_lowercase_snake_case(&column_name),
+            &column_name,
             match column.is_nullable.as_str() == "YES" {
                 true => match column.data_type.as_str() {
-                    "ntext" => make_string_matcher(&column_name),
-                    "nvarchar" => make_string_matcher(&column_name),
-                    "text" => make_string_matcher(&column_name),
                     "datetime" => make_matcher(
                         &format!("Some(Into::into(&*value{}))", data_type),
                         &column_name
                     ),
-                    "tinyint" => make_number_matcher(&column_name, data_type),
-                    "smallint" => make_number_matcher(&column_name, data_type),
-                    "int" => make_number_matcher(&column_name, data_type),
-                    "bigint" => make_number_matcher(&column_name, data_type),
-                    "float" => make_number_matcher(&column_name, data_type),
-                    "real" => make_number_matcher(&column_name, data_type),
                     _ => format!("self.{}{}", column_name, data_type),
                 },
                 false => format!("self.{}{}", column_name, data_type),
@@ -184,24 +177,6 @@ fn make_proto_parser(table: &Table, table_name: &str, table_name_dart: &str) -> 
     file.push_str("    }\n");
     file.push_str("}\n\n");
     file
-}
-
-fn make_string_matcher(column_name: &str) -> String {
-    make_matcher(
-        r#"Some(
-                    value
-                        .replace("\"", "\\\"")
-                        .replace("\n", "\\\\n")
-                        .replace("\r", "\\\\r")
-                        .replace("\t", "\\\\t")
-                        .into(),
-                )"#,
-        &column_name,
-    )
-}
-
-fn make_number_matcher(column_name: &str, data_type: &str) -> String {
-    make_matcher(&format!("Some(*value{})", data_type), &column_name)
 }
 
 fn make_matcher(some_text: &str, column_name: &str) -> String {
@@ -215,12 +190,19 @@ fn make_matcher(some_text: &str, column_name: &str) -> String {
     )
 }
 
-fn make_struct(table_name: &str, table: &Table) -> String {
+fn make_struct(table_name: &str, sql_table_name: &str, table: &Table) -> String {
     let mut file = String::new();
     file.push_str("#[allow(non_snake_case, non_camel_case_types)]\n");
-    file.push_str("#[derive(Serialize, Deserialize, Debug)]\n");
-    file.push_str(&format!("pub struct {} ", table_name));
-    file.push_str("{\n");
+
+    if !table.use_insert_query {
+        file.push_str("#[derive(Serialize, Deserialize, Debug, Clone)]\n");
+    } else {
+        file.push_str(
+            "#[derive(Serialize, Deserialize, InsertQuery, TableSchema, Debug, Clone)]\n",
+        );
+        file.push_str(&format!("#[table_name = \"{}\"]\n", sql_table_name));
+    }
+    file.push_str(&format!("pub struct {} {{\n", table_name));
     for column in &table.columns {
         let column_name = get_column_name(column);
         if column.data_type == "datetime" {
@@ -287,9 +269,10 @@ fn make_columns(table_name: &str, table: &Table) -> String {
     file
 }
 
-fn import_file(file: &str) -> String {
+fn import_file(file: &str, use_insert_query: bool) -> String {
     let mut import_file = String::new();
 
+    import_file.push_str("use serde::{Deserialize, Serialize};\n");
     if file.contains("#[serde(with = \"ts_seconds_option\")]")
         || file.contains("#[serde(with = \"ts_seconds\")]")
     {
@@ -299,54 +282,17 @@ fn import_file(file: &str) -> String {
         if file.contains("#[serde(with = \"ts_seconds\")]") {
             import_file.push_str("use chrono::serde::ts_seconds;\n");
         }
-        import_file.push_str("use serde::{Deserialize, Serialize};\n");
-        import_file.push_str("use tiberius::time::chrono::{DateTime, Utc};\n");
+
+        if !use_insert_query {
+            import_file.push_str("use tiberius::time::chrono::{DateTime, Utc};\n");
+        } else {
+            import_file.push_str("use table_schema_derive::{InsertQuery, TableSchema};\n");
+            import_file.push_str("use table_schema_traits::{InsertQuery, TableSchema};\n");
+            import_file.push_str("use tiberius::{\n");
+            import_file.push_str("    time::chrono::{DateTime, Utc},\n");
+            import_file.push_str("    ToSql,\n");
+            import_file.push_str("};\n");
+        }
     }
     import_file
-}
-
-fn get_column_name(column: &ColumnName) -> String {
-    match column
-        .column_name
-        .find(|c: char| !c.is_ascii_alphabetic() && !c.is_ascii_digit() && c != '_')
-        .is_some()
-    {
-        true => {
-            let mut column_name = String::new();
-
-            column.column_name.chars().for_each(|c| {
-                let char_item = match !c.is_ascii_alphabetic() {
-                    true => "_".into(),
-                    false => c.to_string(),
-                };
-                column_name.push_str(char_item.as_str());
-            });
-            convert_text_first_char_to_uppercase(column_name.as_str())
-        }
-        false => {
-            let mut column_name = column.column_name.clone();
-            if column_name
-                .char_indices()
-                .next()
-                .unwrap()
-                .1
-                .is_ascii_digit()
-            {
-                column_name = match column_name.char_indices().next().unwrap().1 {
-                    '0' => format!("zero{}", &column_name[1..]),
-                    '1' => format!("one{}", &column_name[1..]),
-                    '2' => format!("two{}", &column_name[1..]),
-                    '3' => format!("three{}", &column_name[1..]),
-                    '4' => format!("four{}", &column_name[1..]),
-                    '5' => format!("five{}", &column_name[1..]),
-                    '6' => format!("six{}", &column_name[1..]),
-                    '7' => format!("seven{}", &column_name[1..]),
-                    '8' => format!("eight{}", &column_name[1..]),
-                    '9' => format!("nine{}", &column_name[1..]),
-                    _ => column_name,
-                };
-            }
-            convert_text_first_char_to_uppercase(&column_name)
-        }
-    }
 }

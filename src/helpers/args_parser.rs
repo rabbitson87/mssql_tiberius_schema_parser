@@ -1,4 +1,4 @@
-use crate::helpers::config::{STRUCT_FILE_NAME, STRUCT_PROTO_FILE_NAME};
+use crate::helpers::config::{STRUCT_FILE_NAME, STRUCT_SIGNAL_FILE_NAME};
 use clap::{Parser, ValueEnum};
 use serde::{Deserialize, Serialize};
 use strum::AsRefStr;
@@ -69,12 +69,12 @@ pub struct Cli {
     pub _type: AuthType,
 
     #[arg(
-        long = "use_proto_parser",
-        value_name = "USE PROTO PARSER",
-        help = "Use to_dart function. add cli option with --use_proto_parser.\n- Defaults to false",
+        long = "use_signal_parser",
+        value_name = "USE SIGNAL PARSER",
+        help = "Use to_dart function. add cli option with --use_signal_parser.\n- Defaults to false",
         default_value = "false"
     )]
-    pub use_proto_parser: bool,
+    pub use_signal_parser: bool,
 
     #[arg(
         long = "use_split_file",
@@ -92,11 +92,11 @@ pub struct Cli {
     pub path: Option<String>,
 
     #[arg(
-        long = "proto_path",
-        value_name = "PROTO PATH",
-        help = format!("The path to the proto file to execute.\n- Defaults to {}", STRUCT_PROTO_FILE_NAME)
+        long = "signal_path",
+        value_name = "SIGNAL PATH",
+        help = format!("The path to the signal file to execute.\n- Defaults to {}", STRUCT_SIGNAL_FILE_NAME)
     )]
-    pub proto_path: Option<String>,
+    pub signal_path: Option<String>,
 
     #[arg(
         long = "config_path",
@@ -104,6 +104,14 @@ pub struct Cli {
         help = "The path to the config file to execute.\n- Defaults no name specified."
     )]
     pub config_path: Option<String>,
+
+    #[arg(
+        long = "use_insert_query",
+        value_name = "USE INSERT QUERY",
+        help = "Use insert query. add cli option with --use_insert_query.\n- Defaults to true",
+        default_value = "true"
+    )]
+    pub use_insert_query: bool,
 }
 
 impl Cli {
@@ -117,10 +125,11 @@ impl Cli {
             user: self.user,
             password: self.password,
             _type: self._type,
-            use_proto_parser: self.use_proto_parser,
+            use_signal_parser: self.use_signal_parser,
             use_split_file: self.use_split_file,
+            use_insert_query: self.use_insert_query,
             path: self.path,
-            proto_path: self.proto_path,
+            signal_path: self.signal_path,
             database: None,
         }
     }
